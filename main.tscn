@@ -17,29 +17,6 @@ script = ExtResource("1_ig7tw")
 
 [node name="UILayer" type="CanvasLayer" parent="." unique_id=625858377]
 
-[node name="TimeLabel" type="Label" parent="UILayer" unique_id=307787634]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -115.0
-offset_top = 20.0
-offset_right = -20.0
-offset_bottom = 75.0
-grow_horizontal = 0
-theme_override_font_sizes/font_size = 40
-text = "Time"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="ScoreLabel" type="Label" parent="UILayer" unique_id=318613892]
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 144.0
-offset_bottom = 76.0
-theme_override_font_sizes/font_size = 40
-text = "점수: 0"
-vertical_alignment = 1
-
 [node name="GameOverPanel" type="ColorRect" parent="UILayer" unique_id=1333283603]
 visible = false
 anchors_preset = 15
@@ -135,78 +112,138 @@ size_flags_vertical = 4
 theme_override_font_sizes/font_size = 24
 text = "등록"
 
-[node name="GridContainer" type="GridContainer" parent="." unique_id=347153307]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
+[node name="TopMargin" type="MarginContainer" parent="UILayer" unique_id=1211297313]
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+
+[node name="TopUIBar" type="HBoxContainer" parent="UILayer/TopMargin" unique_id=1126212491]
+layout_mode = 2
+
+[node name="ScoreBox" type="VBoxContainer" parent="UILayer/TopMargin/TopUIBar" unique_id=385262047]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScoreLabel" type="Label" parent="UILayer/TopMargin/TopUIBar/ScoreBox" unique_id=318613892]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "점수"
+vertical_alignment = 1
+
+[node name="ScoreValueLabel" type="Label" parent="UILayer/TopMargin/TopUIBar/ScoreBox" unique_id=670367729]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "0"
+vertical_alignment = 1
+
+[node name="TimeBox" type="VBoxContainer" parent="UILayer/TopMargin/TopUIBar" unique_id=621609323]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TimeLabel" type="Label" parent="UILayer/TopMargin/TopUIBar/TimeBox" unique_id=307787634]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Time"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimeValueLabel" type="Label" parent="UILayer/TopMargin/TopUIBar/TimeBox" unique_id=1268911401]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "0:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PauseButton" type="Button" parent="UILayer/TopMargin/TopUIBar" unique_id=376825186]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 20
+text = "||"
+icon_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer" unique_id=550113082]
+anchors_preset = 14
 anchor_top = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -304.0
 offset_top = -304.0
-offset_right = 304.0
 offset_bottom = 304.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_right = 40
+
+[node name="GridContainer" type="GridContainer" parent="UILayer/MarginContainer" unique_id=347153307]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 columns = 3
 
-[node name="Button" type="Button" parent="GridContainer" unique_id=572168153]
+[node name="Button" type="Button" parent="UILayer/MarginContainer/GridContainer" unique_id=572168153]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ig7tw")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_h2yge")
 
-[node name="Button2" type="Button" parent="GridContainer" unique_id=661703901]
+[node name="Button2" type="Button" parent="UILayer/MarginContainer/GridContainer" unique_id=661703901]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ig7tw")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_h2yge")
 
-[node name="Button3" type="Button" parent="GridContainer" unique_id=1761847436]
+[node name="Button3" type="Button" parent="UILayer/MarginContainer/GridContainer" unique_id=1761847436]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ig7tw")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_h2yge")
 
-[node name="Button4" type="Button" parent="GridContainer" unique_id=1697930318]
+[node name="Button4" type="Button" parent="UILayer/MarginContainer/GridContainer" unique_id=1697930318]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ig7tw")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_h2yge")
 
-[node name="Button5" type="Button" parent="GridContainer" unique_id=793566496]
+[node name="Button5" type="Button" parent="UILayer/MarginContainer/GridContainer" unique_id=793566496]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ig7tw")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_h2yge")
 
-[node name="Button6" type="Button" parent="GridContainer" unique_id=1017345022]
+[node name="Button6" type="Button" parent="UILayer/MarginContainer/GridContainer" unique_id=1017345022]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ig7tw")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_h2yge")
 
-[node name="Button7" type="Button" parent="GridContainer" unique_id=1980056322]
+[node name="Button7" type="Button" parent="UILayer/MarginContainer/GridContainer" unique_id=1980056322]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ig7tw")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_h2yge")
 
-[node name="Button8" type="Button" parent="GridContainer" unique_id=892082745]
+[node name="Button8" type="Button" parent="UILayer/MarginContainer/GridContainer" unique_id=892082745]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ig7tw")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_h2yge")
 
-[node name="Button9" type="Button" parent="GridContainer" unique_id=1266390548]
+[node name="Button9" type="Button" parent="UILayer/MarginContainer/GridContainer" unique_id=1266390548]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 theme_override_font_sizes/font_size = 40

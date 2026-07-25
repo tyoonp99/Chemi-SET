@@ -1,33 +1,61 @@
 extends Control
 
 func _ready():
-    # --- 🌟 수정됨: 아래쪽 함수 이름과 정확히 맞췄습니다 ---
-    %StartButton.pressed.connect(_on_start_button_pressed)
-    %QuitButton.pressed.connect(_on_quit_button_pressed)
-    
-    # --- 새로 추가한 튜토리얼 버튼 연결 코드 ---
-    %TutorialButton.pressed.connect(_on_tutorial_pressed)
-    %CloseButton.pressed.connect(_on_close_pressed)
-    
-    # --- 최초 1회 자동 팝업 로직 ---
-    if Global.is_first_run == true:
-        %TutorialPopup.show()
-        Global.is_first_run = false
-        Global.save_data() # 나중에 세이브 함수 만들면 주석 해제!
-    else:
-        %TutorialPopup.hide()
+	# 1. 모드 선택 버튼 연결
+	%Btn1Min.pressed.connect(_on_btn_1min_pressed)
+	%Btn3Min.pressed.connect(_on_btn_3min_pressed)
+	%BtnPractice.pressed.connect(_on_btn_practice_pressed)
+	
+	# 2. 기타 UI 버튼 연결
+	%QuitButton.pressed.connect(_on_quit_button_pressed)
+	%TutorialButton.pressed.connect(_on_tutorial_button_pressed)
+	%CloseButton.pressed.connect(_on_close_button_pressed)
+	
+	# 💡 [추가됨] 랭킹 버튼 및 랭킹 닫기 버튼 연결
+	%RankingButton.pressed.connect(_on_ranking_button_pressed)
+	%RankingCloseButton.pressed.connect(_on_ranking_close_button_pressed)
+	
+	# 시작할 때 팝업들은 숨겨둡니다
+	%TutorialPopup.hide()
+	%RankingPopup.hide()
 
-# --- 버튼을 눌렀을 때 실행될 함수들 ---
-func _on_tutorial_pressed():
-    %TutorialPopup.show() # 게임 방법 버튼 누르면 팝업 켜기
+# --- 모드 선택 로직 ---
+func _on_btn_1min_pressed():
+	Global.game_time = 60
+	get_tree().change_scene_to_file("res://main.tscn")
 
-func _on_close_pressed():
-    %TutorialPopup.hide() # 투명 버튼 누르면 팝업 끄기
+func _on_btn_3min_pressed():
+	Global.game_time = 180
+	get_tree().change_scene_to_file("res://main.tscn")
 
-func _on_start_button_pressed():
-    # 💡 게임 시작: 메인 씬(main.tscn)으로 화면을 전환합니다!
-    get_tree().change_scene_to_file("res://main.tscn")
+func _on_btn_practice_pressed():
+	Global.game_time = 0
+	get_tree().change_scene_to_file("res://main.tscn")
+
+# --- 부가 기능 로직 (튜토리얼, 종료) ---
+func _on_tutorial_button_pressed():
+	%TutorialPopup.show()
+
+func _on_close_button_pressed():
+	%TutorialPopup.hide()
 
 func _on_quit_button_pressed():
-    # 💡 게임 종료: 프로그램을 완전히 끕니다.
-    get_tree().quit()
+	get_tree().quit()
+
+# --- 🏆 랭킹 팝업 로직 [추가됨] ---
+func _on_ranking_button_pressed():
+	var board_text = "🏆 HIGH SCORES 🏆\n\n"
+	
+	for index in range(1, 6):
+		if index <= Global.top_5_ranking.size():
+			var r = Global.top_5_ranking[index - 1]
+			board_text += str(index) + "위  " + r["name"] + "   " + str(int(r["score"])) + "점\n"
+		else:
+			board_text += str(index) + "위  ---   0점\n"
+			
+	# 세팅한 글씨를 라벨에 밀어넣고 팝업 띄우기
+	%RankingLabel.text = board_text
+	%RankingPopup.show()
+
+func _on_ranking_close_button_pressed():
+	%RankingPopup.hide()
