@@ -1,0 +1,222 @@
+[gd_scene format=3 uid="uid://p7d4aemjh1d2"]
+
+[ext_resource type="Script" uid="uid://sodipq5j0w1g" path="res://main.gd" id="1_ig7tw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ig7tw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h2yge"]
+
+[node name="Control" type="Control" unique_id=1325226589]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ig7tw")
+
+[node name="UILayer" type="CanvasLayer" parent="." unique_id=625858377]
+
+[node name="TimeLabel" type="Label" parent="UILayer" unique_id=307787634]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -115.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 75.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 40
+text = "Time"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="UILayer" unique_id=318613892]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 144.0
+offset_bottom = 76.0
+theme_override_font_sizes/font_size = 40
+text = "점수: 0"
+vertical_alignment = 1
+
+[node name="GameOverPanel" type="ColorRect" parent="UILayer" unique_id=1333283603]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5882353)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/GameOverPanel" unique_id=1505928428]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="GameOverLabel" type="Label" parent="UILayer/GameOverPanel/VBoxContainer" unique_id=1397861493]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 48
+text = "타임 오버!\\n최종 점수: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UILayer/GameOverPanel/VBoxContainer" unique_id=1839129900]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="RestartButton" type="Button" parent="UILayer/GameOverPanel/VBoxContainer/HBoxContainer" unique_id=221178698]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 40
+text = "다시하기"
+
+[node name="Button" type="Button" parent="UILayer/GameOverPanel/VBoxContainer/HBoxContainer" unique_id=16068498]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "메인화면으로"
+
+[node name="HighScorePanel" type="ColorRect" parent="UILayer" unique_id=1242641652]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5882353)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UILayer/HighScorePanel" unique_id=2052349366]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="UILayer/HighScorePanel/VBoxContainer" unique_id=1459032535]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "🏆 NEW RECORD! 🏆
+이니셜 3글자를 입력하세요"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NameInput" type="LineEdit" parent="UILayer/HighScorePanel/VBoxContainer" unique_id=1020777970]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 40
+alignment = 1
+max_length = 3
+
+[node name="SubmitButton" type="Button" parent="UILayer/HighScorePanel/VBoxContainer" unique_id=1819607336]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 24
+text = "등록"
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=347153307]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -304.0
+offset_top = -304.0
+offset_right = 304.0
+offset_bottom = 304.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 3
+
+[node name="Button" type="Button" parent="GridContainer" unique_id=572168153]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ig7tw")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_h2yge")
+
+[node name="Button2" type="Button" parent="GridContainer" unique_id=661703901]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ig7tw")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_h2yge")
+
+[node name="Button3" type="Button" parent="GridContainer" unique_id=1761847436]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ig7tw")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_h2yge")
+
+[node name="Button4" type="Button" parent="GridContainer" unique_id=1697930318]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ig7tw")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_h2yge")
+
+[node name="Button5" type="Button" parent="GridContainer" unique_id=793566496]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ig7tw")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_h2yge")
+
+[node name="Button6" type="Button" parent="GridContainer" unique_id=1017345022]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ig7tw")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_h2yge")
+
+[node name="Button7" type="Button" parent="GridContainer" unique_id=1980056322]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ig7tw")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_h2yge")
+
+[node name="Button8" type="Button" parent="GridContainer" unique_id=892082745]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ig7tw")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_h2yge")
+
+[node name="Button9" type="Button" parent="GridContainer" unique_id=1266390548]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ig7tw")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_h2yge")
+
+[node name="Timer" type="Timer" parent="." unique_id=403616369]
+wait_time = 60.0
+autostart = true
+
+[connection signal="pressed" from="UILayer/GameOverPanel/VBoxContainer/HBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="UILayer/GameOverPanel/VBoxContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
