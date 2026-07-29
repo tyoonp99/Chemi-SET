@@ -3,8 +3,6 @@ extends Control
 # ==============================================================================
 # 🎮 게임 변수 세팅
 # ==============================================================================
-const FLASK_CARD_SCENE = preload("res://flask_card.tscn")
-
 var selected_cards = []  # 유저가 클릭한 카드의 인덱스 번호 저장
 var full_deck = []       # 게임에 쓰일 전체 카드 27장 덱
 var board_cards = []     # 현재 보드판(화면)에 깔려있는 9장의 카드
@@ -34,7 +32,6 @@ func _ready():
 	if has_node("%HighScorePanel"):
 		$%HighScorePanel.hide()
 		
-	# 💡 일시정지 버튼 연결 (추가됨)
 	if has_node("%PauseButton"):
 		%PauseButton.pressed.connect(_on_pause_button_pressed)
 	
@@ -48,21 +45,13 @@ func _ready():
 		var card_data = full_deck.pop_back()
 		board_cards.append(card_data)
 		
-		var btn_container = %GridContainer.get_child(i)
-		var flask_card = FLASK_CARD_SCENE.instantiate()
+		var tex_btn = %GridContainer.get_child(i)
 		
-		flask_card.flask_shape = shape_names[card_data["shape"]]
-		flask_card.flask_color = color_names[card_data["color"]]
-		flask_card.flask_state = state_names[card_data["state"]]
+		var shape_str = shape_names[card_data["shape"]]
+		var color_str = color_names[card_data["color"]]
+		var state_str = state_names[card_data["state"]]
 		
-		btn_container.add_child(flask_card)
-		
-		var sprite = flask_card.get_node("FlaskSprite")
-		if sprite and sprite.texture:
-			var texture_size = sprite.texture.get_size()
-			flask_card.scale = btn_container.size / texture_size
-		
-		flask_card.position = btn_container.size / 2.0 
+		tex_btn.texture_normal = _get_flask_texture(shape_str, color_str, state_str)
 
 	var index = 1
 	for btn in %GridContainer.get_children():
@@ -72,7 +61,6 @@ func _ready():
 	if has_node("%SubmitButton"):
 		$%SubmitButton.pressed.connect(_on_submit_button_pressed)
 		
-	# 초기 화면 점수 0점 세팅
 	if has_node("%ScoreValueLabel"):
 		%ScoreValueLabel.text = str(score)
 
@@ -83,8 +71,6 @@ func _process(_delta):
 	if not is_game_over:
 		if Global.game_time > 0:
 			var time_left = int($Timer.time_left)
-			
-			# 💡 초(Seconds)를 분:초(M:SS) 형식으로 변환 ("58" -> "0:58")
 			var minutes = time_left / 60
 			var seconds = time_left % 60
 			var time_string = str(minutes) + ":" + str(seconds).pad_zeros(2)
@@ -96,32 +82,29 @@ func _process(_delta):
 				%TimeValueLabel.text = "무제한"
 
 # ==============================================================================
-# 👆 클릭 이벤트 처리 (🎨 시각적 피드백 추가)
+# 👆 클릭 이벤트 처리 (🎨 시각적 피드백)
 # ==============================================================================
 func _on_any_button_pressed(btn_num):
 	if is_game_over: return 
 	
-	var btn_container = %GridContainer.get_child(btn_num - 1)
-	var flask_card = btn_container.get_child(0)
+	var tex_btn = %GridContainer.get_child(btn_num - 1)
 	
 	if btn_num in selected_cards:
 		selected_cards.erase(btn_num)
-		flask_card.modulate = Color(1.0, 1.0, 1.0) # 선택 취소: 원래 색상
+		tex_btn.modulate = Color(1.0, 1.0, 1.0)
 	else:
 		selected_cards.append(btn_num)
-		flask_card.modulate = Color(0.5, 0.5, 0.5, 0.8) # 선택됨: 약간 어둡고 투명하게
+		tex_btn.modulate = Color(0.5, 0.5, 0.5, 0.8)
 	
 	if selected_cards.size() == 3:
 		_check_answer()
-		_reset_selection_visuals() # 판별 후 시각 효과 초기화
+		_reset_selection_visuals()
 		selected_cards.clear()
 
 func _reset_selection_visuals():
 	for btn_num in selected_cards:
-		var btn_container = %GridContainer.get_child(btn_num - 1)
-		if btn_container.get_child_count() > 0:
-			var flask_card = btn_container.get_child(0)
-			flask_card.modulate = Color(1.0, 1.0, 1.0)
+		var tex_btn = %GridContainer.get_child(btn_num - 1)
+		tex_btn.modulate = Color(1.0, 1.0, 1.0)
 
 # ==============================================================================
 # 🧠 정답 판별 (핵심 로직)
@@ -141,7 +124,6 @@ func _check_answer():
 			max_combo = combo
 		
 		var bonus = 0
-		
 		if combo >= 10:
 			bonus = 100
 		elif combo >= 7:
@@ -151,7 +133,6 @@ func _check_answer():
 			
 		score += (100 + bonus)
 		
-		# 💡 점수만 깔끔하게 표시
 		if has_node("%ScoreValueLabel"):
 			%ScoreValueLabel.text = str(score)
 		
@@ -174,16 +155,23 @@ func _refill_cards(matched_btn_nums):
 		var new_card = full_deck.pop_back()
 		board_cards[idx] = new_card
 		
-		var btn_container = %GridContainer.get_child(idx)
-		var flask_card = btn_container.get_child(0) 
+		var tex_btn = %GridContainer.get_child(idx)
 		
-		flask_card.flask_shape = shape_names[new_card["shape"]]
-		flask_card.flask_color = color_names[new_card["color"]]
-		flask_card.flask_state = state_names[new_card["state"]]
-		flask_card.update_flask_image(flask_card.flask_shape, flask_card.flask_color, flask_card.flask_state)
+		var shape_str = shape_names[new_card["shape"]]
+		var color_str = color_names[new_card["color"]]
+		var state_str = state_names[new_card["state"]]
+		
+		tex_btn.texture_normal = _get_flask_texture(shape_str, color_str, state_str)
 
 # ==============================================================================
-# 🛑 게임 오버 & 재시작
+# 🖼️ 텍스처 로드 헬퍼 함수
+# ==============================================================================
+func _get_flask_texture(shape: String, color: String, state: String) -> Texture2D:
+	var path = "res://assets/flasks/%s_%s_%s.png" % [shape, color, state]
+	return load(path)
+
+# ==============================================================================
+# 🛑 게임 오버 & 재시작 & 랭킹 시스템
 # ==============================================================================
 func _on_timer_timeout():
 	is_game_over = true 
@@ -196,12 +184,6 @@ func _on_timer_timeout():
 	else:
 		_show_final_leaderboard()
 
-func _on_restart_button_pressed():
-	get_tree().reload_current_scene()
-
-# ==============================================================================
-# 🏆 랭킹 등록 시스템
-# ==============================================================================
 func _on_submit_button_pressed():
 	if not has_node("%NameInput"): return
 	
@@ -254,7 +236,35 @@ func _show_final_leaderboard():
 	$UILayer/GameOverPanel.show()
 
 # ==============================================================================
-# ⏸️ 일시정지 / 설정 (팝업 기능 준비)
+# ⏸️ 일시정지 / 설정 패널
 # ==============================================================================
 func _on_pause_button_pressed():
-	print("일시정지 버튼 눌림!")
+	if has_node("UILayer/PausePanel"):
+		$UILayer/PausePanel.show()
+	get_tree().paused = true
+
+func _on_continue_button_pressed():
+	if has_node("UILayer/PausePanel"):
+		$UILayer/PausePanel.hide()
+	get_tree().paused = false
+
+func _on_sound_button_pressed():
+	print("사운드 ON/OFF 기능은 아직 준비 중!")
+
+func _on_restart_button_pressed():
+	get_tree().paused = false 
+	get_tree().reload_current_scene()
+
+func _on_title_button_pressed():
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://title.tscn")
+
+# 일시정지 팝업의 "재시작" 버튼 (엔진이 생성한 함수 이름 대응)
+func _on_restart_button_2_pressed() -> void:
+	get_tree().paused = false
+	get_tree().reload_current_scene()
+
+# 게임 오버 팝업의 "메인화면으로" 버튼 (엔진에 연결된 함수 이름 대응)
+func _on_button_pressed():
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://title.tscn")
