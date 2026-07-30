@@ -29,12 +29,25 @@ func _ready():
 		if has_node("Timer"):
 			$Timer.stop()
 
+	# 시작 시 팝업들 숨기기
 	if has_node("%HighScorePanel"):
-		$%HighScorePanel.hide()
+		%HighScorePanel.hide()
+	if has_node("%PausePanel"):
+		%PausePanel.hide()
 		
+	# 🔘 버튼 시그널 코드 연결 (고유 이름 % 사용)
 	if has_node("%PauseButton"):
 		%PauseButton.pressed.connect(_on_pause_button_pressed)
+	if has_node("%ContinueButton"):
+		%ContinueButton.pressed.connect(_on_continue_button_pressed)
+	if has_node("%SoundButton"):
+		%SoundButton.pressed.connect(_on_sound_button_pressed)
+	if has_node("%RestartButton"):
+		%RestartButton.pressed.connect(_on_restart_button_pressed)
+	if has_node("%TitleButton"):
+		%TitleButton.pressed.connect(_on_title_button_pressed)
 	
+	# (이하 덱 셔플 및 카드 생성 로직은 기존과 동일하게 유지...)
 	for s in range(3):
 		for c in range(3):
 			for t in range(3):
@@ -44,7 +57,6 @@ func _ready():
 	for i in range(9):
 		var card_data = full_deck.pop_back()
 		board_cards.append(card_data)
-		
 		var tex_btn = %GridContainer.get_child(i)
 		
 		var shape_str = shape_names[card_data["shape"]]
@@ -59,7 +71,7 @@ func _ready():
 		index += 1
 
 	if has_node("%SubmitButton"):
-		$%SubmitButton.pressed.connect(_on_submit_button_pressed)
+		%SubmitButton.pressed.connect(_on_submit_button_pressed)
 		
 	if has_node("%ScoreValueLabel"):
 		%ScoreValueLabel.text = str(score)

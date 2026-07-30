@@ -7,17 +7,21 @@ func _ready():
 	%BtnPractice.pressed.connect(_on_btn_practice_pressed)
 	
 	# 2. 기타 UI 버튼 연결
-	%QuitButton.pressed.connect(_on_quit_button_pressed)
+	%QuitButton.pressed.connect(_on_quit_button_pressed) # 위치가 바뀌어도 % 덕분에 정상 작동함!
 	%TutorialButton.pressed.connect(_on_tutorial_button_pressed)
-	%CloseButton.pressed.connect(_on_close_button_pressed)
+	%TutorialCloseButton.pressed.connect(_on_close_button_pressed)
 	
-	# 💡 [추가됨] 랭킹 버튼 및 랭킹 닫기 버튼 연결
+	# 3. 랭킹 버튼 및 랭킹 닫기 버튼 연결
 	%RankingButton.pressed.connect(_on_ranking_button_pressed)
 	%RankingCloseButton.pressed.connect(_on_ranking_close_button_pressed)
+	
+	# 💡 [추가됨] 설정 닫기 버튼 연결 (에디터에서 연결 안 했다면 추가)
+	%SettingsCloseButton.pressed.connect(_on_settings_close_button_pressed)
 	
 	# 시작할 때 팝업들은 숨겨둡니다
 	%TutorialPopup.hide()
 	%RankingPopup.hide()
+	%SettingsPopup.hide() # 💡 [추가됨] 설정 팝업도 처음에 숨기기
 
 # --- 모드 선택 로직 ---
 func _on_btn_1min_pressed():
@@ -42,7 +46,7 @@ func _on_close_button_pressed():
 func _on_quit_button_pressed():
 	get_tree().quit()
 
-# --- 🏆 랭킹 팝업 로직 [추가됨] ---
+# --- 🏆 랭킹 팝업 로직 ---
 func _on_ranking_button_pressed():
 	var board_text = "🏆 HIGH SCORES 🏆\n\n"
 	
@@ -59,3 +63,10 @@ func _on_ranking_button_pressed():
 
 func _on_ranking_close_button_pressed():
 	%RankingPopup.hide()
+
+# --- ⚙️ 설정 팝업 로직 [추가됨] ---
+func _on_setting_button_pressed() -> void:
+	%SettingsPopup.show()
+
+func _on_settings_close_button_pressed() -> void:
+	%SettingsPopup.hide()

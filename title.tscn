@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dnfhjlm45di7f" path="res://title.gd" id="1_y7k74"]
 [ext_resource type="FontFile" uid="uid://v3rd1kl0jlnn" path="res://assets/fonts/Pretendard-ExtraBold.ttf" id="2_kpexm"]
 [ext_resource type="Texture2D" uid="uid://ug6rvfiodj0n" path="res://assets/tutorial_popup_bg.png" id="2_oyqm6"]
+[ext_resource type="Texture2D" uid="uid://c3ssju72f8sxa" path="res://assets/UIexample/settings_128dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" id="4_3xoar"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3xoar"]
 bg_color = Color(0.32156864, 0.7411765, 0.9254902, 1)
@@ -36,6 +37,43 @@ corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7lgly"]
+content_margin_left = 30.0
+content_margin_top = 15.0
+content_margin_right = 30.0
+content_margin_bottom = 15.0
+bg_color = Color(0.2627451, 0.38039216, 0.93333334, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0824t"]
+content_margin_left = 30.0
+content_margin_top = 15.0
+content_margin_right = 30.0
+content_margin_bottom = 15.0
+bg_color = Color(0.15294118, 0.20784314, 0.3019608, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nuqgq"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.20392157, 0.27450982, 0.39607844, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
 
 [node name="TitleScreen" type="Control" unique_id=1703227019]
 layout_mode = 3
@@ -138,13 +176,6 @@ theme_override_font_sizes/font_size = 20
 theme_override_styles/normal = SubResource("StyleBoxFlat_qxwbn")
 text = "랭킹보기"
 
-[node name="QuitButton" type="Button" parent="VBoxContainer/VBoxContainer" unique_id=886178521]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "게임 종료"
-
 [node name="TutorialPopup" type="ColorRect" parent="." unique_id=1507681916]
 unique_name_in_owner = true
 visible = false
@@ -167,7 +198,7 @@ texture = ExtResource("2_oyqm6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="CloseButton" type="Button" parent="TutorialPopup" unique_id=451171571]
+[node name="TutorialCloseButton" type="Button" parent="TutorialPopup" unique_id=451171571]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -176,6 +207,68 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 flat = true
+
+[node name="SettingsPopup" type="ColorRect" parent="." unique_id=1686663212]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.47058824)
+
+[node name="ColorRect" type="ColorRect" parent="SettingsPopup" unique_id=403107746]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.78431374)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPopup" unique_id=181731602]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 28
+
+[node name="Label" type="Label" parent="SettingsPopup/VBoxContainer" unique_id=829393348]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "설정"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SettingsCloseButton" type="Button" parent="SettingsPopup/VBoxContainer" unique_id=1859638997]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_7lgly")
+text = "닫기"
+
+[node name="SoundButton" type="Button" parent="SettingsPopup/VBoxContainer" unique_id=959617317]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_0824t")
+text = "사운드 ON"
+
+[node name="QuitButton" type="Button" parent="SettingsPopup/VBoxContainer" unique_id=660764446]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = SubResource("StyleBoxFlat_0824t")
+text = "게임 종료"
 
 [node name="RankingPopup" type="ColorRect" parent="." unique_id=1816993897]
 unique_name_in_owner = true
@@ -218,3 +311,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 flat = true
+
+[node name="SettingButton" type="Button" parent="." unique_id=1250289166]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.5882353)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -104.0
+offset_top = -104.0
+offset_right = -40.0
+offset_bottom = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_nuqgq")
+icon = ExtResource("4_3xoar")
+
+[connection signal="pressed" from="SettingButton" to="." method="_on_setting_button_pressed"]
