@@ -1,7 +1,41 @@
 [gd_scene format=3 uid="uid://bhuwh32racyob"]
 
 [ext_resource type="Script" uid="uid://dnfhjlm45di7f" path="res://title.gd" id="1_y7k74"]
+[ext_resource type="FontFile" uid="uid://v3rd1kl0jlnn" path="res://assets/fonts/Pretendard-ExtraBold.ttf" id="2_kpexm"]
 [ext_resource type="Texture2D" uid="uid://ug6rvfiodj0n" path="res://assets/tutorial_popup_bg.png" id="2_oyqm6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3xoar"]
+bg_color = Color(0.32156864, 0.7411765, 0.9254902, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kpexm"]
+bg_color = Color(0.45882353, 0.73333335, 0.40784314, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mom7w"]
+bg_color = Color(0.9764706, 0.69803923, 0.27058825, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qxwbn"]
+bg_color = Color(0.1764706, 0.22745098, 0.29411766, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.27058825, 0.3254902, 0.39607844, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="TitleScreen" type="Control" unique_id=1703227019]
 layout_mode = 3
@@ -11,6 +45,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_y7k74")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1918483329]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.14901961, 0.1882353, 0.23921569, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1319265392]
 layout_mode = 1
@@ -29,49 +72,71 @@ theme_override_constants/separation = 20
 
 [node name="Label" type="Label" parent="VBoxContainer" unique_id=1941267966]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kpexm")
 theme_override_font_sizes/font_size = 80
 text = "Chemi-SET"
+
+[node name="Spacer" type="Control" parent="VBoxContainer" unique_id=517483695]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer" unique_id=1236513377]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/separation = 16
+theme_override_constants/separation = 28
 
 [node name="Btn1Min" type="Button" parent="VBoxContainer/VBoxContainer" unique_id=588447767]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(400, 80)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_3xoar")
 text = "1분 모드"
 
 [node name="Btn3Min" type="Button" parent="VBoxContainer/VBoxContainer" unique_id=1557487012]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(400, 80)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_kpexm")
 text = "3분 모드"
 
 [node name="BtnPractice" type="Button" parent="VBoxContainer/VBoxContainer" unique_id=1239171043]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(400, 80)
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_colors/font_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_mom7w")
 text = "연습 모드"
 
-[node name="RankingButton" type="Button" parent="VBoxContainer/VBoxContainer" unique_id=115121012]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
+[node name="Spacer" type="Control" parent="VBoxContainer/VBoxContainer" unique_id=1806394269]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "랭킹보기"
 
-[node name="TutorialButton" type="Button" parent="VBoxContainer/VBoxContainer" unique_id=1065807086]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer" unique_id=331592075]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_constants/separation = 20
+
+[node name="TutorialButton" type="Button" parent="VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1065807086]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_qxwbn")
 text = "게임 방법"
+
+[node name="RankingButton" type="Button" parent="VBoxContainer/VBoxContainer/HBoxContainer" unique_id=115121012]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 52)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_qxwbn")
+text = "랭킹보기"
 
 [node name="QuitButton" type="Button" parent="VBoxContainer/VBoxContainer" unique_id=886178521]
 unique_name_in_owner = true

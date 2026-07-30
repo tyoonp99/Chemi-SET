@@ -51,7 +51,7 @@ func _ready():
 		var color_str = color_names[card_data["color"]]
 		var state_str = state_names[card_data["state"]]
 		
-		tex_btn.texture_normal = _get_flask_texture(shape_str, color_str, state_str)
+		tex_btn.icon = _get_flask_texture(shape_str, color_str, state_str)
 
 	var index = 1
 	for btn in %GridContainer.get_children():
@@ -161,7 +161,7 @@ func _refill_cards(matched_btn_nums):
 		var color_str = color_names[new_card["color"]]
 		var state_str = state_names[new_card["state"]]
 		
-		tex_btn.texture_normal = _get_flask_texture(shape_str, color_str, state_str)
+		tex_btn.icon = _get_flask_texture(shape_str, color_str, state_str)
 
 # ==============================================================================
 # 🖼️ 텍스처 로드 헬퍼 함수
