@@ -117,7 +117,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.13333334, 0.13333334, 0.13333334, 1)
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_3xoar")
-text = "1분 모드"
+text = "1분 타임어택"
 
 [node name="Btn3Min" type="Button" parent="VBoxContainer/VBoxContainer" unique_id=1557487012]
 unique_name_in_owner = true
@@ -126,7 +126,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_kpexm")
-text = "3분 모드"
+text = "3분 스탠다드"
 
 [node name="BtnPractice" type="Button" parent="VBoxContainer/VBoxContainer" unique_id=1239171043]
 unique_name_in_owner = true

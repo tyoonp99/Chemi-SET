@@ -37,13 +37,21 @@ func _ready() -> void:
 
 	hide_all_popups()
 
-func set_score(score: int) -> void:
+func set_score(score: int, combo: int = 0) -> void:
 	if _hud:
-		_hud.set_score(score)
+		_hud.set_score(score, combo)
 
 func set_time(seconds_left: int, unlimited: bool = false) -> void:
 	if _hud:
 		_hud.set_time(seconds_left, unlimited)
+
+func configure_for_mode(is_practice: bool) -> void:
+	if _hud:
+		_hud.configure_for_mode(is_practice)
+
+func show_feedback(message: String, positive: bool) -> void:
+	if _hud:
+		_hud.show_feedback(message, positive)
 
 func show_pause() -> void:
 	if _pause_popup:

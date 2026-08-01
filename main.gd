@@ -30,8 +30,10 @@ func _load_selected_mode() -> void:
 		Global.MODE_SPEED:
 			_current_config["mode_id"] = Global.MODE_SPEED
 			_current_mode = SPEED_SCENE.instantiate()
-		Global.MODE_GYULHAP:
+		Global.MODE_GYULHAP, Global.MODE_PRACTICE:
 			_current_config["mode_id"] = Global.MODE_GYULHAP
+			if Global.selected_mode == Global.MODE_PRACTICE:
+				_current_config["mode_id"] = Global.MODE_PRACTICE
 			_current_mode = GYULHAP_SCENE.instantiate()
 		_:
 			push_warning("Requested mode is not implemented yet; loading Speed mode.")
@@ -41,13 +43,19 @@ func _load_selected_mode() -> void:
 	_current_mode.connect(&"score_changed", _on_score_changed)
 	_current_mode.connect(&"time_changed", _on_time_changed)
 	_current_mode.connect(&"game_over", _on_game_over)
+	if _current_mode.has_signal(&"feedback_changed"):
+		_current_mode.connect(&"feedback_changed", _on_feedback_changed)
+	_ui.configure_for_mode(Global.selected_mode == Global.MODE_PRACTICE)
 	_current_mode.call("start", _current_config)
 
-func _on_score_changed(score: int, _combo: int) -> void:
-	_ui.set_score(score)
+func _on_score_changed(score: int, combo: int) -> void:
+	_ui.set_score(score, combo)
 
 func _on_time_changed(seconds_left: int, unlimited: bool) -> void:
 	_ui.set_time(seconds_left, unlimited)
+
+func _on_feedback_changed(message: String, positive: bool) -> void:
+	_ui.show_feedback(message, positive)
 
 func _on_game_over(result: Dictionary) -> void:
 	_current_result = result.duplicate(true)

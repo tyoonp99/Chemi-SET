@@ -4,6 +4,7 @@ extends Control
 signal score_changed(score: int, combo: int)
 signal time_changed(seconds_left: int, unlimited: bool)
 signal game_over(result: Dictionary)
+signal feedback_changed(message: String, positive: bool)
 
 var _selected_cards: Array[int] = []
 var _full_deck: Array[Dictionary] = []
@@ -84,12 +85,17 @@ func _check_selection() -> void:
 	if SetRules.is_set(cards):
 		_combo += 1
 		_max_combo = max(_max_combo, _combo)
-		_score += _correct_answer_points(_count_set_combinations())
+		var earned_points := _correct_answer_points(_count_set_combinations())
+		_score += earned_points
+		feedback_changed.emit("정답! +%d점" % earned_points, true)
 		_refill_cards()
 	else:
+		var penalty := 0
 		if _uses_difficulty_scoring():
-			_score = max(0, _score - int(_scoring.get("wrong_penalty", 75)))
+			penalty = int(_scoring.get("wrong_penalty", 75))
+			_score = max(0, _score - penalty)
 		_combo = 0
+		feedback_changed.emit("오답! -%d점" % penalty if penalty > 0 else "오답입니다", false)
 	score_changed.emit(_score, _combo)
 
 func _correct_answer_points(remaining_answers: int) -> int:

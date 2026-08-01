@@ -40,6 +40,7 @@ theme_override_constants/margin_bottom = 12
 layout_mode = 2
 
 [node name="ScoreBox" type="VBoxContainer" parent="Margin/Row" unique_id=2129330846]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -55,6 +56,13 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("3_bold")
 theme_override_font_sizes/font_size = 48
 text = "0"
+
+[node name="ComboValueLabel" type="Label" parent="Margin/Row/ScoreBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.54, 0.61, 0.7, 1)
+theme_override_font_sizes/font_size = 28
+text = "콤보 0"
 
 [node name="TimeBox" type="VBoxContainer" parent="Margin/Row" unique_id=1014196106]
 layout_mode = 2
@@ -83,3 +91,22 @@ size_flags_vertical = 4
 theme_override_styles/normal = ExtResource("5_settings")
 icon = ExtResource("4_settings")
 icon_alignment = 1
+
+[node name="FeedbackLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 60.0
+offset_top = 150.0
+offset_right = 660.0
+offset_bottom = 202.0
+theme_override_font_sizes/font_size = 28
+horizontal_alignment = 1
+vertical_alignment = 1
+text = ""
+visible = false
+mouse_filter = 2
+
+[node name="FeedbackTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 1.8
+one_shot = true

@@ -46,8 +46,17 @@ func _on_btn_3min_pressed():
 	get_tree().change_scene_to_file("res://main.tscn")
 
 func _on_btn_practice_pressed():
-	# Practice 전용 씬이 추가되기 전까지는 Speed 규칙을 무제한·비랭킹으로 제공한다.
-	_start_speed_mode(0, false)
+	Global.configure_mode(Global.MODE_PRACTICE, {
+		"mode_id": Global.MODE_PRACTICE,
+		"time_limit": 0,
+		"ranking_enabled": false,
+		"practice_mode": true,
+		"hap_points": 0,
+		"gyul_points": 0,
+		"wrong_hap_penalty": 0,
+		"wrong_gyul_penalty": 0
+	})
+	get_tree().change_scene_to_file("res://main.tscn")
 
 func _start_speed_mode(time_limit: int, ranking_enabled: bool, scoring: Dictionary = {}) -> void:
 	Global.configure_mode(Global.MODE_SPEED, {
