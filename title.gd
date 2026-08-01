@@ -25,15 +25,36 @@ func _ready():
 
 # --- 모드 선택 로직 ---
 func _on_btn_1min_pressed():
-	Global.game_time = 60
-	get_tree().change_scene_to_file("res://main.tscn")
+	_start_speed_mode(60, true, {
+		"difficulty_scoring": true,
+		"one_answer_points": 300,
+		"two_to_three_points": 200,
+		"four_to_five_points": 125,
+		"many_answers_points": 75,
+		"wrong_penalty": 75
+	})
 
 func _on_btn_3min_pressed():
-	Global.game_time = 180
+	Global.configure_mode(Global.MODE_GYULHAP, {
+		"time_limit": 180,
+		"ranking_enabled": true,
+		"hap_points": 100,
+		"gyul_points": 400,
+		"wrong_hap_penalty": 75,
+		"wrong_gyul_penalty": 200
+	})
 	get_tree().change_scene_to_file("res://main.tscn")
 
 func _on_btn_practice_pressed():
-	Global.game_time = 0
+	# Practice 전용 씬이 추가되기 전까지는 Speed 규칙을 무제한·비랭킹으로 제공한다.
+	_start_speed_mode(0, false)
+
+func _start_speed_mode(time_limit: int, ranking_enabled: bool, scoring: Dictionary = {}) -> void:
+	Global.configure_mode(Global.MODE_SPEED, {
+		"time_limit": time_limit,
+		"ranking_enabled": ranking_enabled,
+		"scoring": scoring
+	})
 	get_tree().change_scene_to_file("res://main.tscn")
 
 # --- 부가 기능 로직 (튜토리얼, 종료) ---
@@ -50,9 +71,10 @@ func _on_quit_button_pressed():
 func _on_ranking_button_pressed():
 	var board_text = "🏆 HIGH SCORES 🏆\n\n"
 	
+	var rankings := Global.get_rankings_for_mode(Global.MODE_SPEED)
 	for index in range(1, 6):
-		if index <= Global.top_5_ranking.size():
-			var r = Global.top_5_ranking[index - 1]
+		if index <= rankings.size():
+			var r = rankings[index - 1]
 			board_text += str(index) + "위  " + r["name"] + "   " + str(int(r["score"])) + "점\n"
 		else:
 			board_text += str(index) + "위  ---   0점\n"

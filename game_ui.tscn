@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://ui_manager.gd" id="1"]
+[ext_resource type="PackedScene" path="res://game_hud.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://pause_popup.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://result_popup.tscn" id="4"]
+[ext_resource type="PackedScene" path="res://high_score_popup.tscn" id="5"]
+
+[node name="GameUI" type="CanvasLayer"]
+layer = 1
+script = ExtResource("1")
+
+[node name="GameHud" parent="." instance=ExtResource("2")]
+
+[node name="PausePopup" parent="." instance=ExtResource("3")]
+
+[node name="ResultPopup" parent="." instance=ExtResource("4")]
+
+[node name="HighScorePopup" parent="." instance=ExtResource("5")]

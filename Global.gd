@@ -1,57 +1,113 @@
 extends Node
 
-const SAVE_PATH = "user://ranking_data.json"
+const SAVE_PATH := "user://ranking_data.json"
+const RANKING_LIMIT := 5
+const MODE_SPEED: StringName = &"speed"
+const MODE_GYULHAP: StringName = &"gyulhap"
+const MODE_PRACTICE: StringName = &"practice"
+const VALID_MODES := [MODE_SPEED, MODE_GYULHAP, MODE_PRACTICE]
 
-# 게임 시작 시 타이틀 화면에서 전달받을 제한 시간 변수 (기본값 0)
-var game_time: int = 0
+var selected_mode: StringName = MODE_SPEED
+var mode_config: Dictionary = {}
+var rankings_by_mode: Dictionary = _create_empty_rankings()
 
-# 🌟 추가된 변수: 최초 실행 여부
-var is_first_run: bool = true
+func _ready() -> void:
+	load_data()
 
-# 랭킹 데이터 창고
-var top_5_ranking = [
-	{"name": "---", "score": 000, "combo": 0},
-	{"name": "---", "score": 000, "combo": 0},
-	{"name": "---", "score": 000, "combo": 0},
-	{"name": "---", "score": 000, "combo": 0},
-	{"name": "---", "score": 000, "combo": 0}
-]
+func configure_mode(mode: StringName, config: Dictionary = {}) -> void:
+	selected_mode = mode if mode in VALID_MODES else MODE_SPEED
+	mode_config = config.duplicate(true)
 
-func _ready():
-	load_data() 
+func get_mode_config() -> Dictionary:
+	return mode_config.duplicate(true)
 
-func load_data():
-	if FileAccess.file_exists(SAVE_PATH):
-		var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
-		var json_string = file.get_as_text()
-		var json = JSON.new()
-		if json.parse(json_string) == OK:
-			var parsed_data = json.data
-			
-			# 💡 기존 세이브 파일(배열)과 새 세이브 파일(딕셔너리) 호환 처리
-			if typeof(parsed_data) == TYPE_ARRAY:
-				top_5_ranking = parsed_data
-			elif typeof(parsed_data) == TYPE_DICTIONARY:
-				if parsed_data.has("ranking"):
-					top_5_ranking = parsed_data["ranking"]
-				if parsed_data.has("is_first_run"):
-					is_first_run = parsed_data["is_first_run"]
-					
-			print("✅ Global: 게임 데이터 불러오기 성공!")
-	else:
+func load_data() -> void:
+	rankings_by_mode = _create_empty_rankings()
+	if not FileAccess.file_exists(SAVE_PATH):
 		save_data()
+		return
 
-func save_data():
-	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
-	
-	# 🌟 랭킹과 최초 실행 여부를 하나의 딕셔너리(통)에 담아서 저장
-	var save_dict = {
-		"is_first_run": is_first_run,
-		"ranking": top_5_ranking
+	var file := FileAccess.open(SAVE_PATH, FileAccess.READ)
+	if file == null:
+		return
+
+	var json := JSON.new()
+	if json.parse(file.get_as_text()) != OK:
+		save_data()
+		return
+
+	_load_rankings(json.data)
+	save_data()
+
+func save_data() -> void:
+	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	if file == null:
+		return
+	file.store_string(JSON.stringify({"rankings_by_mode": rankings_by_mode}))
+
+func get_rankings_for_mode(mode: StringName = selected_mode) -> Array:
+	var rankings: Array = rankings_by_mode.get(mode, [])
+	return rankings.duplicate(true)
+
+func check_high_score(final_score: int, mode: StringName = selected_mode) -> bool:
+	var rankings := get_rankings_for_mode(mode)
+	return rankings.size() < RANKING_LIMIT or final_score > int(rankings.back()["score"])
+
+func add_high_score(mode: StringName, player_name: String, score: int, combo: int) -> void:
+	var target_mode: StringName = mode if mode in VALID_MODES else MODE_SPEED
+	var rankings: Array = rankings_by_mode.get(target_mode, [])
+	rankings.append({
+		"name": _sanitize_name(player_name),
+		"score": max(0, score),
+		"combo": max(0, combo)
+	})
+	rankings.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a["score"] > b["score"])
+	if rankings.size() > RANKING_LIMIT:
+		rankings.resize(RANKING_LIMIT)
+	rankings_by_mode[target_mode] = rankings
+	save_data()
+
+func _load_rankings(data: Variant) -> void:
+	if data is Array:
+		rankings_by_mode[MODE_SPEED] = _sanitize_rankings(data)
+		return
+	if not data is Dictionary:
+		return
+
+	var source: Variant = data.get("rankings_by_mode", data.get("ranking", []))
+	if source is Array:
+		rankings_by_mode[MODE_SPEED] = _sanitize_rankings(source)
+		return
+	if source is Dictionary:
+		for mode in VALID_MODES:
+			rankings_by_mode[mode] = _sanitize_rankings(source.get(mode, []))
+
+func _sanitize_rankings(raw_rankings: Variant) -> Array:
+	var rankings: Array = []
+	if not raw_rankings is Array:
+		return rankings
+	for record in raw_rankings:
+		if not record is Dictionary:
+			continue
+		rankings.append({
+			"name": _sanitize_name(str(record.get("name", "P1"))),
+			"score": max(0, int(record.get("score", 0))),
+			"combo": max(0, int(record.get("combo", 0)))
+		})
+	rankings.sort_custom(func(a: Dictionary, b: Dictionary) -> bool: return a["score"] > b["score"])
+	if rankings.size() > RANKING_LIMIT:
+		rankings.resize(RANKING_LIMIT)
+	return rankings
+
+func _sanitize_name(raw_name: String) -> String:
+	var regex := RegEx.new()
+	regex.compile("[^a-zA-Z0-9]")
+	var sanitized := regex.sub(raw_name, "", true).to_upper().left(3)
+	return sanitized if not sanitized.is_empty() else "P1"
+
+func _create_empty_rankings() -> Dictionary:
+	return {
+		MODE_SPEED: [],
+		MODE_GYULHAP: [],
+		MODE_PRACTICE: []
 	}
-	file.store_string(JSON.stringify(save_dict))
-
-func check_high_score(final_score):
-	if top_5_ranking.size() < 5:
-		return true
-	return final_score > top_5_ranking[4]["score"]

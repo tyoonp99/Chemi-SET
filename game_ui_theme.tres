@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://wtcsx6j8lenk"]
+
+[ext_resource type="FontFile" uid="uid://dokru05ayn5s1" path="res://assets/fonts/Pretendard-Medium.ttf" id="1_medium"]
+
+[resource]
+default_font = ExtResource("1_medium")
+default_font_size = 28
