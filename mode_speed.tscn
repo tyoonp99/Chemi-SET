@@ -1,27 +1,9 @@
 [gd_scene load_steps=5 format=3]
 
 [ext_resource type="Script" path="res://mode_speed.gd" id="1_script"]
-
-[sub_resource type="StyleBoxFlat" id="CardNormal"]
-bg_color = Color(0.152941, 0.207843, 0.301961, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-
-[sub_resource type="StyleBoxFlat" id="CardPressed"]
-bg_color = Color(0.0823529, 0.113725, 0.172549, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-
-[sub_resource type="StyleBoxFlat" id="CardHover"]
-bg_color = Color(0.152941, 0.207843, 0.301961, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
+[ext_resource type="StyleBox" path="res://card_normal_style.tres" id="2_normal"]
+[ext_resource type="StyleBox" path="res://card_pressed_style.tres" id="3_pressed"]
+[ext_resource type="StyleBox" path="res://card_hover_style.tres" id="4_hover"]
 
 [node name="ModeSpeed" type="Control"]
 layout_mode = 3
@@ -47,7 +29,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 137.0
+offset_top = 112.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/margin_left = 45
@@ -71,81 +53,81 @@ columns = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/normal = SubResource("CardNormal")
-theme_override_styles/pressed = SubResource("CardPressed")
-theme_override_styles/hover = SubResource("CardHover")
+theme_override_styles/normal = ExtResource("2_normal")
+theme_override_styles/pressed = ExtResource("3_pressed")
+theme_override_styles/hover = ExtResource("4_hover")
 expand_icon = true
 
 [node name="Card2" type="Button" parent="GameBoard/AspectRatioContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/normal = SubResource("CardNormal")
-theme_override_styles/pressed = SubResource("CardPressed")
-theme_override_styles/hover = SubResource("CardHover")
+theme_override_styles/normal = ExtResource("2_normal")
+theme_override_styles/pressed = ExtResource("3_pressed")
+theme_override_styles/hover = ExtResource("4_hover")
 expand_icon = true
 
 [node name="Card3" type="Button" parent="GameBoard/AspectRatioContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/normal = SubResource("CardNormal")
-theme_override_styles/pressed = SubResource("CardPressed")
-theme_override_styles/hover = SubResource("CardHover")
+theme_override_styles/normal = ExtResource("2_normal")
+theme_override_styles/pressed = ExtResource("3_pressed")
+theme_override_styles/hover = ExtResource("4_hover")
 expand_icon = true
 
 [node name="Card4" type="Button" parent="GameBoard/AspectRatioContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/normal = SubResource("CardNormal")
-theme_override_styles/pressed = SubResource("CardPressed")
-theme_override_styles/hover = SubResource("CardHover")
+theme_override_styles/normal = ExtResource("2_normal")
+theme_override_styles/pressed = ExtResource("3_pressed")
+theme_override_styles/hover = ExtResource("4_hover")
 expand_icon = true
 
 [node name="Card5" type="Button" parent="GameBoard/AspectRatioContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/normal = SubResource("CardNormal")
-theme_override_styles/pressed = SubResource("CardPressed")
-theme_override_styles/hover = SubResource("CardHover")
+theme_override_styles/normal = ExtResource("2_normal")
+theme_override_styles/pressed = ExtResource("3_pressed")
+theme_override_styles/hover = ExtResource("4_hover")
 expand_icon = true
 
 [node name="Card6" type="Button" parent="GameBoard/AspectRatioContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/normal = SubResource("CardNormal")
-theme_override_styles/pressed = SubResource("CardPressed")
-theme_override_styles/hover = SubResource("CardHover")
+theme_override_styles/normal = ExtResource("2_normal")
+theme_override_styles/pressed = ExtResource("3_pressed")
+theme_override_styles/hover = ExtResource("4_hover")
 expand_icon = true
 
 [node name="Card7" type="Button" parent="GameBoard/AspectRatioContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/normal = SubResource("CardNormal")
-theme_override_styles/pressed = SubResource("CardPressed")
-theme_override_styles/hover = SubResource("CardHover")
+theme_override_styles/normal = ExtResource("2_normal")
+theme_override_styles/pressed = ExtResource("3_pressed")
+theme_override_styles/hover = ExtResource("4_hover")
 expand_icon = true
 
 [node name="Card8" type="Button" parent="GameBoard/AspectRatioContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/normal = SubResource("CardNormal")
-theme_override_styles/pressed = SubResource("CardPressed")
-theme_override_styles/hover = SubResource("CardHover")
+theme_override_styles/normal = ExtResource("2_normal")
+theme_override_styles/pressed = ExtResource("3_pressed")
+theme_override_styles/hover = ExtResource("4_hover")
 expand_icon = true
 
 [node name="Card9" type="Button" parent="GameBoard/AspectRatioContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/normal = SubResource("CardNormal")
-theme_override_styles/pressed = SubResource("CardPressed")
-theme_override_styles/hover = SubResource("CardHover")
+theme_override_styles/normal = ExtResource("2_normal")
+theme_override_styles/pressed = ExtResource("3_pressed")
+theme_override_styles/hover = ExtResource("4_hover")
 expand_icon = true
 
 [node name="Timer" type="Timer" parent="."]

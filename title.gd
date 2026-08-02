@@ -12,8 +12,10 @@ func _ready():
 	%TutorialCloseButton.pressed.connect(_on_close_button_pressed)
 	
 	# 3. 랭킹 버튼 및 랭킹 닫기 버튼 연결
-	%RankingButton.pressed.connect(_on_ranking_button_pressed)
+	%RankingButton.pressed.connect(_on_speed_ranking_pressed)
 	%RankingCloseButton.pressed.connect(_on_ranking_close_button_pressed)
+	%SpeedRankingButton.pressed.connect(_on_speed_ranking_pressed)
+	%GyulHapRankingButton.pressed.connect(_on_gyulhap_ranking_pressed)
 	
 	# 💡 [추가됨] 설정 닫기 버튼 연결 (에디터에서 연결 안 했다면 추가)
 	%SettingsCloseButton.pressed.connect(_on_settings_close_button_pressed)
@@ -91,6 +93,29 @@ func _on_ranking_button_pressed():
 	# 세팅한 글씨를 라벨에 밀어넣고 팝업 띄우기
 	%RankingLabel.text = board_text
 	%RankingPopup.show()
+
+func _on_speed_ranking_pressed() -> void:
+	_on_ranking_button_pressed()
+	_set_ranking_selection(Global.MODE_SPEED)
+
+func _on_gyulhap_ranking_pressed() -> void:
+	var board_text := "3분 결합 랭킹\n\n"
+	var rankings := Global.get_rankings_for_mode(Global.MODE_GYULHAP)
+	for index in range(Global.RANKING_LIMIT):
+		if index < rankings.size():
+			var record: Dictionary = rankings[index]
+			board_text += "%d. %s    %d점\n" % [index + 1, record["name"], record["score"]]
+		else:
+			board_text += "%d. ---    0점\n" % [index + 1]
+	%RankingLabel.text = board_text
+	_set_ranking_selection(Global.MODE_GYULHAP)
+
+func _set_ranking_selection(mode: StringName) -> void:
+	var is_speed := mode == Global.MODE_SPEED
+	%SpeedRankingButton.text = "✓ 1분 스피드" if is_speed else "1분 스피드"
+	%GyulHapRankingButton.text = "✓ 3분 결합" if not is_speed else "3분 결합"
+	%SpeedRankingButton.modulate = Color.WHITE if is_speed else Color(1, 1, 1, 0.55)
+	%GyulHapRankingButton.modulate = Color.WHITE if not is_speed else Color(1, 1, 1, 0.55)
 
 func _on_ranking_close_button_pressed():
 	%RankingPopup.hide()

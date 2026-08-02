@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://practice_hap_pattern.gd" id="1_script"]
+[ext_resource type="StyleBox" path="res://practice_pattern_frame.tres" id="2_frame"]
+[ext_resource type="StyleBox" path="res://practice_pattern_empty.tres" id="3_empty"]
+[node name="PracticeHapPattern" type="PanelContainer"]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("2_frame")
+script = ExtResource("1_script")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Center" type="CenterContainer" parent="Margin"]
+layout_mode = 2
+
+[node name="PatternGrid" type="GridContainer" parent="Margin/Center"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 3
+
+[node name="Cell1" type="Panel" parent="Margin/Center/PatternGrid"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_empty")
+
+[node name="Cell2" type="Panel" parent="Margin/Center/PatternGrid"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_empty")
+
+[node name="Cell3" type="Panel" parent="Margin/Center/PatternGrid"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_empty")
+
+[node name="Cell4" type="Panel" parent="Margin/Center/PatternGrid"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_empty")
+
+[node name="Cell5" type="Panel" parent="Margin/Center/PatternGrid"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_empty")
+
+[node name="Cell6" type="Panel" parent="Margin/Center/PatternGrid"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_empty")
+
+[node name="Cell7" type="Panel" parent="Margin/Center/PatternGrid"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_empty")
+
+[node name="Cell8" type="Panel" parent="Margin/Center/PatternGrid"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_empty")
+
+[node name="Cell9" type="Panel" parent="Margin/Center/PatternGrid"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_empty")

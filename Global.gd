@@ -10,6 +10,7 @@ const VALID_MODES := [MODE_SPEED, MODE_GYULHAP, MODE_PRACTICE]
 var selected_mode: StringName = MODE_SPEED
 var mode_config: Dictionary = {}
 var rankings_by_mode: Dictionary = _create_empty_rankings()
+var infinite_stats: Dictionary = _create_empty_infinite_stats()
 
 func _ready() -> void:
 	load_data()
@@ -23,6 +24,7 @@ func get_mode_config() -> Dictionary:
 
 func load_data() -> void:
 	rankings_by_mode = _create_empty_rankings()
+	infinite_stats = _create_empty_infinite_stats()
 	if not FileAccess.file_exists(SAVE_PATH):
 		save_data()
 		return
@@ -37,13 +39,14 @@ func load_data() -> void:
 		return
 
 	_load_rankings(json.data)
+	_load_infinite_stats(json.data)
 	save_data()
 
 func save_data() -> void:
 	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if file == null:
 		return
-	file.store_string(JSON.stringify({"rankings_by_mode": rankings_by_mode}))
+	file.store_string(JSON.stringify({"rankings_by_mode": rankings_by_mode, "infinite_stats": infinite_stats}))
 
 func get_rankings_for_mode(mode: StringName = selected_mode) -> Array:
 	var rankings: Array = rankings_by_mode.get(mode, [])
@@ -67,6 +70,14 @@ func add_high_score(mode: StringName, player_name: String, score: int, combo: in
 	rankings_by_mode[target_mode] = rankings
 	save_data()
 
+func get_infinite_stats() -> Dictionary:
+	return infinite_stats.duplicate(true)
+
+func add_infinite_stats(hap_delta: int = 0, gyul_delta: int = 0) -> void:
+	infinite_stats["hap"] = max(0, int(infinite_stats.get("hap", 0)) + hap_delta)
+	infinite_stats["gyul"] = max(0, int(infinite_stats.get("gyul", 0)) + gyul_delta)
+	save_data()
+
 func _load_rankings(data: Variant) -> void:
 	if data is Array:
 		rankings_by_mode[MODE_SPEED] = _sanitize_rankings(data)
@@ -81,6 +92,17 @@ func _load_rankings(data: Variant) -> void:
 	if source is Dictionary:
 		for mode in VALID_MODES:
 			rankings_by_mode[mode] = _sanitize_rankings(source.get(mode, []))
+
+func _load_infinite_stats(data: Variant) -> void:
+	if not data is Dictionary:
+		return
+	var raw_stats: Variant = data.get("infinite_stats", {})
+	if not raw_stats is Dictionary:
+		return
+	infinite_stats = {
+		"hap": max(0, int(raw_stats.get("hap", 0))),
+		"gyul": max(0, int(raw_stats.get("gyul", 0)))
+	}
 
 func _sanitize_rankings(raw_rankings: Variant) -> Array:
 	var rankings: Array = []
@@ -111,3 +133,6 @@ func _create_empty_rankings() -> Dictionary:
 		MODE_GYULHAP: [],
 		MODE_PRACTICE: []
 	}
+
+func _create_empty_infinite_stats() -> Dictionary:
+	return {"hap": 0, "gyul": 0}

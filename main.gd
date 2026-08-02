@@ -45,7 +45,9 @@ func _load_selected_mode() -> void:
 	_current_mode.connect(&"game_over", _on_game_over)
 	if _current_mode.has_signal(&"feedback_changed"):
 		_current_mode.connect(&"feedback_changed", _on_feedback_changed)
-	_ui.configure_for_mode(Global.selected_mode == Global.MODE_PRACTICE)
+	if _current_mode.has_signal(&"practice_stats_changed"):
+		_current_mode.connect(&"practice_stats_changed", _on_practice_stats_changed)
+	_ui.configure_for_mode(Global.selected_mode)
 	_current_mode.call("start", _current_config)
 
 func _on_score_changed(score: int, combo: int) -> void:
@@ -54,8 +56,11 @@ func _on_score_changed(score: int, combo: int) -> void:
 func _on_time_changed(seconds_left: int, unlimited: bool) -> void:
 	_ui.set_time(seconds_left, unlimited)
 
-func _on_feedback_changed(message: String, positive: bool) -> void:
-	_ui.show_feedback(message, positive)
+func _on_feedback_changed(message: String, positive: bool, style: String = "nice", breakdown: Dictionary = {}) -> void:
+	_ui.show_feedback(message, positive, style, breakdown)
+
+func _on_practice_stats_changed(hap_count: int, gyul_count: int) -> void:
+	_ui.set_practice_stats(hap_count, gyul_count)
 
 func _on_game_over(result: Dictionary) -> void:
 	_current_result = result.duplicate(true)

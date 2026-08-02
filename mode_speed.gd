@@ -4,7 +4,7 @@ extends Control
 signal score_changed(score: int, combo: int)
 signal time_changed(seconds_left: int, unlimited: bool)
 signal game_over(result: Dictionary)
-signal feedback_changed(message: String, positive: bool)
+signal feedback_changed(message: String, positive: bool, style: String, breakdown: Dictionary)
 
 var _selected_cards: Array[int] = []
 var _full_deck: Array[Dictionary] = []
@@ -85,9 +85,14 @@ func _check_selection() -> void:
 	if SetRules.is_set(cards):
 		_combo += 1
 		_max_combo = max(_max_combo, _combo)
-		var earned_points := _correct_answer_points(_count_set_combinations())
+		var remaining_answers := _count_set_combinations()
+		var breakdown := _score_breakdown(remaining_answers)
+		var earned_points := int(breakdown["base_points"]) + int(breakdown["combo_bonus"])
 		_score += earned_points
-		feedback_changed.emit("정답! +%d점" % earned_points, true)
+		var feedback_style := _feedback_style_for(remaining_answers)
+		breakdown["judgment"] = feedback_style.to_upper()
+		breakdown["combo"] = _combo
+		feedback_changed.emit("%s! +%d점" % [feedback_style.to_upper(), earned_points], true, feedback_style, breakdown)
 		_refill_cards()
 	else:
 		var penalty := 0
@@ -95,13 +100,13 @@ func _check_selection() -> void:
 			penalty = int(_scoring.get("wrong_penalty", 75))
 			_score = max(0, _score - penalty)
 		_combo = 0
-		feedback_changed.emit("오답! -%d점" % penalty if penalty > 0 else "오답입니다", false)
+		feedback_changed.emit("MISS! -%d점" % penalty if penalty > 0 else "MISS!", false, "miss", {})
 	score_changed.emit(_score, _combo)
 
-func _correct_answer_points(remaining_answers: int) -> int:
+func _score_breakdown(remaining_answers: int) -> Dictionary:
 	if not _uses_difficulty_scoring():
-		return 100 + _legacy_combo_bonus()
-	return _difficulty_points(remaining_answers) + _combo_bonus()
+		return {"base_points": 100, "combo_bonus": _legacy_combo_bonus()}
+	return {"base_points": _difficulty_points(remaining_answers), "combo_bonus": _combo_bonus()}
 
 func _difficulty_points(remaining_answers: int) -> int:
 	if remaining_answers <= 1:
@@ -111,6 +116,13 @@ func _difficulty_points(remaining_answers: int) -> int:
 	if remaining_answers <= 5:
 		return int(_scoring.get("four_to_five_points", 125))
 	return int(_scoring.get("many_answers_points", 75))
+
+func _feedback_style_for(remaining_answers: int) -> String:
+	if remaining_answers <= 1:
+		return "excellent"
+	if remaining_answers <= 3:
+		return "nice"
+	return "good"
 
 func _combo_bonus() -> int:
 	if _combo >= 11:

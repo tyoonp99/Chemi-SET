@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://practice_hap_history.gd" id="1_script"]
+
+[node name="PracticeHapHistory" type="HFlowContainer"]
+custom_minimum_size = Vector2(0, 72)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 10
+theme_override_constants/v_separation = 10
+alignment = 1
+script = ExtResource("1_script")

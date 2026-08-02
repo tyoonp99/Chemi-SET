@@ -1,29 +1,15 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://mode_gyulhap.gd" id="1_script"]
 [ext_resource type="StyleBox" path="res://main_button_style.tres" id="2_main"]
 [ext_resource type="StyleBox" path="res://sub_button_style.tres" id="3_sub"]
-
-[sub_resource type="StyleBoxFlat" id="CardNormal"]
-bg_color = Color(0.152941, 0.207843, 0.301961, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-
-[sub_resource type="StyleBoxFlat" id="CardPressed"]
-bg_color = Color(0.0823529, 0.113725, 0.172549, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-
-[sub_resource type="StyleBoxFlat" id="CardHover"]
-bg_color = Color(0.152941, 0.207843, 0.301961, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
+[ext_resource type="PackedScene" path="res://practice_hap_history.tscn" id="4_history"]
+[ext_resource type="StyleBox" path="res://card_normal_style.tres" id="5_normal"]
+[ext_resource type="StyleBox" path="res://card_pressed_style.tres" id="6_pressed"]
+[ext_resource type="StyleBox" path="res://card_hover_style.tres" id="7_hover"]
+[ext_resource type="StyleBox" path="res://main_button_disabled_style.tres" id="8_main_disabled"]
+[ext_resource type="StyleBox" path="res://sub_button_disabled_style.tres" id="9_sub_disabled"]
+[ext_resource type="StyleBox" path="res://hint_outline_style.tres" id="10_hint_outline"]
 
 [node name="ModeGyulHap" type="Control"]
 layout_mode = 3
@@ -49,7 +35,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 137.0
+offset_top = 112.0
 offset_bottom = -310.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -74,82 +60,397 @@ columns = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/normal = SubResource("CardNormal")
-theme_override_styles/pressed = SubResource("CardPressed")
-theme_override_styles/hover = SubResource("CardHover")
+theme_override_styles/normal = ExtResource("5_normal")
+theme_override_styles/pressed = ExtResource("6_pressed")
+theme_override_styles/hover = ExtResource("7_hover")
 expand_icon = true
+
+[node name="HintMarker" type="Control" parent="GameBoard/AspectRatioContainer/GridContainer/Card1"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Outline" type="Panel" parent="GameBoard/AspectRatioContainer/GridContainer/Card1/HintMarker"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("10_hint_outline")
+
+[node name="Badge" type="Label" parent="GameBoard/AspectRatioContainer/GridContainer/Card1/HintMarker"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -42.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 42.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 26
+text = "💡"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Card2" type="Button" parent="GameBoard/AspectRatioContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/normal = SubResource("CardNormal")
-theme_override_styles/pressed = SubResource("CardPressed")
-theme_override_styles/hover = SubResource("CardHover")
+theme_override_styles/normal = ExtResource("5_normal")
+theme_override_styles/pressed = ExtResource("6_pressed")
+theme_override_styles/hover = ExtResource("7_hover")
 expand_icon = true
+
+[node name="HintMarker" type="Control" parent="GameBoard/AspectRatioContainer/GridContainer/Card2"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Outline" type="Panel" parent="GameBoard/AspectRatioContainer/GridContainer/Card2/HintMarker"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("10_hint_outline")
+
+[node name="Badge" type="Label" parent="GameBoard/AspectRatioContainer/GridContainer/Card2/HintMarker"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -42.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 42.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 26
+text = "💡"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Card3" type="Button" parent="GameBoard/AspectRatioContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/normal = SubResource("CardNormal")
-theme_override_styles/pressed = SubResource("CardPressed")
-theme_override_styles/hover = SubResource("CardHover")
+theme_override_styles/normal = ExtResource("5_normal")
+theme_override_styles/pressed = ExtResource("6_pressed")
+theme_override_styles/hover = ExtResource("7_hover")
 expand_icon = true
+
+[node name="HintMarker" type="Control" parent="GameBoard/AspectRatioContainer/GridContainer/Card3"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Outline" type="Panel" parent="GameBoard/AspectRatioContainer/GridContainer/Card3/HintMarker"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("10_hint_outline")
+
+[node name="Badge" type="Label" parent="GameBoard/AspectRatioContainer/GridContainer/Card3/HintMarker"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -42.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 42.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 26
+text = "💡"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Card4" type="Button" parent="GameBoard/AspectRatioContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/normal = SubResource("CardNormal")
-theme_override_styles/pressed = SubResource("CardPressed")
-theme_override_styles/hover = SubResource("CardHover")
+theme_override_styles/normal = ExtResource("5_normal")
+theme_override_styles/pressed = ExtResource("6_pressed")
+theme_override_styles/hover = ExtResource("7_hover")
 expand_icon = true
+
+[node name="HintMarker" type="Control" parent="GameBoard/AspectRatioContainer/GridContainer/Card4"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Outline" type="Panel" parent="GameBoard/AspectRatioContainer/GridContainer/Card4/HintMarker"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("10_hint_outline")
+
+[node name="Badge" type="Label" parent="GameBoard/AspectRatioContainer/GridContainer/Card4/HintMarker"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -42.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 42.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 26
+text = "💡"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Card5" type="Button" parent="GameBoard/AspectRatioContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/normal = SubResource("CardNormal")
-theme_override_styles/pressed = SubResource("CardPressed")
-theme_override_styles/hover = SubResource("CardHover")
+theme_override_styles/normal = ExtResource("5_normal")
+theme_override_styles/pressed = ExtResource("6_pressed")
+theme_override_styles/hover = ExtResource("7_hover")
 expand_icon = true
+
+[node name="HintMarker" type="Control" parent="GameBoard/AspectRatioContainer/GridContainer/Card5"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Outline" type="Panel" parent="GameBoard/AspectRatioContainer/GridContainer/Card5/HintMarker"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("10_hint_outline")
+
+[node name="Badge" type="Label" parent="GameBoard/AspectRatioContainer/GridContainer/Card5/HintMarker"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -42.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 42.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 26
+text = "💡"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Card6" type="Button" parent="GameBoard/AspectRatioContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/normal = SubResource("CardNormal")
-theme_override_styles/pressed = SubResource("CardPressed")
-theme_override_styles/hover = SubResource("CardHover")
+theme_override_styles/normal = ExtResource("5_normal")
+theme_override_styles/pressed = ExtResource("6_pressed")
+theme_override_styles/hover = ExtResource("7_hover")
 expand_icon = true
+
+[node name="HintMarker" type="Control" parent="GameBoard/AspectRatioContainer/GridContainer/Card6"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Outline" type="Panel" parent="GameBoard/AspectRatioContainer/GridContainer/Card6/HintMarker"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("10_hint_outline")
+
+[node name="Badge" type="Label" parent="GameBoard/AspectRatioContainer/GridContainer/Card6/HintMarker"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -42.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 42.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 26
+text = "💡"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Card7" type="Button" parent="GameBoard/AspectRatioContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/normal = SubResource("CardNormal")
-theme_override_styles/pressed = SubResource("CardPressed")
-theme_override_styles/hover = SubResource("CardHover")
+theme_override_styles/normal = ExtResource("5_normal")
+theme_override_styles/pressed = ExtResource("6_pressed")
+theme_override_styles/hover = ExtResource("7_hover")
 expand_icon = true
+
+[node name="HintMarker" type="Control" parent="GameBoard/AspectRatioContainer/GridContainer/Card7"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Outline" type="Panel" parent="GameBoard/AspectRatioContainer/GridContainer/Card7/HintMarker"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("10_hint_outline")
+
+[node name="Badge" type="Label" parent="GameBoard/AspectRatioContainer/GridContainer/Card7/HintMarker"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -42.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 42.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 26
+text = "💡"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Card8" type="Button" parent="GameBoard/AspectRatioContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/normal = SubResource("CardNormal")
-theme_override_styles/pressed = SubResource("CardPressed")
-theme_override_styles/hover = SubResource("CardHover")
+theme_override_styles/normal = ExtResource("5_normal")
+theme_override_styles/pressed = ExtResource("6_pressed")
+theme_override_styles/hover = ExtResource("7_hover")
 expand_icon = true
+
+[node name="HintMarker" type="Control" parent="GameBoard/AspectRatioContainer/GridContainer/Card8"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Outline" type="Panel" parent="GameBoard/AspectRatioContainer/GridContainer/Card8/HintMarker"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("10_hint_outline")
+
+[node name="Badge" type="Label" parent="GameBoard/AspectRatioContainer/GridContainer/Card8/HintMarker"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -42.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 42.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 26
+text = "💡"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Card9" type="Button" parent="GameBoard/AspectRatioContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_styles/normal = SubResource("CardNormal")
-theme_override_styles/pressed = SubResource("CardPressed")
-theme_override_styles/hover = SubResource("CardHover")
+theme_override_styles/normal = ExtResource("5_normal")
+theme_override_styles/pressed = ExtResource("6_pressed")
+theme_override_styles/hover = ExtResource("7_hover")
 expand_icon = true
+
+[node name="HintMarker" type="Control" parent="GameBoard/AspectRatioContainer/GridContainer/Card9"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Outline" type="Panel" parent="GameBoard/AspectRatioContainer/GridContainer/Card9/HintMarker"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("10_hint_outline")
+
+[node name="Badge" type="Label" parent="GameBoard/AspectRatioContainer/GridContainer/Card9/HintMarker"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -42.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 42.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 26
+text = "💡"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ActionBar" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -163,11 +464,12 @@ offset_bottom = -30.0
 grow_vertical = 0
 theme_override_constants/separation = 14
 
-[node name="SelectionLabel" type="Label" parent="ActionBar"]
+[node name="RoundHapCountLabel" type="Label" parent="ActionBar"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.87, 1)
 theme_override_font_sizes/font_size = 28
-text = "선택: 0 / 3"
+text = "이번 라운드 합: 0개"
 horizontal_alignment = 1
 
 [node name="Actions" type="HBoxContainer" parent="ActionBar"]
@@ -183,6 +485,7 @@ disabled = true
 theme_override_colors/font_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
 theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = ExtResource("2_main")
+theme_override_styles/disabled = ExtResource("8_main_disabled")
 text = "합 선언"
 
 [node name="GyulButton" type="Button" parent="ActionBar/Actions"]
@@ -193,20 +496,23 @@ size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = ExtResource("3_sub")
+theme_override_styles/disabled = ExtResource("9_sub_disabled")
 text = "결 선언"
 
-[node name="FoundHapsLabel" type="Label" parent="ActionBar"]
+[node name="HintButton" type="Button" parent="ActionBar"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 72)
+custom_minimum_size = Vector2(180, 54)
 layout_mode = 2
-theme_override_colors/font_color = Color(0.72, 0.8, 0.87, 1)
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 28
-text = "찾은 합: 아직 없습니다"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
-max_lines_visible = 2
-text_overrun_behavior = 3
+theme_override_styles/normal = ExtResource("3_sub")
+theme_override_styles/disabled = ExtResource("9_sub_disabled")
+text = "💡 힌트"
+visible = false
+
+[node name="PracticeHapHistory" parent="ActionBar" instance=ExtResource("4_history")]
+unique_name_in_owner = true
 visible = false
 
 [node name="Timer" type="Timer" parent="."]

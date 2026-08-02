@@ -45,13 +45,17 @@ func set_time(seconds_left: int, unlimited: bool = false) -> void:
 	if _hud:
 		_hud.set_time(seconds_left, unlimited)
 
-func configure_for_mode(is_practice: bool) -> void:
+func configure_for_mode(mode: StringName) -> void:
 	if _hud:
-		_hud.configure_for_mode(is_practice)
+		_hud.configure_for_mode(mode)
 
-func show_feedback(message: String, positive: bool) -> void:
+func set_practice_stats(hap_count: int, gyul_count: int) -> void:
 	if _hud:
-		_hud.show_feedback(message, positive)
+		_hud.set_practice_stats(hap_count, gyul_count)
+
+func show_feedback(message: String, positive: bool, style: String = "nice", breakdown: Dictionary = {}) -> void:
+	if _hud:
+		_hud.show_feedback(message, positive, style, breakdown)
 
 func show_pause() -> void:
 	if _pause_popup:
