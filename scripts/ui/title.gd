@@ -45,7 +45,7 @@ func _on_btn_3min_pressed():
 		"wrong_hap_penalty": 75,
 		"wrong_gyul_penalty": 200
 	})
-	get_tree().change_scene_to_file("res://main.tscn")
+	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 func _on_btn_practice_pressed():
 	Global.configure_mode(Global.MODE_PRACTICE, {
@@ -58,7 +58,7 @@ func _on_btn_practice_pressed():
 		"wrong_hap_penalty": 0,
 		"wrong_gyul_penalty": 0
 	})
-	get_tree().change_scene_to_file("res://main.tscn")
+	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 func _start_speed_mode(time_limit: int, ranking_enabled: bool, scoring: Dictionary = {}) -> void:
 	Global.configure_mode(Global.MODE_SPEED, {
@@ -66,7 +66,7 @@ func _start_speed_mode(time_limit: int, ranking_enabled: bool, scoring: Dictiona
 		"ranking_enabled": ranking_enabled,
 		"scoring": scoring
 	})
-	get_tree().change_scene_to_file("res://main.tscn")
+	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 # --- 부가 기능 로직 (튜토리얼, 종료) ---
 func _on_tutorial_button_pressed():

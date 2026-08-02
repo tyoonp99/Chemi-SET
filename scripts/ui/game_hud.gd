@@ -3,15 +3,15 @@ extends Control
 
 signal pause_pressed
 
-const FEEDBACK_EXCELLENT := preload("res://feedback_excellent_label.tres")
-const FEEDBACK_EXCELLENT_SCORE := preload("res://feedback_excellent_score_label.tres")
-const FEEDBACK_NICE := preload("res://feedback_nice_label.tres")
-const FEEDBACK_NICE_SCORE := preload("res://feedback_nice_score_label.tres")
-const FEEDBACK_GOOD := preload("res://feedback_good_label.tres")
-const FEEDBACK_GOOD_SCORE := preload("res://feedback_good_score_label.tres")
-const FEEDBACK_COMBO := preload("res://feedback_combo_label.tres")
-const FEEDBACK_GYUL := preload("res://feedback_gyul_label.tres")
-const FEEDBACK_MISS := preload("res://feedback_miss_label.tres")
+const FEEDBACK_EXCELLENT := preload("res://resources/styles/feedback/feedback_excellent_label.tres")
+const FEEDBACK_EXCELLENT_SCORE := preload("res://resources/styles/feedback/feedback_excellent_score_label.tres")
+const FEEDBACK_NICE := preload("res://resources/styles/feedback/feedback_nice_label.tres")
+const FEEDBACK_NICE_SCORE := preload("res://resources/styles/feedback/feedback_nice_score_label.tres")
+const FEEDBACK_GOOD := preload("res://resources/styles/feedback/feedback_good_label.tres")
+const FEEDBACK_GOOD_SCORE := preload("res://resources/styles/feedback/feedback_good_score_label.tres")
+const FEEDBACK_COMBO := preload("res://resources/styles/feedback/feedback_combo_label.tres")
+const FEEDBACK_GYUL := preload("res://resources/styles/feedback/feedback_gyul_label.tres")
+const FEEDBACK_MISS := preload("res://resources/styles/feedback/feedback_miss_label.tres")
 
 @onready var _score_value: Label = %ScoreValueLabel
 @onready var _time_value: Label = %TimeValueLabel

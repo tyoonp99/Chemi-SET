@@ -1,8 +1,8 @@
 class_name PracticeHapPattern
 extends PanelContainer
 
-const EMPTY_STYLE := preload("res://practice_pattern_empty.tres")
-const FILLED_STYLE := preload("res://practice_pattern_filled.tres")
+const EMPTY_STYLE := preload("res://resources/styles/patterns/practice_pattern_empty.tres")
+const FILLED_STYLE := preload("res://resources/styles/patterns/practice_pattern_filled.tres")
 
 @onready var _grid: GridContainer = %PatternGrid
 

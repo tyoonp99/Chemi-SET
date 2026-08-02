@@ -1,7 +1,7 @@
 class_name PracticeHapHistory
 extends HFlowContainer
 
-const PATTERN_SCENE := preload("res://practice_hap_pattern.tscn")
+const PATTERN_SCENE := preload("res://scenes/ui/practice_hap_pattern.tscn")
 
 func set_haps(hap_keys: Array[String]) -> void:
 	for child in get_children():

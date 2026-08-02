@@ -1,9 +1,8 @@
 [gd_scene load_steps=5 format=3]
 
-[ext_resource type="Script" path="res://mode_speed.gd" id="1_script"]
-[ext_resource type="StyleBox" path="res://card_normal_style.tres" id="2_normal"]
-[ext_resource type="StyleBox" path="res://card_pressed_style.tres" id="3_pressed"]
-[ext_resource type="StyleBox" path="res://card_hover_style.tres" id="4_hover"]
+[ext_resource type="Script" path="res://scripts/modes/mode_speed.gd" id="1_script"]
+[ext_resource type="StyleBox" path="res://resources/styles/cards/card_normal_style.tres" id="2_normal"]
+[ext_resource type="StyleBox" path="res://resources/styles/cards/card_pressed_style.tres" id="3_pressed"]
 
 [node name="ModeSpeed" type="Control"]
 layout_mode = 3
@@ -55,7 +54,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/normal = ExtResource("2_normal")
 theme_override_styles/pressed = ExtResource("3_pressed")
-theme_override_styles/hover = ExtResource("4_hover")
+theme_override_styles/hover = ExtResource("2_normal")
 expand_icon = true
 
 [node name="Card2" type="Button" parent="GameBoard/AspectRatioContainer/GridContainer"]
@@ -64,7 +63,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/normal = ExtResource("2_normal")
 theme_override_styles/pressed = ExtResource("3_pressed")
-theme_override_styles/hover = ExtResource("4_hover")
+theme_override_styles/hover = ExtResource("2_normal")
 expand_icon = true
 
 [node name="Card3" type="Button" parent="GameBoard/AspectRatioContainer/GridContainer"]
@@ -73,7 +72,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/normal = ExtResource("2_normal")
 theme_override_styles/pressed = ExtResource("3_pressed")
-theme_override_styles/hover = ExtResource("4_hover")
+theme_override_styles/hover = ExtResource("2_normal")
 expand_icon = true
 
 [node name="Card4" type="Button" parent="GameBoard/AspectRatioContainer/GridContainer"]
@@ -82,7 +81,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/normal = ExtResource("2_normal")
 theme_override_styles/pressed = ExtResource("3_pressed")
-theme_override_styles/hover = ExtResource("4_hover")
+theme_override_styles/hover = ExtResource("2_normal")
 expand_icon = true
 
 [node name="Card5" type="Button" parent="GameBoard/AspectRatioContainer/GridContainer"]
@@ -91,7 +90,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/normal = ExtResource("2_normal")
 theme_override_styles/pressed = ExtResource("3_pressed")
-theme_override_styles/hover = ExtResource("4_hover")
+theme_override_styles/hover = ExtResource("2_normal")
 expand_icon = true
 
 [node name="Card6" type="Button" parent="GameBoard/AspectRatioContainer/GridContainer"]
@@ -100,7 +99,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/normal = ExtResource("2_normal")
 theme_override_styles/pressed = ExtResource("3_pressed")
-theme_override_styles/hover = ExtResource("4_hover")
+theme_override_styles/hover = ExtResource("2_normal")
 expand_icon = true
 
 [node name="Card7" type="Button" parent="GameBoard/AspectRatioContainer/GridContainer"]
@@ -109,7 +108,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/normal = ExtResource("2_normal")
 theme_override_styles/pressed = ExtResource("3_pressed")
-theme_override_styles/hover = ExtResource("4_hover")
+theme_override_styles/hover = ExtResource("2_normal")
 expand_icon = true
 
 [node name="Card8" type="Button" parent="GameBoard/AspectRatioContainer/GridContainer"]
@@ -118,7 +117,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/normal = ExtResource("2_normal")
 theme_override_styles/pressed = ExtResource("3_pressed")
-theme_override_styles/hover = ExtResource("4_hover")
+theme_override_styles/hover = ExtResource("2_normal")
 expand_icon = true
 
 [node name="Card9" type="Button" parent="GameBoard/AspectRatioContainer/GridContainer"]
@@ -127,7 +126,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/normal = ExtResource("2_normal")
 theme_override_styles/pressed = ExtResource("3_pressed")
-theme_override_styles/hover = ExtResource("4_hover")
+theme_override_styles/hover = ExtResource("2_normal")
 expand_icon = true
 
 [node name="Timer" type="Timer" parent="."]

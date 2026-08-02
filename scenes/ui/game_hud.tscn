@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cnq6r3ooeqh1i"]
 
-[ext_resource type="Script" uid="uid://biqpmnbaany6t" path="res://game_hud.gd" id="1"]
-[ext_resource type="Theme" uid="uid://wtcsx6j8lenk" path="res://game_ui_theme.tres" id="2_theme"]
+[ext_resource type="Script" uid="uid://biqpmnbaany6t" path="res://scripts/ui/game_hud.gd" id="1"]
+[ext_resource type="Theme" uid="uid://wtcsx6j8lenk" path="res://resources/themes/game_ui_theme.tres" id="2_theme"]
 [ext_resource type="FontFile" uid="uid://bk7jh362nninf" path="res://assets/fonts/Pretendard-Bold.ttf" id="3_bold"]
 [ext_resource type="Texture2D" uid="uid://c3ssju72f8sxa" path="res://assets/UIexample/settings_128dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.svg" id="4_settings"]
-[ext_resource type="StyleBox" path="res://settings_button_style.tres" id="5_settings"]
+[ext_resource type="StyleBox" path="res://resources/styles/buttons/settings_button_style.tres" id="5_settings"]
 
 [node name="GameHud" type="Control" unique_id=911038551]
 layout_mode = 3

@@ -1,15 +1,14 @@
 [gd_scene load_steps=8 format=3]
 
-[ext_resource type="Script" path="res://mode_gyulhap.gd" id="1_script"]
-[ext_resource type="StyleBox" path="res://main_button_style.tres" id="2_main"]
-[ext_resource type="StyleBox" path="res://sub_button_style.tres" id="3_sub"]
-[ext_resource type="PackedScene" path="res://practice_hap_history.tscn" id="4_history"]
-[ext_resource type="StyleBox" path="res://card_normal_style.tres" id="5_normal"]
-[ext_resource type="StyleBox" path="res://card_pressed_style.tres" id="6_pressed"]
-[ext_resource type="StyleBox" path="res://card_hover_style.tres" id="7_hover"]
-[ext_resource type="StyleBox" path="res://main_button_disabled_style.tres" id="8_main_disabled"]
-[ext_resource type="StyleBox" path="res://sub_button_disabled_style.tres" id="9_sub_disabled"]
-[ext_resource type="StyleBox" path="res://hint_outline_style.tres" id="10_hint_outline"]
+[ext_resource type="Script" path="res://scripts/modes/mode_gyulhap.gd" id="1_script"]
+[ext_resource type="StyleBox" path="res://resources/styles/buttons/main_button_style.tres" id="2_main"]
+[ext_resource type="StyleBox" path="res://resources/styles/buttons/sub_button_style.tres" id="3_sub"]
+[ext_resource type="PackedScene" path="res://scenes/ui/practice_hap_history.tscn" id="4_history"]
+[ext_resource type="StyleBox" path="res://resources/styles/cards/card_normal_style.tres" id="5_normal"]
+[ext_resource type="StyleBox" path="res://resources/styles/cards/card_pressed_style.tres" id="6_pressed"]
+[ext_resource type="StyleBox" path="res://resources/styles/buttons/main_button_disabled_style.tres" id="8_main_disabled"]
+[ext_resource type="StyleBox" path="res://resources/styles/buttons/sub_button_disabled_style.tres" id="9_sub_disabled"]
+[ext_resource type="StyleBox" path="res://resources/styles/cards/hint_outline_style.tres" id="10_hint_outline"]
 
 [node name="ModeGyulHap" type="Control"]
 layout_mode = 3
@@ -62,7 +61,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/normal = ExtResource("5_normal")
 theme_override_styles/pressed = ExtResource("6_pressed")
-theme_override_styles/hover = ExtResource("7_hover")
+theme_override_styles/hover = ExtResource("5_normal")
 expand_icon = true
 
 [node name="HintMarker" type="Control" parent="GameBoard/AspectRatioContainer/GridContainer/Card1"]
@@ -106,7 +105,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/normal = ExtResource("5_normal")
 theme_override_styles/pressed = ExtResource("6_pressed")
-theme_override_styles/hover = ExtResource("7_hover")
+theme_override_styles/hover = ExtResource("5_normal")
 expand_icon = true
 
 [node name="HintMarker" type="Control" parent="GameBoard/AspectRatioContainer/GridContainer/Card2"]
@@ -150,7 +149,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/normal = ExtResource("5_normal")
 theme_override_styles/pressed = ExtResource("6_pressed")
-theme_override_styles/hover = ExtResource("7_hover")
+theme_override_styles/hover = ExtResource("5_normal")
 expand_icon = true
 
 [node name="HintMarker" type="Control" parent="GameBoard/AspectRatioContainer/GridContainer/Card3"]
@@ -194,7 +193,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/normal = ExtResource("5_normal")
 theme_override_styles/pressed = ExtResource("6_pressed")
-theme_override_styles/hover = ExtResource("7_hover")
+theme_override_styles/hover = ExtResource("5_normal")
 expand_icon = true
 
 [node name="HintMarker" type="Control" parent="GameBoard/AspectRatioContainer/GridContainer/Card4"]
@@ -238,7 +237,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/normal = ExtResource("5_normal")
 theme_override_styles/pressed = ExtResource("6_pressed")
-theme_override_styles/hover = ExtResource("7_hover")
+theme_override_styles/hover = ExtResource("5_normal")
 expand_icon = true
 
 [node name="HintMarker" type="Control" parent="GameBoard/AspectRatioContainer/GridContainer/Card5"]
@@ -282,7 +281,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/normal = ExtResource("5_normal")
 theme_override_styles/pressed = ExtResource("6_pressed")
-theme_override_styles/hover = ExtResource("7_hover")
+theme_override_styles/hover = ExtResource("5_normal")
 expand_icon = true
 
 [node name="HintMarker" type="Control" parent="GameBoard/AspectRatioContainer/GridContainer/Card6"]
@@ -326,7 +325,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/normal = ExtResource("5_normal")
 theme_override_styles/pressed = ExtResource("6_pressed")
-theme_override_styles/hover = ExtResource("7_hover")
+theme_override_styles/hover = ExtResource("5_normal")
 expand_icon = true
 
 [node name="HintMarker" type="Control" parent="GameBoard/AspectRatioContainer/GridContainer/Card7"]
@@ -370,7 +369,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/normal = ExtResource("5_normal")
 theme_override_styles/pressed = ExtResource("6_pressed")
-theme_override_styles/hover = ExtResource("7_hover")
+theme_override_styles/hover = ExtResource("5_normal")
 expand_icon = true
 
 [node name="HintMarker" type="Control" parent="GameBoard/AspectRatioContainer/GridContainer/Card8"]
@@ -414,7 +413,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/normal = ExtResource("5_normal")
 theme_override_styles/pressed = ExtResource("6_pressed")
-theme_override_styles/hover = ExtResource("7_hover")
+theme_override_styles/hover = ExtResource("5_normal")
 expand_icon = true
 
 [node name="HintMarker" type="Control" parent="GameBoard/AspectRatioContainer/GridContainer/Card9"]

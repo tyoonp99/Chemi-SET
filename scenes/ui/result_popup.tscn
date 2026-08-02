@@ -1,10 +1,10 @@
 [gd_scene load_steps=5 format=3]
 
-[ext_resource type="Script" path="res://result_popup.gd" id="1_script"]
-[ext_resource type="Theme" path="res://game_ui_theme.tres" id="2_theme"]
-[ext_resource type="StyleBox" path="res://popup_panel_style.tres" id="3_panel"]
-[ext_resource type="StyleBox" path="res://main_button_style.tres" id="4_main"]
-[ext_resource type="StyleBox" path="res://sub_button_style.tres" id="5_sub"]
+[ext_resource type="Script" path="res://scripts/ui/result_popup.gd" id="1_script"]
+[ext_resource type="Theme" path="res://resources/themes/game_ui_theme.tres" id="2_theme"]
+[ext_resource type="StyleBox" path="res://resources/styles/popups/popup_panel_style.tres" id="3_panel"]
+[ext_resource type="StyleBox" path="res://resources/styles/buttons/main_button_style.tres" id="4_main"]
+[ext_resource type="StyleBox" path="res://resources/styles/buttons/sub_button_style.tres" id="5_sub"]
 
 [node name="ResultPopup" type="ColorRect"]
 anchors_preset = 15

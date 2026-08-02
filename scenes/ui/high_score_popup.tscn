@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3]
 
-[ext_resource type="Script" path="res://high_score_popup.gd" id="1_script"]
-[ext_resource type="Theme" path="res://game_ui_theme.tres" id="2_theme"]
-[ext_resource type="StyleBox" path="res://popup_panel_style.tres" id="3_panel"]
-[ext_resource type="StyleBox" path="res://main_button_style.tres" id="4_main"]
+[ext_resource type="Script" path="res://scripts/ui/high_score_popup.gd" id="1_script"]
+[ext_resource type="Theme" path="res://resources/themes/game_ui_theme.tres" id="2_theme"]
+[ext_resource type="StyleBox" path="res://resources/styles/popups/popup_panel_style.tres" id="3_panel"]
+[ext_resource type="StyleBox" path="res://resources/styles/buttons/main_button_style.tres" id="4_main"]
 
 [node name="HighScorePopup" type="ColorRect"]
 anchors_preset = 15

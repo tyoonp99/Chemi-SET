@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="Chemi-SET"
-run/main_scene="uid://bhuwh32racyob"
+run/main_scene="res://scenes/title.tscn"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
 
-Global="*uid://e0yrs4vx3umn"
+Global="*res://scripts/core/Global.gd"
 
 [display]
 

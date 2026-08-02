@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3]
 
-[ext_resource type="Script" path="res://practice_hap_pattern.gd" id="1_script"]
-[ext_resource type="StyleBox" path="res://practice_pattern_frame.tres" id="2_frame"]
-[ext_resource type="StyleBox" path="res://practice_pattern_empty.tres" id="3_empty"]
+[ext_resource type="Script" path="res://scripts/ui/practice_hap_pattern.gd" id="1_script"]
+[ext_resource type="StyleBox" path="res://resources/styles/patterns/practice_pattern_frame.tres" id="2_frame"]
+[ext_resource type="StyleBox" path="res://resources/styles/patterns/practice_pattern_empty.tres" id="3_empty"]
 [node name="PracticeHapPattern" type="PanelContainer"]
 custom_minimum_size = Vector2(72, 72)
 layout_mode = 2

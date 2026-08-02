@@ -1,7 +1,7 @@
 extends Control
 
-const SPEED_SCENE := preload("res://mode_speed.tscn")
-const GYULHAP_SCENE := preload("res://mode_gyulhap.tscn")
+const SPEED_SCENE := preload("res://scenes/modes/mode_speed.tscn")
+const GYULHAP_SCENE := preload("res://scenes/modes/mode_gyulhap.tscn")
 
 var _current_mode: Node
 var _current_config: Dictionary = {}
@@ -103,4 +103,4 @@ func _on_resume_requested() -> void:
 
 func _return_to_title() -> void:
 	get_tree().paused = false
-	get_tree().change_scene_to_file("res://title.tscn")
+	get_tree().change_scene_to_file("res://scenes/title.tscn")
