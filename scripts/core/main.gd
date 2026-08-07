@@ -12,6 +12,7 @@ var _session_active := false
 @onready var _mode_host: Control = %ModeHost
 
 func _ready() -> void:
+	get_tree().set_auto_accept_quit(false)
 	_ui.pause_requested.connect(_on_pause_requested)
 	_ui.resume_requested.connect(_on_resume_requested)
 	_ui.restart_requested.connect(_load_selected_mode)

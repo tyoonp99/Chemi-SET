@@ -3,6 +3,7 @@ extends Control
 var _pending_mode_start: Callable
 
 func _ready():
+	get_tree().set_auto_accept_quit(false)
 	SoundManager.bind_clicks_in(self)
 	# 1. 모드 선택 버튼 연결
 	%Btn1Min.pressed.connect(_on_btn_1min_pressed)
