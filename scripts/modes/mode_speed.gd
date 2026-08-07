@@ -191,6 +191,7 @@ func _check_selection() -> void:
 		_telemetry(&"hap_attempt", attempt_data)
 		feedback_changed.emit("%s! +%d점" % [feedback_style.to_upper(), earned_points], true, feedback_style, breakdown)
 		SoundManager.play_synthesis_success()
+		HapticManager.play_synthesis_success()
 		_refill_cards()
 	else:
 		_wrong_count += 1
@@ -205,6 +206,7 @@ func _check_selection() -> void:
 		_telemetry(&"hap_attempt", attempt_data)
 		feedback_changed.emit("MISS! -%d점" % penalty if penalty > 0 else "MISS!", false, "miss", {})
 		SoundManager.play_failure()
+		HapticManager.play_synthesis_failure()
 	score_changed.emit(_score, _combo)
 
 func _score_breakdown(remaining_answers: int) -> Dictionary:

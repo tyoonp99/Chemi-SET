@@ -18,6 +18,16 @@ func _ready() -> void:
 	_create_player(&"synthesis_success", SYNTHESIS_SUCCESS)
 	_create_player(&"failure", FAILURE)
 	_create_player(&"completion_success", COMPLETION_SUCCESS)
+	set_sfx_enabled(Global.is_sfx_enabled())
+
+func set_sfx_enabled(enabled: bool) -> void:
+	var bus_index := AudioServer.get_bus_index(&"SFX")
+	if bus_index >= 0:
+		AudioServer.set_bus_mute(bus_index, not enabled)
+
+func is_sfx_enabled() -> bool:
+	var bus_index := AudioServer.get_bus_index(&"SFX")
+	return bus_index >= 0 and not AudioServer.is_bus_mute(bus_index)
 
 func bind_clicks_in(root: Node) -> void:
 	for node in root.find_children("*", "BaseButton", true, false):

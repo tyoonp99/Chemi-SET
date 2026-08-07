@@ -20,11 +20,14 @@ func _ready():
 	
 	# 💡 [추가됨] 설정 닫기 버튼 연결 (에디터에서 연결 안 했다면 추가)
 	%SettingsCloseButton.pressed.connect(_on_settings_close_button_pressed)
+	%SettingsSoundButton.pressed.connect(_on_settings_sound_button_pressed)
+	%SettingsHapticButton.pressed.connect(_on_settings_haptic_button_pressed)
 	
 	# 시작할 때 팝업들은 숨겨둡니다
 	%TutorialPopup.hide()
 	%RankingPopup.hide()
 	%SettingsPopup.hide() # 💡 [추가됨] 설정 팝업도 처음에 숨기기
+	_update_settings_sound_button()
 
 # --- 모드 선택 로직 ---
 func _on_btn_1min_pressed():
@@ -105,7 +108,22 @@ func _on_speed_ranking_pressed() -> void:
 
 # --- ⚙️ 설정 팝업 로직 [추가됨] ---
 func _on_setting_button_pressed() -> void:
+	_update_settings_sound_button()
 	%SettingsPopup.show()
 
 func _on_settings_close_button_pressed() -> void:
 	%SettingsPopup.hide()
+
+func _on_settings_sound_button_pressed() -> void:
+	var enabled := not Global.is_sfx_enabled()
+	Global.set_sfx_enabled(enabled)
+	SoundManager.set_sfx_enabled(enabled)
+	_update_settings_sound_button()
+
+func _on_settings_haptic_button_pressed() -> void:
+	Global.set_haptics_enabled(not Global.is_haptics_enabled())
+	_update_settings_sound_button()
+
+func _update_settings_sound_button() -> void:
+	%SettingsSoundButton.text = "🔊 효과음 ON" if Global.is_sfx_enabled() else "🔇 효과음 OFF"
+	%SettingsHapticButton.text = "📳 진동 ON" if Global.is_haptics_enabled() else "📴 진동 OFF"

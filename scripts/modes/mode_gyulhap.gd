@@ -157,6 +157,7 @@ func _on_hap_pressed() -> void:
 				feedback_changed.emit("합성 성공", true, "good")
 				_emit_practice_stats()
 			SoundManager.play_synthesis_success()
+			HapticManager.play_synthesis_success()
 			attempt_data["result"] = "found"
 			attempt_data["used_hint"] = used_active_hint
 			attempt_data["found_hap_count_after"] = _found_hap_keys.size()
@@ -178,6 +179,7 @@ func _on_hap_pressed() -> void:
 				"miss"
 			)
 			SoundManager.play_failure()
+			HapticManager.play_synthesis_failure()
 		_clear_selection()
 	else:
 		_hap_wrong_count += 1
@@ -189,6 +191,7 @@ func _on_hap_pressed() -> void:
 		_telemetry(&"hap_attempt", attempt_data)
 		feedback_changed.emit("합성 실패" if _is_practice else "합성 실패! -%d점" % penalty, false, "miss")
 		SoundManager.play_failure()
+		HapticManager.play_synthesis_failure()
 		_clear_selection()
 	score_changed.emit(_score, _combo)
 
@@ -220,6 +223,7 @@ func _on_gyul_pressed() -> void:
 			feedback_changed.emit("완료 성공! 새 보드를 준비합니다", true, "gyul")
 			_emit_practice_stats()
 		SoundManager.play_completion_success()
+		HapticManager.play_completion_success()
 		gyul_data["success"] = true
 		gyul_data["score_after"] = _score
 		gyul_data["elapsed_board_ms"] = _elapsed_board_ms()

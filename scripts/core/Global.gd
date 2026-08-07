@@ -12,6 +12,8 @@ var mode_config: Dictionary = {}
 var rankings_by_mode: Dictionary = _create_empty_rankings()
 var infinite_stats: Dictionary = _create_empty_infinite_stats()
 var tutorial_completed := false
+var sfx_enabled := true
+var haptics_enabled := true
 
 func _ready() -> void:
 	load_data()
@@ -42,6 +44,7 @@ func load_data() -> void:
 	_load_rankings(json.data)
 	_load_infinite_stats(json.data)
 	_load_tutorial_state(json.data)
+	_load_settings(json.data)
 	save_data()
 
 func save_data() -> void:
@@ -51,7 +54,11 @@ func save_data() -> void:
 	file.store_string(JSON.stringify({
 		"rankings_by_mode": rankings_by_mode,
 		"infinite_stats": infinite_stats,
-		"tutorial_completed": tutorial_completed
+		"tutorial_completed": tutorial_completed,
+		"settings": {
+			"sfx_enabled": sfx_enabled,
+			"haptics_enabled": haptics_enabled
+		}
 	}))
 
 func get_rankings_for_mode(mode: StringName = selected_mode) -> Array:
@@ -91,6 +98,20 @@ func mark_tutorial_completed() -> void:
 	tutorial_completed = true
 	save_data()
 
+func is_sfx_enabled() -> bool:
+	return sfx_enabled
+
+func set_sfx_enabled(enabled: bool) -> void:
+	sfx_enabled = enabled
+	save_data()
+
+func is_haptics_enabled() -> bool:
+	return haptics_enabled
+
+func set_haptics_enabled(enabled: bool) -> void:
+	haptics_enabled = enabled
+	save_data()
+
 func _load_rankings(data: Variant) -> void:
 	if data is Array:
 		rankings_by_mode[MODE_SPEED] = _sanitize_rankings(data)
@@ -120,6 +141,16 @@ func _load_infinite_stats(data: Variant) -> void:
 func _load_tutorial_state(data: Variant) -> void:
 	if data is Dictionary:
 		tutorial_completed = bool(data.get("tutorial_completed", false))
+
+func _load_settings(data: Variant) -> void:
+	sfx_enabled = true
+	haptics_enabled = true
+	if not data is Dictionary:
+		return
+	var raw_settings: Variant = data.get("settings", {})
+	if raw_settings is Dictionary:
+		sfx_enabled = bool(raw_settings.get("sfx_enabled", true))
+		haptics_enabled = bool(raw_settings.get("haptics_enabled", true))
 
 func _sanitize_rankings(raw_rankings: Variant) -> Array:
 	var rankings: Array = []

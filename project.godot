@@ -24,6 +24,7 @@ default_bus_layout="res://default_bus_layout.tres"
 Global="*res://scripts/core/Global.gd"
 PlaytestLogger="*res://scripts/core/playtest_logger.gd"
 SoundManager="*res://scripts/core/sound_manager.gd"
+HapticManager="*res://scripts/core/haptic_manager.gd"
 
 [display]
 

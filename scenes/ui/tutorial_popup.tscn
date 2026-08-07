@@ -12,10 +12,10 @@
 [ext_resource type="Texture2D" uid="uid://b04kc0vcp5b1u" path="res://assets/flasks/round_red_clear.png" id="10_invalid_a"]
 [ext_resource type="Texture2D" uid="uid://nobiun4woufn" path="res://assets/flasks/tri_blue_sediment.png" id="11_invalid_b"]
 [ext_resource type="Texture2D" uid="uid://dhleru5wy7bc7" path="res://assets/flasks/tube_green_clear.png" id="12_invalid_c"]
-[ext_resource type="Texture2D" path="res://assets/flasks/tri_red_bubble.png" id="13_valid_d"]
-[ext_resource type="Texture2D" path="res://assets/flasks/tube_red_sediment.png" id="14_valid_e"]
-[ext_resource type="Texture2D" path="res://assets/flasks/tube_green_sediment.png" id="15_valid_f"]
-[ext_resource type="Texture2D" path="res://assets/flasks/tri_blue_bubble.png" id="16_valid_g"]
+[ext_resource type="Texture2D" uid="uid://bs4fuwmieqdjk" path="res://assets/flasks/tri_red_bubble.png" id="13_valid_d"]
+[ext_resource type="Texture2D" uid="uid://bcmne1o1r0fc2" path="res://assets/flasks/tube_red_sediment.png" id="14_valid_e"]
+[ext_resource type="Texture2D" uid="uid://0q8x74n65hmm" path="res://assets/flasks/tube_green_sediment.png" id="15_valid_f"]
+[ext_resource type="Texture2D" uid="uid://xiw6pexo4wo6" path="res://assets/flasks/tri_blue_bubble.png" id="16_valid_g"]
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_tutorial_tabs"]
 
@@ -193,7 +193,7 @@ theme_override_font_sizes/font_size = 28
 text = "모양은 같고, 색상과 내용물은 모두 다릅니다."
 horizontal_alignment = 1
 
-[node name="ValidExampleTwo" type="Label" parent="Center/Panel/Margin/Content/TutorialBasicPage"]
+[node name="ValidExampleTwo" type="Label" parent="Center/Panel/Margin/Content/TutorialBasicPage" unique_id=933716274]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.282353, 0.741176, 0.960784, 1)
@@ -201,45 +201,45 @@ theme_override_font_sizes/font_size = 28
 text = "예시 2 · 색상은 같고, 나머지는 모두 다름"
 horizontal_alignment = 1
 
-[node name="ValidCardsTwo" type="HBoxContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage"]
+[node name="ValidCardsTwo" type="HBoxContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage" unique_id=1464131263]
 layout_mode = 2
 theme_override_constants/separation = 18
 alignment = 1
 
-[node name="CardA" type="PanelContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsTwo"]
+[node name="CardA" type="PanelContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsTwo" unique_id=1939240979]
 custom_minimum_size = Vector2(110, 110)
 layout_mode = 2
 theme_override_styles/panel = ExtResource("6_card")
 
-[node name="Texture" type="TextureRect" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsTwo/CardA"]
+[node name="Texture" type="TextureRect" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsTwo/CardA" unique_id=1424300983]
 layout_mode = 2
 texture = ExtResource("10_invalid_a")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="CardB" type="PanelContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsTwo"]
+[node name="CardB" type="PanelContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsTwo" unique_id=476627636]
 custom_minimum_size = Vector2(110, 110)
 layout_mode = 2
 theme_override_styles/panel = ExtResource("6_card")
 
-[node name="Texture" type="TextureRect" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsTwo/CardB"]
+[node name="Texture" type="TextureRect" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsTwo/CardB" unique_id=1168164488]
 layout_mode = 2
 texture = ExtResource("13_valid_d")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="CardC" type="PanelContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsTwo"]
+[node name="CardC" type="PanelContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsTwo" unique_id=906143240]
 custom_minimum_size = Vector2(110, 110)
 layout_mode = 2
 theme_override_styles/panel = ExtResource("6_card")
 
-[node name="Texture" type="TextureRect" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsTwo/CardC"]
+[node name="Texture" type="TextureRect" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsTwo/CardC" unique_id=1756611792]
 layout_mode = 2
 texture = ExtResource("14_valid_e")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ValidExampleThree" type="Label" parent="Center/Panel/Margin/Content/TutorialBasicPage"]
+[node name="ValidExampleThree" type="Label" parent="Center/Panel/Margin/Content/TutorialBasicPage" unique_id=86476253]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -248,40 +248,40 @@ theme_override_font_sizes/font_size = 28
 text = "예시 3 · 세 속성이 모두 다름"
 horizontal_alignment = 1
 
-[node name="ValidCardsThree" type="HBoxContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage"]
+[node name="ValidCardsThree" type="HBoxContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage" unique_id=927482851]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 18
 alignment = 1
 
-[node name="CardA" type="PanelContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsThree"]
+[node name="CardA" type="PanelContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsThree" unique_id=372089116]
 custom_minimum_size = Vector2(110, 110)
 layout_mode = 2
 theme_override_styles/panel = ExtResource("6_card")
 
-[node name="Texture" type="TextureRect" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsThree/CardA"]
+[node name="Texture" type="TextureRect" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsThree/CardA" unique_id=1741226977]
 layout_mode = 2
 texture = ExtResource("10_invalid_a")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="CardB" type="PanelContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsThree"]
+[node name="CardB" type="PanelContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsThree" unique_id=1779762349]
 custom_minimum_size = Vector2(110, 110)
 layout_mode = 2
 theme_override_styles/panel = ExtResource("6_card")
 
-[node name="Texture" type="TextureRect" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsThree/CardB"]
+[node name="Texture" type="TextureRect" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsThree/CardB" unique_id=135974779]
 layout_mode = 2
 texture = ExtResource("16_valid_g")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="CardC" type="PanelContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsThree"]
+[node name="CardC" type="PanelContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsThree" unique_id=620474084]
 custom_minimum_size = Vector2(110, 110)
 layout_mode = 2
 theme_override_styles/panel = ExtResource("6_card")
 
-[node name="Texture" type="TextureRect" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsThree/CardC"]
+[node name="Texture" type="TextureRect" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsThree/CardC" unique_id=2101531951]
 layout_mode = 2
 texture = ExtResource("15_valid_f")
 expand_mode = 1
@@ -670,11 +670,11 @@ text = "상단의 (+N)은 이번 플레이에서
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="TutorialActions" type="HBoxContainer" parent="Center/Panel/Margin/Content"]
+[node name="TutorialActions" type="HBoxContainer" parent="Center/Panel/Margin/Content" unique_id=1385230994]
 layout_mode = 2
 theme_override_constants/separation = 14
 
-[node name="InteractiveTutorialButton" type="Button" parent="Center/Panel/Margin/Content/TutorialActions"]
+[node name="InteractiveTutorialButton" type="Button" parent="Center/Panel/Margin/Content/TutorialActions" unique_id=1054038510]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
