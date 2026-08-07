@@ -4,6 +4,7 @@ var _pending_mode_start: Callable
 
 func _ready():
 	get_tree().set_auto_accept_quit(false)
+	get_window().go_back_requested.connect(_on_android_go_back_requested)
 	SoundManager.bind_clicks_in(self)
 	# 1. 모드 선택 버튼 연결
 	%Btn1Min.pressed.connect(_on_btn_1min_pressed)
@@ -132,9 +133,7 @@ func _update_settings_sound_button() -> void:
 	%SettingsSoundButton.text = "🔊 효과음 ON" if Global.is_sfx_enabled() else "🔇 효과음 OFF"
 	%SettingsHapticButton.text = "📳 진동 ON" if Global.is_haptics_enabled() else "📴 진동 OFF"
 
-func _notification(what: int) -> void:
-	if what != NOTIFICATION_WM_GO_BACK_REQUEST:
-		return
+func _on_android_go_back_requested() -> void:
 	if %ExitConfirmPopup.visible:
 		%ExitConfirmPopup.hide()
 	elif %SettingsPopup.visible:

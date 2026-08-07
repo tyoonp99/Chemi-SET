@@ -13,6 +13,7 @@ var _session_active := false
 
 func _ready() -> void:
 	get_tree().set_auto_accept_quit(false)
+	get_window().go_back_requested.connect(_on_android_go_back_requested)
 	_ui.pause_requested.connect(_on_pause_requested)
 	_ui.resume_requested.connect(_on_resume_requested)
 	_ui.restart_requested.connect(_load_selected_mode)
@@ -146,8 +147,6 @@ func _return_to_title() -> void:
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_APPLICATION_FOCUS_OUT:
 		_pause_for_lifecycle()
-	elif what == NOTIFICATION_WM_GO_BACK_REQUEST:
-		_handle_android_back_request()
 
 func _pause_for_lifecycle() -> void:
 	if not OS.has_feature("mobile"):
@@ -159,7 +158,7 @@ func _pause_for_lifecycle() -> void:
 	_ui.show_pause()
 	get_tree().paused = true
 
-func _handle_android_back_request() -> void:
+func _on_android_go_back_requested() -> void:
 	if _ui.is_pause_visible():
 		_on_resume_requested()
 	elif _ui.is_result_visible():
