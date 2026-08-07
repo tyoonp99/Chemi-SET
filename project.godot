@@ -12,9 +12,9 @@ config_version=5
 
 config/name="Chemi-SET"
 run/main_scene="res://scenes/title.tscn"
+config/quit_on_go_back=false
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
-config/quit_on_go_back=false
 
 [audio]
 
