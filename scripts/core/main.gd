@@ -6,6 +6,7 @@ const GYULHAP_SCENE := preload("res://scenes/modes/mode_gyulhap.tscn")
 var _current_mode: Node
 var _current_config: Dictionary = {}
 var _current_result: Dictionary = {}
+var _session_active := false
 
 @onready var _ui: UIManager = %GameUI
 @onready var _mode_host: Control = %ModeHost
@@ -21,6 +22,8 @@ func _ready() -> void:
 func _load_selected_mode() -> void:
 	get_tree().paused = false
 	_ui.hide_all_popups()
+	_current_result.clear()
+	_session_active = true
 	if _current_mode:
 		_mode_host.remove_child(_current_mode)
 		_current_mode.queue_free()
@@ -73,6 +76,7 @@ func _on_telemetry_event(event_name: StringName, data: Dictionary) -> void:
 	PlaytestLogger.log_event(Global.selected_mode, event_name, data)
 
 func _on_game_over(result: Dictionary) -> void:
+	_session_active = false
 	_current_result = result.duplicate(true)
 	var mode: StringName = StringName(_current_result["mode"])
 	var ranking_enabled := bool(_current_config.get("ranking_enabled", true))
@@ -135,4 +139,29 @@ func _on_resume_requested() -> void:
 
 func _return_to_title() -> void:
 	get_tree().paused = false
+	_session_active = false
 	get_tree().change_scene_to_file("res://scenes/title.tscn")
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+		_pause_for_lifecycle()
+	elif what == NOTIFICATION_WM_GO_BACK_REQUEST:
+		_handle_android_back_request()
+
+func _pause_for_lifecycle() -> void:
+	if not OS.has_feature("mobile"):
+		return
+	if not _session_active or Global.selected_mode == Global.MODE_PRACTICE:
+		return
+	if get_tree().paused:
+		return
+	_ui.show_pause()
+	get_tree().paused = true
+
+func _handle_android_back_request() -> void:
+	if _ui.is_pause_visible():
+		_on_resume_requested()
+	elif _ui.is_result_visible():
+		_return_to_title()
+	elif _session_active:
+		_on_pause_requested()

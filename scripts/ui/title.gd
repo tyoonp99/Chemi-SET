@@ -22,11 +22,13 @@ func _ready():
 	%SettingsCloseButton.pressed.connect(_on_settings_close_button_pressed)
 	%SettingsSoundButton.pressed.connect(_on_settings_sound_button_pressed)
 	%SettingsHapticButton.pressed.connect(_on_settings_haptic_button_pressed)
+	%ExitConfirmPopup.confirmed.connect(get_tree().quit)
 	
 	# 시작할 때 팝업들은 숨겨둡니다
 	%TutorialPopup.hide()
 	%RankingPopup.hide()
 	%SettingsPopup.hide() # 💡 [추가됨] 설정 팝업도 처음에 숨기기
+	%ExitConfirmPopup.hide()
 	_update_settings_sound_button()
 
 # --- 모드 선택 로직 ---
@@ -101,7 +103,8 @@ func _on_interactive_tutorial_completed() -> void:
 		start_action.call()
 
 func _on_quit_button_pressed():
-	get_tree().quit()
+	%SettingsPopup.hide()
+	%ExitConfirmPopup.show()
 
 func _on_speed_ranking_pressed() -> void:
 	%RankingPopup.call("open_mode", Global.MODE_SPEED)
@@ -127,3 +130,19 @@ func _on_settings_haptic_button_pressed() -> void:
 func _update_settings_sound_button() -> void:
 	%SettingsSoundButton.text = "🔊 효과음 ON" if Global.is_sfx_enabled() else "🔇 효과음 OFF"
 	%SettingsHapticButton.text = "📳 진동 ON" if Global.is_haptics_enabled() else "📴 진동 OFF"
+
+func _notification(what: int) -> void:
+	if what != NOTIFICATION_WM_GO_BACK_REQUEST:
+		return
+	if %ExitConfirmPopup.visible:
+		%ExitConfirmPopup.hide()
+	elif %SettingsPopup.visible:
+		%SettingsPopup.hide()
+	elif %RankingPopup.visible:
+		%RankingPopup.hide()
+	elif %TutorialPopup.visible:
+		%TutorialPopup.hide()
+	elif %InteractiveTutorial.visible:
+		%InteractiveTutorial.hide()
+	else:
+		%ExitConfirmPopup.show()

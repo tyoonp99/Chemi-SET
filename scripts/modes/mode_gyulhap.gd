@@ -13,6 +13,8 @@ signal practice_stats_changed(
 )
 signal telemetry_event(event_name: StringName, data: Dictionary)
 
+const ACTION_INPUT_LOCK_MS := 120
+
 var _selected_cards: Array[int] = []
 var _full_deck: Array[Dictionary] = []
 var _board_cards: Array[Dictionary] = []
@@ -44,6 +46,7 @@ var _session_started_at_ms := 0
 var _board_started_at_ms := 0
 var _active_hint_started_at_ms := 0
 var _card_press_tweens: Array[Tween] = []
+var _input_locked_until_ms := 0
 
 @onready var _grid: GridContainer = %GridContainer
 @onready var _timer: Timer = %Timer
@@ -85,6 +88,7 @@ func start(config: Dictionary) -> void:
 	_practice_start_gyul_count = _session_gyul_count
 	_hint_used_this_round = false
 	_last_time = -1
+	_input_locked_until_ms = 0
 	_redeal_board()
 	_telemetry(&"session_started", {
 		"time_limit_seconds": int(_config.get("time_limit", 180)),
@@ -106,7 +110,7 @@ func _process(_delta: float) -> void:
 		_emit_time()
 
 func _on_card_pressed(index: int) -> void:
-	if _is_game_over or _is_board_transition:
+	if _is_game_over or _is_board_transition or _is_input_locked():
 		return
 	var card_button := _grid.get_child(index) as Button
 	_play_card_press_tension(index)
@@ -119,7 +123,7 @@ func _on_card_pressed(index: int) -> void:
 	_update_action_buttons()
 
 func _on_hap_pressed() -> void:
-	if _selected_cards.size() != 3 or _is_game_over or _is_board_transition:
+	if _selected_cards.size() != 3 or _is_game_over or _is_board_transition or _is_input_locked():
 		return
 	var selected_data: Array = []
 	for index in _selected_cards:
@@ -194,9 +198,10 @@ func _on_hap_pressed() -> void:
 		HapticManager.play_synthesis_failure()
 		_clear_selection()
 	score_changed.emit(_score, _combo)
+	_lock_action_input()
 
 func _on_gyul_pressed() -> void:
-	if _is_game_over or _is_board_transition:
+	if _is_game_over or _is_board_transition or _is_input_locked():
 		return
 	var total_hap_count := _count_set_combinations()
 	var gyul_data := {
@@ -247,9 +252,10 @@ func _on_gyul_pressed() -> void:
 		SoundManager.play_failure()
 		_clear_selection()
 	score_changed.emit(_score, _combo)
+	_lock_action_input()
 
 func _on_hint_pressed() -> void:
-	if not _is_practice or _is_game_over or _is_board_transition:
+	if not _is_practice or _is_game_over or _is_board_transition or _is_input_locked():
 		return
 	if _active_hint_card_index != -1:
 		return
@@ -335,6 +341,12 @@ func _update_action_buttons() -> void:
 		or _is_board_transition
 		or _active_hint_card_index != -1
 	)
+
+func _is_input_locked() -> bool:
+	return Time.get_ticks_msec() < _input_locked_until_ms
+
+func _lock_action_input() -> void:
+	_input_locked_until_ms = Time.get_ticks_msec() + ACTION_INPUT_LOCK_MS
 
 func _find_hint_target() -> Array[int]:
 	var targets: Array[Array] = []

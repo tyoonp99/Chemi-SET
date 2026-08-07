@@ -11,6 +11,7 @@ const LOW_ANSWER_LIMIT := 2
 const RECOVERY_MIN_SET_COUNT := 3
 const RECOVERY_GENERATION_ATTEMPTS := 20
 const INITIAL_GENERATION_ATTEMPTS := 20
+const RESOLUTION_INPUT_LOCK_MS := 80
 
 var _selected_cards: Array[int] = []
 var _full_deck: Array[Dictionary] = []
@@ -33,6 +34,7 @@ var _board_started_at_ms := 0
 var _board_revision := 0
 var _previous_board_had_low_answers := false
 var _card_press_tweens: Array[Tween] = []
+var _input_locked_until_ms := 0
 
 @onready var _grid: GridContainer = %GridContainer
 @onready var _timer: Timer = %Timer
@@ -84,6 +86,7 @@ func _build_board() -> void:
 	_good_count = 0
 	_is_game_over = false
 	_last_time = -1
+	_input_locked_until_ms = 0
 	var initial_attempts := _deal_initial_board_with_minimum_sets()
 	_previous_board_had_low_answers = _count_set_combinations() <= LOW_ANSWER_LIMIT
 	_begin_board_log(&"initial", {
@@ -139,7 +142,7 @@ func _find_set_in_cards(cards: Array[Dictionary]) -> Array[Dictionary]:
 	return []
 
 func _on_card_pressed(index: int) -> void:
-	if _is_game_over:
+	if _is_game_over or _is_input_locked():
 		return
 	var card_button := _grid.get_child(index) as Button
 	_play_card_press_tension(index)
@@ -154,6 +157,7 @@ func _on_card_pressed(index: int) -> void:
 		_check_selection()
 		_reset_selection_visuals()
 		_selected_cards.clear()
+		_lock_input_briefly()
 
 func _check_selection() -> void:
 	var cards: Array = []
@@ -407,6 +411,12 @@ func _play_card_press_tension(index: int) -> void:
 func _reset_selection_visuals() -> void:
 	for index in _selected_cards:
 		(_grid.get_child(index) as Button).modulate = Color.WHITE
+
+func _is_input_locked() -> bool:
+	return Time.get_ticks_msec() < _input_locked_until_ms
+
+func _lock_input_briefly() -> void:
+	_input_locked_until_ms = Time.get_ticks_msec() + RESOLUTION_INPUT_LOCK_MS
 
 func _emit_time() -> void:
 	var seconds_left := ceili(_timer.time_left)

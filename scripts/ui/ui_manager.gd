@@ -69,6 +69,12 @@ func hide_pause() -> void:
 	if _pause_popup:
 		_pause_popup.hide()
 
+func is_pause_visible() -> bool:
+	return _pause_popup != null and _pause_popup.visible
+
+func is_result_visible() -> bool:
+	return _result_popup != null and _result_popup.visible
+
 func show_result(message: String) -> void:
 	if _result_popup:
 		_result_popup.show_result(message)

@@ -1,6 +1,7 @@
 extends Node
 
 const SAVE_PATH := "user://ranking_data.json"
+const BACKUP_SAVE_PATH := "user://ranking_data.backup.json"
 const RANKING_LIMIT := 5
 const MODE_SPEED: StringName = &"speed"
 const MODE_GYULHAP: StringName = &"gyulhap"
@@ -28,30 +29,20 @@ func get_mode_config() -> Dictionary:
 func load_data() -> void:
 	rankings_by_mode = _create_empty_rankings()
 	infinite_stats = _create_empty_infinite_stats()
-	if not FileAccess.file_exists(SAVE_PATH):
+	var data: Variant = _read_save_data(SAVE_PATH)
+	if data == null:
+		data = _read_save_data(BACKUP_SAVE_PATH)
+	if data == null:
 		save_data()
 		return
-
-	var file := FileAccess.open(SAVE_PATH, FileAccess.READ)
-	if file == null:
-		return
-
-	var json := JSON.new()
-	if json.parse(file.get_as_text()) != OK:
-		save_data()
-		return
-
-	_load_rankings(json.data)
-	_load_infinite_stats(json.data)
-	_load_tutorial_state(json.data)
-	_load_settings(json.data)
+	_load_rankings(data)
+	_load_infinite_stats(data)
+	_load_tutorial_state(data)
+	_load_settings(data)
 	save_data()
 
 func save_data() -> void:
-	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
-	if file == null:
-		return
-	file.store_string(JSON.stringify({
+	var data := {
 		"rankings_by_mode": rankings_by_mode,
 		"infinite_stats": infinite_stats,
 		"tutorial_completed": tutorial_completed,
@@ -59,7 +50,25 @@ func save_data() -> void:
 			"sfx_enabled": sfx_enabled,
 			"haptics_enabled": haptics_enabled
 		}
-	}))
+	}
+	_write_save_data(SAVE_PATH, data)
+	_write_save_data(BACKUP_SAVE_PATH, data)
+
+func _read_save_data(path: String) -> Variant:
+	if not FileAccess.file_exists(path):
+		return null
+	var file := FileAccess.open(path, FileAccess.READ)
+	if file == null:
+		return null
+	var json := JSON.new()
+	if json.parse(file.get_as_text()) != OK:
+		return null
+	return json.data if json.data is Dictionary or json.data is Array else null
+
+func _write_save_data(path: String, data: Dictionary) -> void:
+	var file := FileAccess.open(path, FileAccess.WRITE)
+	if file != null:
+		file.store_string(JSON.stringify(data))
 
 func get_rankings_for_mode(mode: StringName = selected_mode) -> Array:
 	var rankings: Array = rankings_by_mode.get(mode, [])
