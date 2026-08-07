@@ -13,7 +13,6 @@ var _session_active := false
 
 func _ready() -> void:
 	get_tree().set_auto_accept_quit(false)
-	get_window().go_back_requested.connect(_on_android_go_back_requested)
 	_ui.pause_requested.connect(_on_pause_requested)
 	_ui.resume_requested.connect(_on_resume_requested)
 	_ui.restart_requested.connect(_load_selected_mode)
@@ -158,7 +157,14 @@ func _pause_for_lifecycle() -> void:
 	_ui.show_pause()
 	get_tree().paused = true
 
-func _on_android_go_back_requested() -> void:
+func _unhandled_key_input(event: InputEvent) -> void:
+	if not OS.has_feature("mobile"):
+		return
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_BACK:
+		_handle_android_back_request()
+		get_viewport().set_input_as_handled()
+
+func _handle_android_back_request() -> void:
 	if _ui.is_pause_visible():
 		_on_resume_requested()
 	elif _ui.is_result_visible():
