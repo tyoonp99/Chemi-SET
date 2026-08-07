@@ -44,6 +44,9 @@ var _ranking_entry_pending := false
 @onready var _top_scores_button: Button = %TopScoresButton
 @onready var _title_button: Button = %TitleButton
 @onready var _back_to_result_button: Button = %BackToResultButton
+@onready var _rank_skip_confirm: ColorRect = %RankSkipConfirm
+@onready var _keep_rank_entry_button: Button = %KeepRankEntryButton
+@onready var _skip_rank_entry_button: Button = %SkipRankEntryButton
 
 func _ready() -> void:
 	_restart_button.pressed.connect(func() -> void: restart_pressed.emit())
@@ -52,6 +55,9 @@ func _ready() -> void:
 	_back_to_result_button.pressed.connect(_show_active_summary)
 	_rank_submit_button.pressed.connect(_submit_high_score)
 	_rank_name_input.text_submitted.connect(func(_text: String) -> void: _submit_high_score())
+	_keep_rank_entry_button.pressed.connect(_close_rank_skip_confirmation)
+	_skip_rank_entry_button.pressed.connect(_skip_rank_entry)
+	_rank_skip_confirm.hide()
 
 func show_result(message: String) -> void:
 	_active_result_mode = &""
@@ -119,6 +125,17 @@ func _show_active_summary() -> void:
 	if _ranking_entry_pending:
 		_rank_name_input.grab_focus()
 
+func request_back() -> bool:
+	if _rank_skip_confirm.visible:
+		_close_rank_skip_confirmation()
+		return true
+	if not _ranking_entry_pending:
+		return false
+	_rank_name_input.release_focus()
+	DisplayServer.virtual_keyboard_hide()
+	_rank_skip_confirm.show()
+	return true
+
 func _show_rankings() -> void:
 	_speed_result_content.hide()
 	_gyulhap_result_content.hide()
@@ -137,6 +154,16 @@ func _submit_high_score() -> void:
 	_ranking_entry_pending = false
 	_rank_submit_button.disabled = true
 	high_score_submitted.emit(player_name)
+
+func _close_rank_skip_confirmation() -> void:
+	_rank_skip_confirm.hide()
+	if _ranking_entry_pending:
+		_rank_name_input.grab_focus()
+
+func _skip_rank_entry() -> void:
+	_rank_skip_confirm.hide()
+	_ranking_entry_pending = false
+	title_pressed.emit()
 
 func _set_rank_achievement(label: Label, achieved_rank: int) -> void:
 	label.visible = achieved_rank in range(1, Global.RANKING_LIMIT + 1)

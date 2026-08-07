@@ -400,3 +400,67 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = ExtResource("5_sub")
 text = "🏠 타이틀로"
+
+[node name="RankSkipConfirm" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="Center" type="CenterContainer" parent="RankSkipConfirm"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="RankSkipConfirm/Center"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_panel")
+
+[node name="Margin" type="MarginContainer" parent="RankSkipConfirm/Center/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 40
+
+[node name="Content" type="VBoxContainer" parent="RankSkipConfirm/Center/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="RankSkipConfirm/Center/Panel/Margin/Content"]
+custom_minimum_size = Vector2(420, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 34
+text = "기록을 남기지 않고 나갈까요?"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="RankSkipConfirm/Center/Panel/Margin/Content"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "이번 TOP 5 기록은 저장되지 않습니다."
+horizontal_alignment = 1
+
+[node name="KeepRankEntryButton" type="Button" parent="RankSkipConfirm/Center/Panel/Margin/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = ExtResource("4_main")
+text = "계속 입력"
+
+[node name="SkipRankEntryButton" type="Button" parent="RankSkipConfirm/Center/Panel/Margin/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 60)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = ExtResource("5_sub")
+text = "기록 없이 나가기"

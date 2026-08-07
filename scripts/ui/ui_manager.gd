@@ -81,6 +81,9 @@ func show_gyulhap_result(result: Dictionary, rankings: Array) -> void:
 	if _result_popup:
 		_result_popup.show_gyulhap_result(result, rankings)
 
+func request_result_back() -> bool:
+	return _result_popup != null and _result_popup.request_back()
+
 func hide_all_popups() -> void:
 	if _pause_popup:
 		_pause_popup.hide()

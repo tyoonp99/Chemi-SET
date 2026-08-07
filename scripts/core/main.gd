@@ -183,6 +183,7 @@ func _handle_android_back_request() -> void:
 	if _flow_state == GameFlowState.PAUSE_POPUP:
 		_on_resume_requested()
 	elif _flow_state == GameFlowState.RESULT_POPUP:
-		_return_to_title()
+		if not _ui.request_result_back():
+			_return_to_title()
 	elif _flow_state == GameFlowState.PLAYING and _session_active:
 		_on_pause_requested()
