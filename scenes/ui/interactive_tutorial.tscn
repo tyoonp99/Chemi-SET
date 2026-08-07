@@ -1,0 +1,184 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/interactive_tutorial.gd" id="1_script"]
+[ext_resource type="Theme" path="res://resources/themes/game_ui_theme.tres" id="2_theme"]
+[ext_resource type="StyleBox" path="res://resources/styles/popups/popup_panel_style.tres" id="3_panel"]
+[ext_resource type="StyleBox" path="res://resources/styles/buttons/title_popup_main_button_style.tres" id="4_main"]
+[ext_resource type="StyleBox" path="res://resources/styles/buttons/title_popup_sub_button_style.tres" id="5_sub"]
+[ext_resource type="StyleBox" path="res://resources/styles/cards/card_normal_style.tres" id="6_card"]
+[ext_resource type="Texture2D" path="res://assets/flasks/round_red_clear.png" id="7_card_0"]
+[ext_resource type="Texture2D" path="res://assets/flasks/round_blue_clear.png" id="8_card_1"]
+[ext_resource type="Texture2D" path="res://assets/flasks/round_blue_bubble.png" id="9_card_2"]
+[ext_resource type="Texture2D" path="res://assets/flasks/tri_red_clear.png" id="10_card_3"]
+[ext_resource type="Texture2D" path="res://assets/flasks/round_red_bubble.png" id="11_card_4"]
+[ext_resource type="Texture2D" path="res://assets/flasks/tri_red_bubble.png" id="12_card_5"]
+[ext_resource type="Texture2D" path="res://assets/flasks/tri_blue_clear.png" id="13_card_6"]
+[ext_resource type="Texture2D" path="res://assets/flasks/tri_blue_bubble.png" id="14_card_7"]
+[ext_resource type="Texture2D" path="res://assets/flasks/round_red_sediment.png" id="15_card_8"]
+
+[node name="InteractiveTutorial" type="ColorRect"]
+process_mode = 3
+visible = false
+z_index = 11
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+color = Color(0, 0, 0, 0.7)
+script = ExtResource("1_script")
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_panel")
+
+[node name="Margin" type="MarginContainer" parent="Center/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 40
+
+[node name="Content" type="VBoxContainer" parent="Center/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 22
+
+[node name="Title" type="Label" parent="Center/Panel/Margin/Content"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "첫 실험 체험"
+horizontal_alignment = 1
+
+[node name="Instruction" type="Label" parent="Center/Panel/Margin/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.87, 1)
+theme_override_font_sizes/font_size = 28
+text = "합성되는 카드 3장을 선택해 보세요."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Progress" type="Label" parent="Center/Panel/Margin/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.282353, 0.741176, 0.960784, 1)
+theme_override_font_sizes/font_size = 28
+text = "1 / 2  카드 선택"
+horizontal_alignment = 1
+
+[node name="BoardCenter" type="CenterContainer" parent="Center/Panel/Margin/Content"]
+layout_mode = 2
+
+[node name="Board" type="GridContainer" parent="Center/Panel/Margin/Content/BoardCenter"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 3
+
+[node name="Card0" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("6_card")
+icon = ExtResource("7_card_0")
+expand_icon = true
+
+[node name="Card1" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("6_card")
+icon = ExtResource("8_card_1")
+expand_icon = true
+
+[node name="Card2" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("6_card")
+icon = ExtResource("9_card_2")
+expand_icon = true
+
+[node name="Card3" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("6_card")
+icon = ExtResource("10_card_3")
+expand_icon = true
+
+[node name="Card4" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("6_card")
+icon = ExtResource("11_card_4")
+expand_icon = true
+
+[node name="Card5" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("6_card")
+icon = ExtResource("12_card_5")
+expand_icon = true
+
+[node name="Card6" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("6_card")
+icon = ExtResource("13_card_6")
+expand_icon = true
+
+[node name="Card7" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("6_card")
+icon = ExtResource("14_card_7")
+expand_icon = true
+
+[node name="Card8" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("6_card")
+icon = ExtResource("15_card_8")
+expand_icon = true
+
+[node name="Buttons" type="HBoxContainer" parent="Center/Panel/Margin/Content"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="SynthesisButton" type="Button" parent="Center/Panel/Margin/Content/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("4_main")
+theme_override_styles/disabled = ExtResource("5_sub")
+text = "합성"
+
+[node name="CompletionButton" type="Button" parent="Center/Panel/Margin/Content/Buttons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+theme_override_colors/font_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
+theme_override_styles/normal = ExtResource("4_main")
+theme_override_styles/disabled = ExtResource("5_sub")
+text = "완료"
+
+[node name="CloseButton" type="Button" parent="Center/Panel/Margin/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 56)
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = ExtResource("5_sub")
+text = "나중에 하기"

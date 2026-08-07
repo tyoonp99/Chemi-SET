@@ -1,0 +1,694 @@
+[gd_scene format=3 uid="uid://bv1xf7vd6vr48"]
+
+[ext_resource type="Script" uid="uid://cgx0rredplaj1" path="res://scripts/ui/tutorial_popup.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://wtcsx6j8lenk" path="res://resources/themes/game_ui_theme.tres" id="2_theme"]
+[ext_resource type="StyleBox" uid="uid://dg4sc8k2d738s" path="res://resources/styles/popups/popup_panel_style.tres" id="3_panel"]
+[ext_resource type="StyleBox" path="res://resources/styles/buttons/title_popup_main_button_style.tres" id="4_main"]
+[ext_resource type="StyleBox" path="res://resources/styles/buttons/title_popup_sub_button_style.tres" id="5_sub"]
+[ext_resource type="StyleBox" path="res://resources/styles/cards/card_normal_style.tres" id="6_card"]
+[ext_resource type="Texture2D" uid="uid://5bpnb4bnv45e" path="res://assets/flasks/round_red_sediment.png" id="7_valid_a"]
+[ext_resource type="Texture2D" uid="uid://dm2s111oc6dr" path="res://assets/flasks/round_blue_bubble.png" id="8_valid_b"]
+[ext_resource type="Texture2D" uid="uid://vohgf6pd4osd" path="res://assets/flasks/round_green_clear.png" id="9_valid_c"]
+[ext_resource type="Texture2D" uid="uid://b04kc0vcp5b1u" path="res://assets/flasks/round_red_clear.png" id="10_invalid_a"]
+[ext_resource type="Texture2D" uid="uid://nobiun4woufn" path="res://assets/flasks/tri_blue_sediment.png" id="11_invalid_b"]
+[ext_resource type="Texture2D" uid="uid://dhleru5wy7bc7" path="res://assets/flasks/tube_green_clear.png" id="12_invalid_c"]
+[ext_resource type="Texture2D" path="res://assets/flasks/tri_red_bubble.png" id="13_valid_d"]
+[ext_resource type="Texture2D" path="res://assets/flasks/tube_red_sediment.png" id="14_valid_e"]
+[ext_resource type="Texture2D" path="res://assets/flasks/tube_green_sediment.png" id="15_valid_f"]
+[ext_resource type="Texture2D" path="res://assets/flasks/tri_blue_bubble.png" id="16_valid_g"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_tutorial_tabs"]
+
+[node name="TutorialPopup" type="ColorRect" unique_id=1453766449]
+process_mode = 3
+visible = false
+z_index = 10
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+color = Color(0, 0, 0, 0.588235)
+script = ExtResource("1_script")
+
+[node name="Center" type="CenterContainer" parent="." unique_id=1718314149]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Center" unique_id=2100421738]
+custom_minimum_size = Vector2(640, 1050)
+custom_maximum_size = Vector2(640, 1050)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_panel")
+
+[node name="Margin" type="MarginContainer" parent="Center/Panel" unique_id=2093881484]
+layout_mode = 2
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 40
+
+[node name="Content" type="VBoxContainer" parent="Center/Panel/Margin" unique_id=68042115]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 22
+
+[node name="Title" type="Label" parent="Center/Panel/Margin/Content" unique_id=275655733]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "게임 방법"
+horizontal_alignment = 1
+
+[node name="Tabs" type="HBoxContainer" parent="Center/Panel/Margin/Content" unique_id=276359941]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TutorialBasicTab" type="Button" parent="Center/Panel/Margin/Content/Tabs" unique_id=1431671183]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = ExtResource("5_sub")
+theme_override_styles/pressed = ExtResource("4_main")
+toggle_mode = true
+button_pressed = true
+button_group = SubResource("ButtonGroup_tutorial_tabs")
+text = "기본"
+
+[node name="TutorialSpeedTab" type="Button" parent="Center/Panel/Margin/Content/Tabs" unique_id=1380602175]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = ExtResource("5_sub")
+theme_override_styles/pressed = ExtResource("4_main")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_tutorial_tabs")
+text = "급속"
+
+[node name="TutorialGyulHapTab" type="Button" parent="Center/Panel/Margin/Content/Tabs" unique_id=311346760]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = ExtResource("5_sub")
+theme_override_styles/pressed = ExtResource("4_main")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_tutorial_tabs")
+text = "정밀"
+
+[node name="TutorialInfiniteTab" type="Button" parent="Center/Panel/Margin/Content/Tabs" unique_id=307594001]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = ExtResource("5_sub")
+theme_override_styles/pressed = ExtResource("4_main")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_tutorial_tabs")
+text = "자유"
+
+[node name="TutorialBasicPage" type="VBoxContainer" parent="Center/Panel/Margin/Content" unique_id=1891179499]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 650)
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="Intro" type="Label" parent="Center/Panel/Margin/Content/TutorialBasicPage" unique_id=752166280]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.87, 1)
+theme_override_font_sizes/font_size = 28
+text = "카드 3장을 선택하세요.
+모양·색상·내용물 상태를 각각 비교합니다."
+horizontal_alignment = 1
+
+[node name="ValidTitle" type="Label" parent="Center/Panel/Margin/Content/TutorialBasicPage" unique_id=908073594]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.282353, 0.741176, 0.960784, 1)
+theme_override_font_sizes/font_size = 30
+text = "✓ 합성이 되는 조합"
+horizontal_alignment = 1
+
+[node name="ValidCards" type="HBoxContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage" unique_id=1163189424]
+layout_mode = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="CardA" type="PanelContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCards" unique_id=561256611]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("6_card")
+
+[node name="Texture" type="TextureRect" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCards/CardA" unique_id=2014200577]
+layout_mode = 2
+texture = ExtResource("7_valid_a")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CardB" type="PanelContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCards" unique_id=938556759]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("6_card")
+
+[node name="Texture" type="TextureRect" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCards/CardB" unique_id=1848190966]
+layout_mode = 2
+texture = ExtResource("8_valid_b")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CardC" type="PanelContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCards" unique_id=453245283]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("6_card")
+
+[node name="Texture" type="TextureRect" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCards/CardC" unique_id=4617750]
+layout_mode = 2
+texture = ExtResource("9_valid_c")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ValidExplanation" type="Label" parent="Center/Panel/Margin/Content/TutorialBasicPage" unique_id=1350636742]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.87, 1)
+theme_override_font_sizes/font_size = 28
+text = "모양은 같고, 색상과 내용물은 모두 다릅니다."
+horizontal_alignment = 1
+
+[node name="ValidExampleTwo" type="Label" parent="Center/Panel/Margin/Content/TutorialBasicPage"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.282353, 0.741176, 0.960784, 1)
+theme_override_font_sizes/font_size = 28
+text = "예시 2 · 색상은 같고, 나머지는 모두 다름"
+horizontal_alignment = 1
+
+[node name="ValidCardsTwo" type="HBoxContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage"]
+layout_mode = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="CardA" type="PanelContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsTwo"]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("6_card")
+
+[node name="Texture" type="TextureRect" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsTwo/CardA"]
+layout_mode = 2
+texture = ExtResource("10_invalid_a")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CardB" type="PanelContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsTwo"]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("6_card")
+
+[node name="Texture" type="TextureRect" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsTwo/CardB"]
+layout_mode = 2
+texture = ExtResource("13_valid_d")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CardC" type="PanelContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsTwo"]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("6_card")
+
+[node name="Texture" type="TextureRect" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsTwo/CardC"]
+layout_mode = 2
+texture = ExtResource("14_valid_e")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ValidExampleThree" type="Label" parent="Center/Panel/Margin/Content/TutorialBasicPage"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.282353, 0.741176, 0.960784, 1)
+theme_override_font_sizes/font_size = 28
+text = "예시 3 · 세 속성이 모두 다름"
+horizontal_alignment = 1
+
+[node name="ValidCardsThree" type="HBoxContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="CardA" type="PanelContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsThree"]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("6_card")
+
+[node name="Texture" type="TextureRect" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsThree/CardA"]
+layout_mode = 2
+texture = ExtResource("10_invalid_a")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CardB" type="PanelContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsThree"]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("6_card")
+
+[node name="Texture" type="TextureRect" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsThree/CardB"]
+layout_mode = 2
+texture = ExtResource("16_valid_g")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CardC" type="PanelContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsThree"]
+custom_minimum_size = Vector2(110, 110)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("6_card")
+
+[node name="Texture" type="TextureRect" parent="Center/Panel/Margin/Content/TutorialBasicPage/ValidCardsThree/CardC"]
+layout_mode = 2
+texture = ExtResource("15_valid_f")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="InvalidTitle" type="Label" parent="Center/Panel/Margin/Content/TutorialBasicPage" unique_id=1735011996]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.51, 0.565, 1)
+theme_override_font_sizes/font_size = 30
+text = "✕ 합성이 안 되는 조합"
+horizontal_alignment = 1
+
+[node name="InvalidCards" type="HBoxContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage" unique_id=276013463]
+layout_mode = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="CardA" type="PanelContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage/InvalidCards" unique_id=987642805]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("6_card")
+
+[node name="Texture" type="TextureRect" parent="Center/Panel/Margin/Content/TutorialBasicPage/InvalidCards/CardA" unique_id=1076194714]
+layout_mode = 2
+texture = ExtResource("10_invalid_a")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CardB" type="PanelContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage/InvalidCards" unique_id=705047398]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("6_card")
+
+[node name="Texture" type="TextureRect" parent="Center/Panel/Margin/Content/TutorialBasicPage/InvalidCards/CardB" unique_id=1128445824]
+layout_mode = 2
+texture = ExtResource("11_invalid_b")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="CardC" type="PanelContainer" parent="Center/Panel/Margin/Content/TutorialBasicPage/InvalidCards" unique_id=189566134]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("6_card")
+
+[node name="Texture" type="TextureRect" parent="Center/Panel/Margin/Content/TutorialBasicPage/InvalidCards/CardC" unique_id=540639683]
+layout_mode = 2
+texture = ExtResource("12_invalid_c")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="InvalidExplanation" type="Label" parent="Center/Panel/Margin/Content/TutorialBasicPage" unique_id=853373678]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.87, 1)
+theme_override_font_sizes/font_size = 28
+text = "내용물 상태가 2개만 같아 합성이 성립하지 않습니다."
+horizontal_alignment = 1
+
+[node name="TutorialSpeedPage" type="VBoxContainer" parent="Center/Panel/Margin/Content" unique_id=914664995]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 650)
+layout_mode = 2
+theme_override_constants/separation = 22
+
+[node name="Header" type="Label" parent="Center/Panel/Margin/Content/TutorialSpeedPage" unique_id=280416979]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.282353, 0.741176, 0.960784, 1)
+theme_override_font_sizes/font_size = 34
+text = "⚡ 급속 실험"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="Center/Panel/Margin/Content/TutorialSpeedPage" unique_id=1605068306]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "합성에 성공하면 선택한 카드가 새 카드로 바뀝니다.
+60초 동안 최대한 많은 점수를 획득하세요."
+horizontal_alignment = 1
+
+[node name="ScoreTitle" type="Label" parent="Center/Panel/Margin/Content/TutorialSpeedPage" unique_id=1900892643]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0.25, 1)
+theme_override_font_sizes/font_size = 30
+text = "남은 합성 조합이 적을수록 높은 점수"
+horizontal_alignment = 1
+
+[node name="ScoreGrid" type="GridContainer" parent="Center/Panel/Margin/Content/TutorialSpeedPage" unique_id=1686260320]
+layout_mode = 2
+theme_override_constants/h_separation = 40
+theme_override_constants/v_separation = 16
+columns = 2
+
+[node name="OneLabel" type="Label" parent="Center/Panel/Margin/Content/TutorialSpeedPage/ScoreGrid" unique_id=1378304709]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "남은 합성 1개 · EXCELLENT"
+
+[node name="OneValue" type="Label" parent="Center/Panel/Margin/Content/TutorialSpeedPage/ScoreGrid" unique_id=1629415906]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.8, 0.25, 1)
+theme_override_font_sizes/font_size = 28
+text = "+300점"
+horizontal_alignment = 2
+
+[node name="TwoLabel" type="Label" parent="Center/Panel/Margin/Content/TutorialSpeedPage/ScoreGrid" unique_id=444010761]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "남은 합성 2개 · GREAT"
+
+[node name="TwoValue" type="Label" parent="Center/Panel/Margin/Content/TutorialSpeedPage/ScoreGrid" unique_id=935514646]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.337255, 0.839216, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "+240점"
+horizontal_alignment = 2
+
+[node name="ThreeLabel" type="Label" parent="Center/Panel/Margin/Content/TutorialSpeedPage/ScoreGrid" unique_id=266688896]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "남은 합성 3~4개 · GOOD"
+
+[node name="ThreeValue" type="Label" parent="Center/Panel/Margin/Content/TutorialSpeedPage/ScoreGrid" unique_id=832907857]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.717647, 1, 0.290196, 1)
+theme_override_font_sizes/font_size = 28
+text = "+120점"
+horizontal_alignment = 2
+
+[node name="FiveLabel" type="Label" parent="Center/Panel/Margin/Content/TutorialSpeedPage/ScoreGrid" unique_id=215700142]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "남은 합성 5개 이상 · GOOD"
+
+[node name="FiveValue" type="Label" parent="Center/Panel/Margin/Content/TutorialSpeedPage/ScoreGrid" unique_id=441706193]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.717647, 1, 0.290196, 1)
+theme_override_font_sizes/font_size = 28
+text = "+80점"
+horizontal_alignment = 2
+
+[node name="MissLabel" type="Label" parent="Center/Panel/Margin/Content/TutorialSpeedPage/ScoreGrid" unique_id=1061432131]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "오답 · 콤보 초기화"
+
+[node name="MissValue" type="Label" parent="Center/Panel/Margin/Content/TutorialSpeedPage/ScoreGrid" unique_id=57848651]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.51, 0.565, 1)
+theme_override_font_sizes/font_size = 28
+text = "-75점"
+horizontal_alignment = 2
+
+[node name="ComboInfo" type="Label" parent="Center/Panel/Margin/Content/TutorialSpeedPage" unique_id=1307874604]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.87, 1)
+theme_override_font_sizes/font_size = 28
+text = "연속 정답은 콤보 보너스를 추가합니다."
+horizontal_alignment = 1
+
+[node name="TutorialGyulHapPage" type="VBoxContainer" parent="Center/Panel/Margin/Content" unique_id=2043900870]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 650)
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Header" type="Label" parent="Center/Panel/Margin/Content/TutorialGyulHapPage" unique_id=1787082055]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.282353, 0.741176, 0.960784, 1)
+theme_override_font_sizes/font_size = 34
+text = "⏱ 정밀 실험"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="Center/Panel/Margin/Content/TutorialGyulHapPage" unique_id=921305350]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "합성에 성공해도 카드는 바뀌지 않습니다.
+현재 보드의 모든 합성 조합을 찾아야 합니다."
+horizontal_alignment = 1
+
+[node name="Flow" type="Label" parent="Center/Panel/Margin/Content/TutorialGyulHapPage" unique_id=1603508861]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0.25, 1)
+theme_override_font_sizes/font_size = 32
+text = "합성하기  →  모든 조합 확인  →  완료"
+horizontal_alignment = 1
+
+[node name="RuleGrid" type="GridContainer" parent="Center/Panel/Margin/Content/TutorialGyulHapPage" unique_id=1551494701]
+layout_mode = 2
+theme_override_constants/h_separation = 40
+theme_override_constants/v_separation = 22
+columns = 2
+
+[node name="HapSuccess" type="Label" parent="Center/Panel/Margin/Content/TutorialGyulHapPage/RuleGrid" unique_id=1545509252]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "합성 성공"
+
+[node name="HapSuccessValue" type="Label" parent="Center/Panel/Margin/Content/TutorialGyulHapPage/RuleGrid" unique_id=2071148815]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.282353, 0.741176, 0.960784, 1)
+theme_override_font_sizes/font_size = 30
+text = "+100점"
+horizontal_alignment = 2
+
+[node name="HapFail" type="Label" parent="Center/Panel/Margin/Content/TutorialGyulHapPage/RuleGrid" unique_id=1456112507]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "합성 실패·중복"
+
+[node name="HapFailValue" type="Label" parent="Center/Panel/Margin/Content/TutorialGyulHapPage/RuleGrid" unique_id=1676193834]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.51, 0.565, 1)
+theme_override_font_sizes/font_size = 30
+text = "-75점"
+horizontal_alignment = 2
+
+[node name="GyulSuccess" type="Label" parent="Center/Panel/Margin/Content/TutorialGyulHapPage/RuleGrid" unique_id=833034930]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "완료 성공"
+
+[node name="GyulSuccessValue" type="Label" parent="Center/Panel/Margin/Content/TutorialGyulHapPage/RuleGrid" unique_id=448814467]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.8, 0.25, 1)
+theme_override_font_sizes/font_size = 30
+text = "+400점"
+horizontal_alignment = 2
+
+[node name="GyulFail" type="Label" parent="Center/Panel/Margin/Content/TutorialGyulHapPage/RuleGrid" unique_id=491990847]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "완료 실패"
+
+[node name="GyulFailValue" type="Label" parent="Center/Panel/Margin/Content/TutorialGyulHapPage/RuleGrid" unique_id=584585297]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 0.51, 0.565, 1)
+theme_override_font_sizes/font_size = 30
+text = "-200점"
+horizontal_alignment = 2
+
+[node name="Tip" type="Label" parent="Center/Panel/Margin/Content/TutorialGyulHapPage" unique_id=1672954047]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.87, 1)
+theme_override_font_sizes/font_size = 28
+text = "찾지 못한 합성 조합이 남아 있다면 완료는 실패합니다."
+horizontal_alignment = 1
+
+[node name="TutorialInfinitePage" type="VBoxContainer" parent="Center/Panel/Margin/Content" unique_id=1610970362]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 650)
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Header" type="Label" parent="Center/Panel/Margin/Content/TutorialInfinitePage" unique_id=2100731018]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.282353, 0.741176, 0.960784, 1)
+theme_override_font_sizes/font_size = 34
+text = "🧪 자유 실험"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="Center/Panel/Margin/Content/TutorialInfinitePage" unique_id=1033250681]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "시간과 점수 없이 합성·완료 기록을 쌓습니다.
+인정된 기록은 즉시 자동 저장됩니다."
+horizontal_alignment = 1
+
+[node name="HintTitle" type="Label" parent="Center/Panel/Margin/Content/TutorialInfinitePage" unique_id=317739690]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0.25, 1)
+theme_override_font_sizes/font_size = 32
+text = "💡 힌트 규칙"
+horizontal_alignment = 1
+
+[node name="HintRules" type="VBoxContainer" parent="Center/Panel/Margin/Content/TutorialInfinitePage" unique_id=1755159965]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Rule1" type="HBoxContainer" parent="Center/Panel/Margin/Content/TutorialInfinitePage/HintRules" unique_id=700561641]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Bullet" type="Label" parent="Center/Panel/Margin/Content/TutorialInfinitePage/HintRules/Rule1" unique_id=1840487155]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.282353, 0.741176, 0.960784, 1)
+theme_override_font_sizes/font_size = 28
+text = "•"
+
+[node name="Text" type="Label" parent="Center/Panel/Margin/Content/TutorialInfinitePage/HintRules/Rule1" unique_id=1836630728]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 28
+text = "찾지 않은 합성 조합의 카드 1장을 표시합니다."
+autowrap_mode = 2
+
+[node name="Rule2" type="HBoxContainer" parent="Center/Panel/Margin/Content/TutorialInfinitePage/HintRules" unique_id=1841846536]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Bullet" type="Label" parent="Center/Panel/Margin/Content/TutorialInfinitePage/HintRules/Rule2" unique_id=831351531]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.282353, 0.741176, 0.960784, 1)
+theme_override_font_sizes/font_size = 28
+text = "•"
+
+[node name="Text" type="Label" parent="Center/Panel/Margin/Content/TutorialInfinitePage/HintRules/Rule2" unique_id=1523513614]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 28
+text = "표시된 조합을 찾으면 다음 힌트가 열립니다."
+autowrap_mode = 2
+
+[node name="Rule3" type="HBoxContainer" parent="Center/Panel/Margin/Content/TutorialInfinitePage/HintRules" unique_id=1169539498]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Bullet" type="Label" parent="Center/Panel/Margin/Content/TutorialInfinitePage/HintRules/Rule3" unique_id=404465031]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.282353, 0.741176, 0.960784, 1)
+theme_override_font_sizes/font_size = 28
+text = "•"
+
+[node name="Text" type="Label" parent="Center/Panel/Margin/Content/TutorialInfinitePage/HintRules/Rule3" unique_id=1285056838]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 28
+text = "힌트로 찾은 합성은 누적 기록에서 제외됩니다."
+autowrap_mode = 2
+
+[node name="Rule4" type="HBoxContainer" parent="Center/Panel/Margin/Content/TutorialInfinitePage/HintRules" unique_id=1436985473]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Bullet" type="Label" parent="Center/Panel/Margin/Content/TutorialInfinitePage/HintRules/Rule4" unique_id=365572081]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.282353, 0.741176, 0.960784, 1)
+theme_override_font_sizes/font_size = 28
+text = "•"
+
+[node name="Text" type="Label" parent="Center/Panel/Margin/Content/TutorialInfinitePage/HintRules/Rule4" unique_id=511995882]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 28
+text = "힌트를 사용한 보드의 완료도 누적되지 않습니다."
+autowrap_mode = 2
+
+[node name="Rule5" type="HBoxContainer" parent="Center/Panel/Margin/Content/TutorialInfinitePage/HintRules" unique_id=1132739598]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Bullet" type="Label" parent="Center/Panel/Margin/Content/TutorialInfinitePage/HintRules/Rule5" unique_id=1663971117]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.282353, 0.741176, 0.960784, 1)
+theme_override_font_sizes/font_size = 28
+text = "•"
+
+[node name="Text" type="Label" parent="Center/Panel/Margin/Content/TutorialInfinitePage/HintRules/Rule5" unique_id=841620829]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 28
+text = "남은 합성이 없으면 완료할 수 있음을 알려줍니다."
+autowrap_mode = 2
+
+[node name="CounterInfo" type="Label" parent="Center/Panel/Margin/Content/TutorialInfinitePage" unique_id=882504346]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.87, 1)
+theme_override_font_sizes/font_size = 28
+text = "상단의 (+N)은 이번 플레이에서
+새로 인정된 기록입니다."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="TutorialActions" type="HBoxContainer" parent="Center/Panel/Margin/Content"]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="InteractiveTutorialButton" type="Button" parent="Center/Panel/Margin/Content/TutorialActions"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = ExtResource("4_main")
+text = "▶ 직접 체험하기"
+
+[node name="TutorialCloseButton" type="Button" parent="Center/Panel/Margin/Content/TutorialActions" unique_id=1353810213]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = ExtResource("5_sub")
+text = "닫기"

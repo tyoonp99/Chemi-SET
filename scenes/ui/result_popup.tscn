@@ -5,6 +5,7 @@
 [ext_resource type="StyleBox" path="res://resources/styles/popups/popup_panel_style.tres" id="3_panel"]
 [ext_resource type="StyleBox" path="res://resources/styles/buttons/main_button_style.tres" id="4_main"]
 [ext_resource type="StyleBox" path="res://resources/styles/buttons/sub_button_style.tres" id="5_sub"]
+[ext_resource type="LabelSettings" path="res://resources/styles/rankings/rank_achievement_standard_label.tres" id="6_rank_achievement"]
 
 [node name="ResultPopup" type="ColorRect"]
 anchors_preset = 15
@@ -39,28 +40,361 @@ theme_override_constants/margin_bottom = 40
 layout_mode = 2
 theme_override_constants/separation = 28
 
+[node name="SpeedResultContent" type="VBoxContainer" parent="Center/Panel/Margin/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(520, 0)
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="ModeTitleLabel" type="Label" parent="Center/Panel/Margin/Content/SpeedResultContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.87, 1)
+theme_override_font_sizes/font_size = 28
+text = "⚡ 급속 실험 결과"
+horizontal_alignment = 1
+
+[node name="SummaryRow" type="HBoxContainer" parent="Center/Panel/Margin/Content/SpeedResultContent"]
+layout_mode = 2
+layout_direction = 3
+theme_override_constants/separation = 12
+
+[node name="ScoreBlock" type="VBoxContainer" parent="Center/Panel/Margin/Content/SpeedResultContent/SummaryRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="ScoreCaptionLabel" type="Label" parent="Center/Panel/Margin/Content/SpeedResultContent/SummaryRow/ScoreBlock"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.87, 1)
+theme_override_font_sizes/font_size = 24
+text = "최종 점수"
+horizontal_alignment = 1
+
+[node name="ScoreValue" type="Label" parent="Center/Panel/Margin/Content/SpeedResultContent/SummaryRow/ScoreBlock"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.282353, 0.741176, 0.960784, 1)
+theme_override_font_sizes/font_size = 64
+text = "0점"
+horizontal_alignment = 1
+
+[node name="RankAchievementLabel" type="Label" parent="Center/Panel/Margin/Content/SpeedResultContent/SummaryRow"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+label_settings = ExtResource("6_rank_achievement")
+text = "1위 달성!"
+horizontal_alignment = 1
+
+[node name="StatsGrid" type="GridContainer" parent="Center/Panel/Margin/Content/SpeedResultContent"]
+layout_mode = 2
+theme_override_constants/h_separation = 32
+theme_override_constants/v_separation = 12
+columns = 2
+
+[node name="ExcellentLabel" type="Label" parent="Center/Panel/Margin/Content/SpeedResultContent/StatsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.941176, 0.121569, 1)
+theme_override_font_sizes/font_size = 28
+text = "EXCELLENT"
+
+[node name="ExcellentCountValue" type="Label" parent="Center/Panel/Margin/Content/SpeedResultContent/StatsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "0회"
+horizontal_alignment = 2
+
+[node name="GreatLabel" type="Label" parent="Center/Panel/Margin/Content/SpeedResultContent/StatsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.337255, 0.839216, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "GREAT"
+
+[node name="GreatCountValue" type="Label" parent="Center/Panel/Margin/Content/SpeedResultContent/StatsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "0회"
+horizontal_alignment = 2
+
+[node name="GoodLabel" type="Label" parent="Center/Panel/Margin/Content/SpeedResultContent/StatsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.717647, 1, 0.290196, 1)
+theme_override_font_sizes/font_size = 28
+text = "GOOD"
+
+[node name="GoodCountValue" type="Label" parent="Center/Panel/Margin/Content/SpeedResultContent/StatsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "0회"
+horizontal_alignment = 2
+
+[node name="MaxComboLabel" type="Label" parent="Center/Panel/Margin/Content/SpeedResultContent/StatsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.87, 1)
+theme_override_font_sizes/font_size = 28
+text = "최고 콤보"
+
+[node name="MaxComboValue" type="Label" parent="Center/Panel/Margin/Content/SpeedResultContent/StatsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "0 COMBO"
+horizontal_alignment = 2
+
+[node name="WrongCountLabel" type="Label" parent="Center/Panel/Margin/Content/SpeedResultContent/StatsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.87, 1)
+theme_override_font_sizes/font_size = 28
+text = "오답"
+
+[node name="WrongCountValue" type="Label" parent="Center/Panel/Margin/Content/SpeedResultContent/StatsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "0회"
+horizontal_alignment = 2
+
+[node name="GyulHapResultContent" type="VBoxContainer" parent="Center/Panel/Margin/Content"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(520, 0)
+layout_mode = 2
+theme_override_constants/separation = 18
+
+[node name="ModeTitleLabel" type="Label" parent="Center/Panel/Margin/Content/GyulHapResultContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.87, 1)
+theme_override_font_sizes/font_size = 28
+text = "⏱ 정밀 실험 결과"
+horizontal_alignment = 1
+
+[node name="SummaryRow" type="HBoxContainer" parent="Center/Panel/Margin/Content/GyulHapResultContent"]
+layout_mode = 2
+layout_direction = 3
+theme_override_constants/separation = 12
+
+[node name="ScoreBlock" type="VBoxContainer" parent="Center/Panel/Margin/Content/GyulHapResultContent/SummaryRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 2
+
+[node name="ScoreCaptionLabel" type="Label" parent="Center/Panel/Margin/Content/GyulHapResultContent/SummaryRow/ScoreBlock"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.87, 1)
+theme_override_font_sizes/font_size = 24
+text = "최종 점수"
+horizontal_alignment = 1
+
+[node name="GyulHapScoreValue" type="Label" parent="Center/Panel/Margin/Content/GyulHapResultContent/SummaryRow/ScoreBlock"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.282353, 0.741176, 0.960784, 1)
+theme_override_font_sizes/font_size = 64
+text = "0점"
+horizontal_alignment = 1
+
+[node name="GyulHapRankAchievementLabel" type="Label" parent="Center/Panel/Margin/Content/GyulHapResultContent/SummaryRow"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+label_settings = ExtResource("6_rank_achievement")
+text = "1위 달성!"
+horizontal_alignment = 1
+
+[node name="StatsGrid" type="GridContainer" parent="Center/Panel/Margin/Content/GyulHapResultContent"]
+layout_mode = 2
+theme_override_constants/h_separation = 32
+theme_override_constants/v_separation = 12
+columns = 2
+
+[node name="HapSuccessLabel" type="Label" parent="Center/Panel/Margin/Content/GyulHapResultContent/StatsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.282353, 0.741176, 0.960784, 1)
+theme_override_font_sizes/font_size = 28
+text = "합성 성공"
+
+[node name="HapSuccessValue" type="Label" parent="Center/Panel/Margin/Content/GyulHapResultContent/StatsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "0회"
+horizontal_alignment = 2
+
+[node name="GyulSuccessLabel" type="Label" parent="Center/Panel/Margin/Content/GyulHapResultContent/StatsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0.25, 1)
+theme_override_font_sizes/font_size = 28
+text = "완료 성공"
+
+[node name="GyulSuccessValue" type="Label" parent="Center/Panel/Margin/Content/GyulHapResultContent/StatsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "0회"
+horizontal_alignment = 2
+
+[node name="HapWrongLabel" type="Label" parent="Center/Panel/Margin/Content/GyulHapResultContent/StatsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.51, 0.565, 1)
+theme_override_font_sizes/font_size = 28
+text = "합성 실패"
+
+[node name="HapWrongValue" type="Label" parent="Center/Panel/Margin/Content/GyulHapResultContent/StatsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "0회"
+horizontal_alignment = 2
+
+[node name="HapDuplicateLabel" type="Label" parent="Center/Panel/Margin/Content/GyulHapResultContent/StatsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.51, 0.565, 1)
+theme_override_font_sizes/font_size = 28
+text = "중복 합성"
+
+[node name="HapDuplicateValue" type="Label" parent="Center/Panel/Margin/Content/GyulHapResultContent/StatsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "0회"
+horizontal_alignment = 2
+
+[node name="GyulFailLabel" type="Label" parent="Center/Panel/Margin/Content/GyulHapResultContent/StatsGrid"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.51, 0.565, 1)
+theme_override_font_sizes/font_size = 28
+text = "완료 실패"
+
+[node name="GyulFailValue" type="Label" parent="Center/Panel/Margin/Content/GyulHapResultContent/StatsGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+text = "0회"
+horizontal_alignment = 2
+
+[node name="RankEntryContent" type="VBoxContainer" parent="Center/Panel/Margin/Content"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(520, 0)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="RankEntryPrompt" type="Label" parent="Center/Panel/Margin/Content/RankEntryContent"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.87, 1)
+theme_override_font_sizes/font_size = 26
+text = "이니셜 3글자로 기록을 남겨주세요"
+horizontal_alignment = 1
+
+[node name="EntryRow" type="HBoxContainer" parent="Center/Panel/Margin/Content/RankEntryContent"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="RankNameInput" type="LineEdit" parent="Center/Panel/Margin/Content/RankEntryContent/EntryRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+placeholder_text = "ABC"
+alignment = 1
+max_length = 3
+
+[node name="RankSubmitButton" type="Button" parent="Center/Panel/Margin/Content/RankEntryContent/EntryRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 64)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = ExtResource("4_main")
+text = "등록"
+
+[node name="RankingContent" type="VBoxContainer" parent="Center/Panel/Margin/Content"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(520, 0)
+layout_mode = 2
+theme_override_constants/separation = 22
+
+[node name="RankingTitleLabel" type="Label" parent="Center/Panel/Margin/Content/RankingContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.282353, 0.741176, 0.960784, 1)
+theme_override_font_sizes/font_size = 32
+text = "⚡ 급속 실험 TOP 5"
+horizontal_alignment = 1
+
+[node name="RankingEmptyLabel" type="Label" parent="Center/Panel/Margin/Content/RankingContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.87, 1)
+theme_override_font_sizes/font_size = 28
+text = "아직 등록된 기록이 없습니다"
+horizontal_alignment = 1
+
+[node name="RankingRows" type="GridContainer" parent="Center/Panel/Margin/Content/RankingContent"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 14
+columns = 3
+
+[node name="BackToResultButton" type="Button" parent="Center/Panel/Margin/Content/RankingContent"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = ExtResource("5_sub")
+text = "← 결과로"
+
 [node name="ResultLabel" type="Label" parent="Center/Panel/Margin/Content"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
 
-[node name="Buttons" type="HBoxContainer" parent="Center/Panel/Margin/Content"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="RestartButton" type="Button" parent="Center/Panel/Margin/Content/Buttons"]
+[node name="ResultActions" type="VBoxContainer" parent="Center/Panel/Margin/Content"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(250, 60)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="RestartButton" type="Button" parent="Center/Panel/Margin/Content/ResultActions"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
 theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = ExtResource("4_main")
 text = "↺ 재시작"
 
-[node name="TitleButton" type="Button" parent="Center/Panel/Margin/Content/Buttons"]
+[node name="TopScoresButton" type="Button" parent="Center/Panel/Margin/Content/ResultActions"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(250, 60)
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = ExtResource("5_sub")
+text = "🏆 TOP 5 보기"
+
+[node name="TitleButton" type="Button" parent="Center/Panel/Margin/Content/ResultActions"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 28

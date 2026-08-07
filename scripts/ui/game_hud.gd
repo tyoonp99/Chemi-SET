@@ -15,6 +15,8 @@ const FEEDBACK_MISS := preload("res://resources/styles/feedback/feedback_miss_la
 
 @onready var _score_value: Label = %ScoreValueLabel
 @onready var _time_value: Label = %TimeValueLabel
+@onready var _score_delta: Label = %ScoreDeltaLabel
+@onready var _time_delta: Label = %TimeDeltaLabel
 @onready var _score_title: Label = %ScoreTitleLabel
 @onready var _time_title: Label = %TimeTitleLabel
 @onready var _settings_button: Button = %SettingsButton
@@ -56,19 +58,39 @@ func configure_for_mode(mode: StringName) -> void:
 	_is_practice_display = mode == Global.MODE_PRACTICE
 	_score_box.visible = true
 	if _is_practice_display:
-		_score_title.text = "합"
-		_time_title.text = "결"
+		_score_title.text = "합성"
+		_time_title.text = "완료"
+		_score_delta.visible = true
+		_time_delta.visible = true
 		_score_value.text = "0"
 		_time_value.text = "0"
+		_set_practice_delta(_score_delta, 0)
+		_set_practice_delta(_time_delta, 0)
 		return
 	_score_title.text = "점수"
 	_time_title.text = "시간"
+	_score_delta.visible = false
+	_time_delta.visible = false
 
-func set_practice_stats(hap_count: int, gyul_count: int) -> void:
+func set_practice_stats(
+	hap_count: int,
+	gyul_count: int,
+	session_hap_count: int,
+	session_gyul_count: int
+) -> void:
 	if not _is_practice_display:
 		return
 	_score_value.text = str(hap_count)
 	_time_value.text = str(gyul_count)
+	_set_practice_delta(_score_delta, session_hap_count)
+	_set_practice_delta(_time_delta, session_gyul_count)
+
+func _set_practice_delta(label: Label, delta: int) -> void:
+	label.text = "(+%d)" % delta
+	label.add_theme_color_override(
+		"font_color",
+		Color("ffd54a") if delta > 0 else Color("8a9cb3")
+	)
 
 func show_feedback(message: String, positive: bool, style: String = "nice", breakdown: Dictionary = {}) -> void:
 	if positive and not breakdown.is_empty():
@@ -111,7 +133,7 @@ func _show_cascading_line(line: Label, start_y: float, delay: float, style: Stri
 	line.offset_right = 300.0
 	line.offset_top = start_y
 	line.offset_bottom = start_y + 72.0
-	var pop_scale := 1.13 if style == "excellent" else 1.09 if style == "nice" else 1.06
+	var pop_scale := 1.13 if style == "excellent" else 1.09 if style == "great" or style == "nice" else 1.06
 	var float_distance := 60.0 if style == "excellent" else 46.0
 	var pop_tween := line.create_tween()
 	pop_tween.tween_interval(delay)
@@ -157,7 +179,7 @@ func _judgment_settings(style: String) -> LabelSettings:
 	match style:
 		"excellent":
 			return FEEDBACK_EXCELLENT
-		"nice":
+		"great", "nice":
 			return FEEDBACK_NICE
 		_:
 			return FEEDBACK_GOOD
@@ -166,7 +188,7 @@ func _score_settings(style: String) -> LabelSettings:
 	match style:
 		"excellent":
 			return FEEDBACK_EXCELLENT_SCORE
-		"nice":
+		"great", "nice":
 			return FEEDBACK_NICE_SCORE
 		_:
 			return FEEDBACK_GOOD_SCORE

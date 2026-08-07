@@ -1,0 +1,127 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/title_ranking_popup.gd" id="1_script"]
+[ext_resource type="Theme" path="res://resources/themes/game_ui_theme.tres" id="2_theme"]
+[ext_resource type="StyleBox" path="res://resources/styles/popups/popup_panel_style.tres" id="3_panel"]
+[ext_resource type="StyleBox" path="res://resources/styles/buttons/title_popup_main_button_style.tres" id="4_main"]
+[ext_resource type="StyleBox" path="res://resources/styles/buttons/title_popup_sub_button_style.tres" id="5_sub"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_ranking_tabs"]
+
+[node name="TitleRankingPopup" type="ColorRect"]
+process_mode = 3
+z_index = 10
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_theme")
+color = Color(0, 0, 0, 0.588235)
+script = ExtResource("1_script")
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("3_panel")
+
+[node name="Margin" type="MarginContainer" parent="Center/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="Content" type="VBoxContainer" parent="Center/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 22
+
+[node name="Title" type="Label" parent="Center/Panel/Margin/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.282353, 0.741176, 0.960784, 1)
+theme_override_font_sizes/font_size = 40
+text = "🏆 TOP 5"
+horizontal_alignment = 1
+
+[node name="Tabs" type="HBoxContainer" parent="Center/Panel/Margin/Content"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="SpeedRankingTab" type="Button" parent="Center/Panel/Margin/Content/Tabs"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = ExtResource("5_sub")
+theme_override_styles/pressed = ExtResource("4_main")
+toggle_mode = true
+button_pressed = true
+button_group = SubResource("ButtonGroup_ranking_tabs")
+text = "⚡ 급속"
+
+[node name="PrecisionRankingTab" type="Button" parent="Center/Panel/Margin/Content/Tabs"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = ExtResource("5_sub")
+theme_override_styles/pressed = ExtResource("4_main")
+toggle_mode = true
+button_group = SubResource("ButtonGroup_ranking_tabs")
+text = "⏱ 정밀"
+
+[node name="RankingModeTitle" type="Label" parent="Center/Panel/Margin/Content"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.87, 1)
+theme_override_font_sizes/font_size = 30
+text = "⚡ 급속 실험"
+horizontal_alignment = 1
+
+[node name="RankingBody" type="VBoxContainer" parent="Center/Panel/Margin/Content"]
+custom_minimum_size = Vector2(0, 280)
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="RankingEmptyLabel" type="Label" parent="Center/Panel/Margin/Content/RankingBody"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.72, 0.8, 0.87, 1)
+theme_override_font_sizes/font_size = 28
+text = "아직 등록된 기록이 없습니다"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RankingRows" type="GridContainer" parent="Center/Panel/Margin/Content/RankingBody"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 16
+columns = 3
+
+[node name="RankingCloseButton" type="Button" parent="Center/Panel/Margin/Content"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
+theme_override_font_sizes/font_size = 28
+theme_override_styles/normal = ExtResource("4_main")
+text = "닫기"

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>CHEMI-SET Gyul-Hap Playtest</title>
+  <style>
+    :root { --bg:#ffffff; --panel:#f7f7f7; --text:#1d1d1f; --muted:#777777; --accent:#40c5c6; --bad:#ef6b78; --good:#239a9a; }
+    * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+    body { margin:0; min-height:100vh; display:grid; place-items:center; background:#f4f4f4; color:var(--text); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+    .app { width:min(100%,480px); min-height:100vh; position:relative; overflow:hidden; background:var(--bg); padding:env(safe-area-inset-top) 22px env(safe-area-inset-bottom); }
+    .screen { min-height:100vh; display:flex; flex-direction:column; }.hidden { display:none !important; }
+    .intro { justify-content:flex-start; gap:16px; padding:26px 14px; overflow-y:auto; } h1,h2,p { margin:0; } h1 { font-size:31px; letter-spacing:-1px; } h1 span,.accent { color:var(--good); } h2 { font-size:23px; } p { color:var(--muted); line-height:1.55; }
+    .rule-box { background:var(--panel); border-radius:10px; padding:20px; line-height:1.7; color:#333; }.rule-box b { color:var(--good); }.field-label,.footnote { font-size:14px; color:var(--muted); }.footnote { text-align:center; }
+    input { width:100%; border:1px solid #d4d4d4; border-radius:8px; background:#fff; color:var(--text); padding:14px; font:inherit; font-size:17px; outline:none; } input:focus { border-color:var(--accent); }
+    button { border:0; border-radius:7px; min-height:52px; padding:12px 16px; font:700 18px inherit; cursor:pointer; transition:transform .1s,filter .1s,opacity .15s; } button:active { transform:scale(.96); } button:disabled { cursor:not-allowed; opacity:.42; }
+    .main-button,.sub-button { background:var(--accent); color:#fff; }.sub-button { background:#e8e8e8; color:#333; }
+    .hud { width:min(100%,350px); min-height:72px; margin:0 auto; display:grid; grid-template-columns:repeat(2,1fr); align-items:center; text-align:center; }.hud-label { color:var(--muted); font-weight:700; font-size:13px; }.hud-value { font-size:28px; font-weight:800; line-height:1.05; }
+    .round { min-height:35px; padding:0 0 12px; text-align:center; color:var(--muted); font-size:14px; font-weight:700; }.board { width:min(100%,350px); margin:0 auto; display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+    .card { min-height:0; aspect-ratio:1; padding:0; position:relative; display:grid; place-items:center; overflow:hidden; background:transparent; border:4px solid #dedede; border-radius:18px; box-shadow:0 4px 8px #0002; touch-action:manipulation; }.card.state-1 { border-color:#d7d7d7; }.card.state-2 { border-color:#2a2a2a; }.card.selected { transform:scale(.93); box-shadow:0 0 0 3px var(--accent); }.card svg { width:100%; height:100%; }.card-index { position:absolute; top:8px; left:9px; z-index:1; min-width:24px; padding:3px 6px; border-radius:5px; background:#fff; color:#44505c; font-size:15px; font-weight:800; line-height:1; }
+    .examples { display:flex; flex-direction:column; gap:10px; }.example-heading { margin:0 0 6px; font-size:15px; }.example-heading.good { color:var(--good); }.example-heading.bad { color:var(--bad); }.good-examples { display:grid; grid-template-columns:repeat(3,1fr); gap:7px; }.example { padding:9px 7px; border-radius:10px; background:#f7f7f7; }.example-cards { display:flex; gap:3px; }.example-card { width:33.33%; aspect-ratio:1; display:grid; place-items:center; border:2px solid #ddd; border-radius:6px; background:#fff; }.example-card.gray { background:#c9c9c9; }.example-card.dark { background:#444; border-color:#333; }.example-shape { --shape:#ef4444; display:block; width:26px; height:26px; background:var(--shape); }.example-shape.blue { --shape:#2563eb; }.example-shape.yellow { --shape:#facc15; }.example-shape.circle { border-radius:50%; }.example-shape.triangle { width:0; height:0; background:transparent; border-left:14px solid transparent; border-right:14px solid transparent; border-bottom:26px solid var(--shape); }.example-label { margin-top:7px; color:#777; font-size:11px; line-height:1.3; text-align:center; }.example-note { margin:8px 2px 0; color:#777; font-size:12px; line-height:1.35; }.score-guide { padding:13px 15px; border-left:4px solid var(--accent); background:#f7f7f7; color:#555; font-size:13px; line-height:1.55; }.score-guide strong { display:block; margin-bottom:4px; color:#333; font-size:15px; }
+    .found-panel { width:min(100%,350px); min-height:66px; margin:12px auto 0; padding:10px 12px; border-radius:9px; background:#f7f7f7; }.found-title { margin-bottom:7px; color:#777; font-size:12px; font-weight:800; }.found-list { display:flex; flex-wrap:wrap; gap:7px; }.found-set { display:flex; align-items:center; gap:4px; padding:5px 7px; border-radius:7px; background:#fff; box-shadow:0 1px 3px #0002; }.found-order { margin-right:2px; color:var(--good); font-size:11px; font-weight:800; }.found-number { width:22px; height:22px; display:grid; place-items:center; border-radius:50%; background:#e4f5f5; color:#246f70; font-size:12px; font-weight:800; }.found-empty { color:#aaa; font-size:12px; }.status { min-height:43px; padding-top:12px; text-align:center; font-size:15px; font-weight:700; }.status.good { color:var(--good); }.status.bad { color:var(--bad); }.actions { width:min(100%,330px); margin:auto auto 28px; padding-top:12px; display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .overlay { position:absolute; inset:0; z-index:5; display:grid; place-items:center; padding:22px; background:rgba(255,255,255,.92); }.modal { width:min(100%,360px); padding:22px; display:flex; flex-direction:column; gap:14px; text-align:center; }.result-score { color:var(--good); font-size:46px; font-weight:900; letter-spacing:-2px; }.result-row { display:flex; justify-content:space-between; color:#333; border-bottom:1px solid #e1e1e1; padding:9px 0; }
+    @media (min-width:600px) { body { padding:18px; }.app { min-height:760px; box-shadow:0 10px 35px #0002; }.screen { min-height:724px; } }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section id="intro" class="screen intro">
+      <p>CHEMI-SET &#183; 3&#48516; &#44208;&#54633; &#47784;&#46300;</p>
+      <h1><span>&#54633;&#51012; &#52286;&#44256;,</span><br>&#44208;&#51012; &#49440;&#50616;&#54616;&#49464;&#50836;.</h1>
+      <div class="rule-box">
+        &#52852;&#46300; 3&#51109;&#51012; &#44264;&#46972; &#54633;&#51012; &#49440;&#50616;&#54616;&#49464;&#50836;.<br>
+        &#44033; &#52852;&#46300;&#50640;&#45716; <b>&#48176;&#44221;&#49353;, &#46020;&#54805;&#49353;, &#46020;&#54805;</b>&#51032; &#49464; &#44032;&#51648; &#49549;&#49457;&#51060; &#51080;&#49845;&#45768;&#45796;.<br>
+        &#49464; &#49549;&#49457; &#44033;&#44033;&#51060; &#47784;&#46160; &#44057;&#44144;&#45208; &#47784;&#46160; &#45796;&#47476;&#47732; <b>&#54633;</b>&#51077;&#45768;&#45796;.
+      </div>
+      <div class="examples" aria-label="Hap examples">
+        <section><h2 class="example-heading good">&#46104;&#45716; &#54633; &#50696;&#49884;</h2><div class="good-examples">
+          <div class="example"><div class="example-cards"><div class="example-card"><i class="example-shape circle"></i></div><div class="example-card"><i class="example-shape triangle"></i></div><div class="example-card"><i class="example-shape"></i></div></div><div class="example-label">&#46020;&#54805;&#47564; &#47784;&#46160; &#45796;&#47492;</div></div>
+          <div class="example"><div class="example-cards"><div class="example-card"><i class="example-shape circle"></i></div><div class="example-card gray"><i class="example-shape circle blue"></i></div><div class="example-card dark"><i class="example-shape circle yellow"></i></div></div><div class="example-label">&#46020;&#54805;&#49353;&#44284; &#48176;&#44221;&#49353;&#47564; &#47784;&#46160; &#45796;&#47492;</div></div>
+          <div class="example"><div class="example-cards"><div class="example-card"><i class="example-shape circle"></i></div><div class="example-card gray"><i class="example-shape triangle blue"></i></div><div class="example-card dark"><i class="example-shape yellow"></i></div></div><div class="example-label">&#49464; &#49549;&#49457; &#47784;&#46160; &#45796;&#47492;</div></div>
+        </div></section>
+        <section><h2 class="example-heading bad">&#50504; &#46104;&#45716; &#51312;&#54633; &#50696;&#49884;</h2><div class="example"><div class="example-cards"><div class="example-card"><i class="example-shape circle"></i></div><div class="example-card gray"><i class="example-shape circle"></i></div><div class="example-card dark"><i class="example-shape triangle blue"></i></div></div><div class="example-note">&#48176;&#44221;&#49353;&#51008; &#47784;&#46160; &#45796;&#47476;&#51648;&#47564;, &#46020;&#54805;&#44284; &#46020;&#54805;&#49353;&#51008; &#46168;&#47564; &#44057;&#50500; &#54633;&#51060; &#50500;&#45785;&#45768;&#45796;.</div></div></section>
+      </div>
+      <div class="score-guide"><strong>&#51216;&#49688;&#50752; &#44208; &#49440;&#50616;</strong>&#49352;&#47196;&#50868; &#54633;&#51012; &#52286;&#51004;&#47732; +100&#51216;, &#53952;&#47532;&#44144;&#45208; &#51060;&#48120; &#52286;&#51008; &#54633;&#51060;&#47732; -75&#51216;&#51077;&#45768;&#45796;.<br>&#48372;&#46300;&#50640; &#51080;&#45716; &#47784;&#46304; &#54633;&#51012; &#52286;&#51008; &#49345;&#53468;&#50640;&#49436; &#44208;&#51012; &#49440;&#50616;&#54616;&#47732; &#49457;&#44277;&#51077;&#45768;&#45796;.<br>&#44208; &#49457;&#44277;&#51008; +400&#51216;, &#50500;&#51649; &#45224;&#51008; &#54633;&#51060; &#51080;&#51004;&#47732; -200&#51216;&#51077;&#45768;&#45796;.</div>
+      <label class="field-label" for="tester">&#53580;&#49828;&#53552; &#51060;&#45768;&#49500; (&#49440;&#53469;)</label>
+      <input id="tester" maxlength="12" placeholder="&#50696;: MIN">
+      <button id="start" class="main-button">3&#48516; &#53580;&#49828;&#53944; &#49884;&#51089;</button>
+      <p class="footnote">&#53580;&#49828;&#53944;&#44032; &#45149;&#45208;&#47732; JSON &#44592;&#47197;&#51012; &#45236;&#47140;&#48155;&#50500; &#51652;&#54665;&#51088;&#50640;&#44172; &#48372;&#45236; &#51452;&#49464;&#50836;.</p>
+    </section>
+    <section id="game" class="screen hidden">
+      <header class="hud"><div><div class="hud-label">&#51216;&#49688;</div><div id="score" class="hud-value">0</div></div><div><div class="hud-label">&#49884;&#44036;</div><div id="time" class="hud-value">3:00</div></div></header>
+      <div id="round" class="round">&#52286;&#51008; &#54633; 0&#44060;</div>
+      <div id="board" class="board" aria-label="Card board"></div>
+      <div class="found-panel"><div class="found-title">&#52286;&#51008; &#54633;</div><div id="foundList" class="found-list"></div></div>
+      <div id="status" class="status" aria-live="polite"></div>
+      <div class="actions"><button id="hap" class="sub-button" disabled>&#54633; &#49440;&#50616;</button><button id="gyul" class="main-button">&#44208; &#49440;&#50616;</button></div>
+    </section>
+    <section id="result" class="overlay hidden"><div class="modal">
+      <p>Playtest complete</p><h2>Gyul-Hap result</h2><div id="resultScore" class="result-score">0</div>
+      <div class="result-row"><span>Haps found</span><b id="resultHaps">0</b></div><div class="result-row"><span>Successful Gyuls</span><b id="resultGyuls">0</b></div><div class="result-row"><span>Best combo</span><b id="resultCombo">0</b></div>
+      <button id="download" class="main-button">Download JSON log</button><button id="restart" class="sub-button">Test again</button><p class="footnote">Please send the downloaded JSON file without editing it.</p>
+    </div></section>
+  </main>
+  <script>
+    (() => {
+      const DURATION=180,HAP_POINTS=100,GYUL_POINTS=400,HAP_PENALTY=75,GYUL_PENALTY=200;
+      const SHAPE_COLORS=['#ef4444','#facc15','#2563eb'];
+      const BACKGROUNDS=['#9ca3af','#ffffff','#111827'];
+      const $=id=>document.getElementById(id);
+      const state={board:[],selected:[],found:new Set(),score:0,combo:0,maxCombo:0,boardId:0,startedAt:0,boardStartedAt:0,timer:null,ended:false,tester:'',logs:[],sessionId:''};
+      const log=(event,data={})=>state.logs.push({schema:1,session_id:state.sessionId,timestamp_ms:Date.now()-state.startedAt,mode:'gyulhap_web',event,data});
+      const fullDeck=()=>{const deck=[];for(let shape=0;shape<3;shape++)for(let color=0;color<3;color++)for(let stateValue=0;stateValue<3;stateValue++)deck.push({shape,color,state:stateValue});return deck;};
+      const shuffle=array=>{for(let i=array.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[array[i],array[j]]=[array[j],array[i]];}return array;};
+      const isSet=cards=>['shape','color','state'].every(name=>cards.reduce((sum,card)=>sum+card[name],0)%3===0);
+      const allSets=()=>{const sets=[];for(let a=0;a<7;a++)for(let b=a+1;b<8;b++)for(let c=b+1;c<9;c++)if(isSet([state.board[a],state.board[b],state.board[c]]))sets.push([a,b,c]);return sets;};
+      const setKey=indices=>[...indices].sort((a,b)=>a-b).join('-');
+      const boardElapsed=()=>Date.now()-state.boardStartedAt;
+      const sessionElapsed=()=>Date.now()-state.startedAt;
+      function svg(card) {
+        const shapeColor=SHAPE_COLORS[card.color],background=BACKGROUNDS[card.state];
+        const frame=`<rect width="78" height="78" fill="${background}"/>`;
+        if(card.shape===0)return `<svg viewBox="0 0 78 78" aria-hidden="true">${frame}<circle cx="39" cy="39" r="20" fill="${shapeColor}"/></svg>`;
+        if(card.shape===1)return `<svg viewBox="0 0 78 78" aria-hidden="true">${frame}<path d="M39 16 L61 58 H17 Z" fill="${shapeColor}"/></svg>`;
+        return `<svg viewBox="0 0 78 78" aria-hidden="true">${frame}<rect x="20" y="20" width="38" height="38" fill="${shapeColor}"/></svg>`;
+      }
+      function dealBoard() {
+        let sets=[];do { state.board=shuffle(fullDeck()).slice(0,9);sets=allSets(); } while(sets.length===0);
+        state.boardId++;state.selected=[];state.found.clear();state.boardStartedAt=Date.now();
+        log('board_started',{board_revision:state.boardId,cards:state.board,difficulty:{set_count:sets.length}});render();
+      }
+      function render() {
+        $('score').textContent=state.score;$('round').textContent=`\uCC3E\uC740 \uD569 ${state.found.size}\uAC1C`;$('board').innerHTML='';
+        state.board.forEach((card,index)=>{const button=document.createElement('button');button.className=`card state-${card.state}${state.selected.includes(index)?' selected':''}`;button.innerHTML=`<span class="card-index">${index+1}</span>${svg(card)}`;button.setAttribute('aria-label',`Card ${index+1}`);button.onclick=()=>selectCard(index);$('board').append(button);});
+        const foundList=$('foundList');foundList.innerHTML='';
+        if(state.found.size===0){const empty=document.createElement('span');empty.className='found-empty';empty.textContent='\uC544\uC9C1 \uCC3E\uC740 \uD569\uC774 \uC5C6\uC2B5\uB2C8\uB2E4.';foundList.append(empty);}else{[...state.found].forEach((value,order)=>{const item=document.createElement('div');item.className='found-set';const numbers=value.split('-').map(Number).map(index=>index+1);item.innerHTML=`<span class="found-order">\uD569 ${order+1}</span>${numbers.map(number=>`<span class="found-number">${number}</span>`).join('')}`;foundList.append(item);});}
+        $('hap').disabled=state.selected.length!==3||state.ended;
+      }
+      function selectCard(index) { if(state.ended)return;const selectedAt=state.selected.indexOf(index);if(selectedAt>=0)state.selected.splice(selectedAt,1);else if(state.selected.length<3)state.selected.push(index);render(); }
+      function showStatus(message,kind='') { const element=$('status');element.textContent=message;element.className=`status ${kind}`; }
+      function clearSelection() { state.selected=[];render(); }
+      function penalize(points) { state.score=Math.max(0,state.score-points);state.combo=0; }
+      function declareHap() {
+        if(state.selected.length!==3||state.ended)return;
+        const indices=[...state.selected],total=allSets().length,attempt={board_revision:state.boardId,elapsed_board_ms:boardElapsed(),elapsed_session_ms:sessionElapsed(),selected_indices:indices,found_hap_count_before:state.found.size,total_hap_count:total};
+        if(isSet(indices.map(index=>state.board[index]))) { const key=setKey(indices);if(!state.found.has(key)){state.found.add(key);state.combo++;state.maxCombo=Math.max(state.maxCombo,state.combo);state.score+=HAP_POINTS;attempt.result='found';attempt.found_hap_count_after=state.found.size;attempt.score_after=state.score;log('hap_attempt',attempt);showStatus(`Hap found! +${HAP_POINTS}`,'good');}else{penalize(HAP_PENALTY);attempt.result='duplicate';attempt.penalty=HAP_PENALTY;attempt.score_after=state.score;log('hap_attempt',attempt);showStatus(`Already found. -${HAP_PENALTY}`,'bad');} } else {penalize(HAP_PENALTY);attempt.result='wrong';attempt.penalty=HAP_PENALTY;attempt.score_after=state.score;log('hap_attempt',attempt);showStatus(`Hap miss. -${HAP_PENALTY}`,'bad');}
+        clearSelection();
+      }
+      function declareGyul() {
+        if(state.ended)return;const total=allSets().length,event={board_revision:state.boardId,elapsed_board_ms:boardElapsed(),elapsed_session_ms:sessionElapsed(),found_hap_count:state.found.size,total_hap_count:total};
+        if(state.found.size===total){state.combo++;state.maxCombo=Math.max(state.maxCombo,state.combo);state.score+=GYUL_POINTS;event.success=true;event.score_after=state.score;log('gyul_attempt',event);log('board_completed',event);showStatus(`Gyul correct! +${GYUL_POINTS}`,'good');dealBoard();}else{penalize(GYUL_PENALTY);event.success=false;event.penalty=GYUL_PENALTY;event.score_after=state.score;log('gyul_attempt',event);clearSelection();showStatus(`Gyul miss. -${GYUL_PENALTY}`,'bad');}
+      }
+      function tick() { const seconds=Math.max(0,DURATION-Math.floor(sessionElapsed()/1000));$('time').textContent=`${Math.floor(seconds/60)}:${String(seconds%60).padStart(2,'0')}`;if(seconds<=0)finish(); }
+      function start() { state.board=[];state.selected=[];state.found=new Set();state.score=0;state.combo=0;state.maxCombo=0;state.boardId=0;state.ended=false;state.tester=$('tester').value.trim();state.sessionId=`web-${Date.now()}-${Math.random().toString(16).slice(2,8)}`;state.logs=[];state.startedAt=Date.now();log('session_started',{tester:state.tester,time_limit_seconds:DURATION});$('intro').classList.add('hidden');$('game').classList.remove('hidden');dealBoard();tick();state.timer=setInterval(tick,250); }
+      function finish() { if(state.ended)return;state.ended=true;clearInterval(state.timer);log('session_finished',{elapsed_session_ms:sessionElapsed(),score:state.score,max_combo:state.maxCombo,board_revisions:state.boardId});$('resultScore').textContent=state.score;$('resultHaps').textContent=state.logs.filter(item=>item.event==='hap_attempt'&&item.data.result==='found').length;$('resultGyuls').textContent=state.logs.filter(item=>item.event==='gyul_attempt'&&item.data.success).length;$('resultCombo').textContent=state.maxCombo;$('result').classList.remove('hidden'); }
+      function download() { const blob=new Blob([JSON.stringify(state.logs,null,2)],{type:'application/json'}),link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download=`gyulhap_playtest_${state.tester||'tester'}_${new Date().toISOString().slice(0,10)}.json`;link.click();setTimeout(()=>URL.revokeObjectURL(link.href),500); }
+      $('start').onclick=start;$('hap').onclick=declareHap;$('gyul').onclick=declareGyul;$('download').onclick=download;$('restart').onclick=()=>{$('result').classList.add('hidden');$('game').classList.add('hidden');$('intro').classList.remove('hidden');};
+    })();
+  </script>
+</body>
+</html>

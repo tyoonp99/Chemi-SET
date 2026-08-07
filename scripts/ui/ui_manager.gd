@@ -10,9 +10,9 @@ signal high_score_submitted(player_name: String)
 var _hud: GameHud
 var _pause_popup: PausePopup
 var _result_popup: ResultPopup
-var _high_score_popup: HighScorePopup
 
 func _ready() -> void:
+	SoundManager.bind_clicks_in(self)
 	for component in get_children():
 		if component is GameHud:
 			_hud = component
@@ -20,8 +20,6 @@ func _ready() -> void:
 			_pause_popup = component
 		elif component is ResultPopup:
 			_result_popup = component
-		elif component is HighScorePopup:
-			_high_score_popup = component
 
 	if _hud:
 		_hud.pause_pressed.connect(func() -> void: pause_requested.emit())
@@ -32,8 +30,9 @@ func _ready() -> void:
 	if _result_popup:
 		_result_popup.restart_pressed.connect(func() -> void: restart_requested.emit())
 		_result_popup.title_pressed.connect(func() -> void: title_requested.emit())
-	if _high_score_popup:
-		_high_score_popup.submitted.connect(func(player_name: String) -> void: high_score_submitted.emit(player_name))
+		_result_popup.high_score_submitted.connect(
+			func(player_name: String) -> void: high_score_submitted.emit(player_name)
+		)
 
 	hide_all_popups()
 
@@ -49,9 +48,14 @@ func configure_for_mode(mode: StringName) -> void:
 	if _hud:
 		_hud.configure_for_mode(mode)
 
-func set_practice_stats(hap_count: int, gyul_count: int) -> void:
+func set_practice_stats(
+	hap_count: int,
+	gyul_count: int,
+	session_hap_count: int,
+	session_gyul_count: int
+) -> void:
 	if _hud:
-		_hud.set_practice_stats(hap_count, gyul_count)
+		_hud.set_practice_stats(hap_count, gyul_count, session_hap_count, session_gyul_count)
 
 func show_feedback(message: String, positive: bool, style: String = "nice", breakdown: Dictionary = {}) -> void:
 	if _hud:
@@ -69,18 +73,16 @@ func show_result(message: String) -> void:
 	if _result_popup:
 		_result_popup.show_result(message)
 
-func show_high_score_entry() -> void:
-	if _high_score_popup:
-		_high_score_popup.show_entry()
+func show_speed_result(result: Dictionary, rankings: Array) -> void:
+	if _result_popup:
+		_result_popup.show_speed_result(result, rankings)
 
-func hide_high_score_entry() -> void:
-	if _high_score_popup:
-		_high_score_popup.hide()
+func show_gyulhap_result(result: Dictionary, rankings: Array) -> void:
+	if _result_popup:
+		_result_popup.show_gyulhap_result(result, rankings)
 
 func hide_all_popups() -> void:
 	if _pause_popup:
 		_pause_popup.hide()
 	if _result_popup:
 		_result_popup.hide()
-	if _high_score_popup:
-		_high_score_popup.hide()

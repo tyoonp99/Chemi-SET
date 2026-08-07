@@ -15,9 +15,15 @@ run/main_scene="res://scenes/title.tscn"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
 
+[audio]
+
+default_bus_layout="res://default_bus_layout.tres"
+
 [autoload]
 
 Global="*res://scripts/core/Global.gd"
+PlaytestLogger="*res://scripts/core/playtest_logger.gd"
+SoundManager="*res://scripts/core/sound_manager.gd"
 
 [display]
 

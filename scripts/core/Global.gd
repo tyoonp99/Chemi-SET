@@ -11,6 +11,7 @@ var selected_mode: StringName = MODE_SPEED
 var mode_config: Dictionary = {}
 var rankings_by_mode: Dictionary = _create_empty_rankings()
 var infinite_stats: Dictionary = _create_empty_infinite_stats()
+var tutorial_completed := false
 
 func _ready() -> void:
 	load_data()
@@ -40,13 +41,18 @@ func load_data() -> void:
 
 	_load_rankings(json.data)
 	_load_infinite_stats(json.data)
+	_load_tutorial_state(json.data)
 	save_data()
 
 func save_data() -> void:
 	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if file == null:
 		return
-	file.store_string(JSON.stringify({"rankings_by_mode": rankings_by_mode, "infinite_stats": infinite_stats}))
+	file.store_string(JSON.stringify({
+		"rankings_by_mode": rankings_by_mode,
+		"infinite_stats": infinite_stats,
+		"tutorial_completed": tutorial_completed
+	}))
 
 func get_rankings_for_mode(mode: StringName = selected_mode) -> Array:
 	var rankings: Array = rankings_by_mode.get(mode, [])
@@ -78,6 +84,13 @@ func add_infinite_stats(hap_delta: int = 0, gyul_delta: int = 0) -> void:
 	infinite_stats["gyul"] = max(0, int(infinite_stats.get("gyul", 0)) + gyul_delta)
 	save_data()
 
+func has_completed_tutorial() -> bool:
+	return tutorial_completed
+
+func mark_tutorial_completed() -> void:
+	tutorial_completed = true
+	save_data()
+
 func _load_rankings(data: Variant) -> void:
 	if data is Array:
 		rankings_by_mode[MODE_SPEED] = _sanitize_rankings(data)
@@ -103,6 +116,10 @@ func _load_infinite_stats(data: Variant) -> void:
 		"hap": max(0, int(raw_stats.get("hap", 0))),
 		"gyul": max(0, int(raw_stats.get("gyul", 0)))
 	}
+
+func _load_tutorial_state(data: Variant) -> void:
+	if data is Dictionary:
+		tutorial_completed = bool(data.get("tutorial_completed", false))
 
 func _sanitize_rankings(raw_rankings: Variant) -> Array:
 	var rankings: Array = []

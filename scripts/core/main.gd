@@ -47,6 +47,8 @@ func _load_selected_mode() -> void:
 		_current_mode.connect(&"feedback_changed", _on_feedback_changed)
 	if _current_mode.has_signal(&"practice_stats_changed"):
 		_current_mode.connect(&"practice_stats_changed", _on_practice_stats_changed)
+	if _current_mode.has_signal(&"telemetry_event"):
+		_current_mode.connect(&"telemetry_event", _on_telemetry_event)
 	_ui.configure_for_mode(Global.selected_mode)
 	_current_mode.call("start", _current_config)
 
@@ -59,30 +61,60 @@ func _on_time_changed(seconds_left: int, unlimited: bool) -> void:
 func _on_feedback_changed(message: String, positive: bool, style: String = "nice", breakdown: Dictionary = {}) -> void:
 	_ui.show_feedback(message, positive, style, breakdown)
 
-func _on_practice_stats_changed(hap_count: int, gyul_count: int) -> void:
-	_ui.set_practice_stats(hap_count, gyul_count)
+func _on_practice_stats_changed(
+	hap_count: int,
+	gyul_count: int,
+	session_hap_count: int,
+	session_gyul_count: int
+) -> void:
+	_ui.set_practice_stats(hap_count, gyul_count, session_hap_count, session_gyul_count)
+
+func _on_telemetry_event(event_name: StringName, data: Dictionary) -> void:
+	PlaytestLogger.log_event(Global.selected_mode, event_name, data)
 
 func _on_game_over(result: Dictionary) -> void:
 	_current_result = result.duplicate(true)
 	var mode: StringName = StringName(_current_result["mode"])
-	if bool(_current_config.get("ranking_enabled", true)) and Global.check_high_score(int(_current_result["score"]), mode):
-		_ui.show_high_score_entry()
-	else:
-		_show_result()
+	var ranking_enabled := bool(_current_config.get("ranking_enabled", true))
+	if ranking_enabled and Global.check_high_score(int(_current_result["score"]), mode):
+		_current_result["rank_achieved"] = _calculate_rank(mode, int(_current_result["score"]))
+		_current_result["ranking_entry_pending"] = true
+	_show_result()
 
 func _on_high_score_submitted(player_name: String) -> void:
+	if not bool(_current_result.get("ranking_entry_pending", false)):
+		return
+	var mode := StringName(_current_result["mode"])
 	Global.add_high_score(
-		StringName(_current_result["mode"]),
+		mode,
 		player_name,
 		int(_current_result["score"]),
 		int(_current_result["combo"])
 	)
-	_ui.hide_high_score_entry()
+	_current_result["ranking_entry_pending"] = false
+	_current_result["ranking_registered"] = true
+	_current_result["registered_name"] = player_name
 	_show_result()
+
+func _calculate_rank(mode: StringName, score: int) -> int:
+	var rank := 1
+	for ranking_record in Global.get_rankings_for_mode(mode):
+		var record: Dictionary = ranking_record
+		if int(record.get("score", 0)) > score:
+			rank += 1
+	return rank if rank <= Global.RANKING_LIMIT else 0
 
 func _show_result() -> void:
 	var mode: StringName = StringName(_current_result["mode"])
 	var rankings := Global.get_rankings_for_mode(mode)
+	if mode == Global.MODE_SPEED:
+		var speed_result := _current_result.duplicate(true)
+		_ui.show_speed_result(speed_result, rankings)
+		return
+	if mode == Global.MODE_GYULHAP:
+		var gyulhap_result := _current_result.duplicate(true)
+		_ui.show_gyulhap_result(gyulhap_result, rankings)
+		return
 	var board_text := "🏆 HIGH SCORES 🏆\n\n"
 	for index in range(Global.RANKING_LIMIT):
 		if index < rankings.size():

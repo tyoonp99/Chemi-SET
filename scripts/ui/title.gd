@@ -1,6 +1,9 @@
 extends Control
 
+var _pending_mode_start: Callable
+
 func _ready():
+	SoundManager.bind_clicks_in(self)
 	# 1. 모드 선택 버튼 연결
 	%Btn1Min.pressed.connect(_on_btn_1min_pressed)
 	%Btn3Min.pressed.connect(_on_btn_3min_pressed)
@@ -9,13 +12,11 @@ func _ready():
 	# 2. 기타 UI 버튼 연결
 	%QuitButton.pressed.connect(_on_quit_button_pressed) # 위치가 바뀌어도 % 덕분에 정상 작동함!
 	%TutorialButton.pressed.connect(_on_tutorial_button_pressed)
-	%TutorialCloseButton.pressed.connect(_on_close_button_pressed)
+	%TutorialPopup.interactive_tutorial_requested.connect(_on_interactive_tutorial_requested)
+	%InteractiveTutorial.completed.connect(_on_interactive_tutorial_completed)
 	
-	# 3. 랭킹 버튼 및 랭킹 닫기 버튼 연결
+	# 3. 랭킹 버튼 연결
 	%RankingButton.pressed.connect(_on_speed_ranking_pressed)
-	%RankingCloseButton.pressed.connect(_on_ranking_close_button_pressed)
-	%SpeedRankingButton.pressed.connect(_on_speed_ranking_pressed)
-	%GyulHapRankingButton.pressed.connect(_on_gyulhap_ranking_pressed)
 	
 	# 💡 [추가됨] 설정 닫기 버튼 연결 (에디터에서 연결 안 했다면 추가)
 	%SettingsCloseButton.pressed.connect(_on_settings_close_button_pressed)
@@ -27,16 +28,20 @@ func _ready():
 
 # --- 모드 선택 로직 ---
 func _on_btn_1min_pressed():
-	_start_speed_mode(60, true, {
+	_request_mode_start(func() -> void: _start_speed_mode(60, true, {
 		"difficulty_scoring": true,
+		"score_rule_version": 4,
 		"one_answer_points": 300,
-		"two_to_three_points": 200,
-		"four_to_five_points": 125,
-		"many_answers_points": 75,
+		"two_answer_points": 240,
+		"three_to_four_points": 120,
+		"five_or_more_points": 80,
 		"wrong_penalty": 75
-	})
+	}))
 
 func _on_btn_3min_pressed():
+	_request_mode_start(func() -> void: _start_gyulhap_mode())
+
+func _start_gyulhap_mode() -> void:
 	Global.configure_mode(Global.MODE_GYULHAP, {
 		"time_limit": 180,
 		"ranking_enabled": true,
@@ -48,6 +53,9 @@ func _on_btn_3min_pressed():
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 func _on_btn_practice_pressed():
+	_request_mode_start(func() -> void: _start_practice_mode())
+
+func _start_practice_mode() -> void:
 	Global.configure_mode(Global.MODE_PRACTICE, {
 		"mode_id": Global.MODE_PRACTICE,
 		"time_limit": 0,
@@ -70,55 +78,30 @@ func _start_speed_mode(time_limit: int, ranking_enabled: bool, scoring: Dictiona
 
 # --- 부가 기능 로직 (튜토리얼, 종료) ---
 func _on_tutorial_button_pressed():
-	%TutorialPopup.show()
+	%TutorialPopup.call("open")
 
-func _on_close_button_pressed():
-	%TutorialPopup.hide()
+func _on_interactive_tutorial_requested() -> void:
+	_pending_mode_start = Callable()
+	%InteractiveTutorial.call("open")
+
+func _request_mode_start(start_action: Callable) -> void:
+	if Global.has_completed_tutorial():
+		start_action.call()
+		return
+	_pending_mode_start = start_action
+	%InteractiveTutorial.call("open")
+
+func _on_interactive_tutorial_completed() -> void:
+	if _pending_mode_start.is_valid():
+		var start_action := _pending_mode_start
+		_pending_mode_start = Callable()
+		start_action.call()
 
 func _on_quit_button_pressed():
 	get_tree().quit()
 
-# --- 🏆 랭킹 팝업 로직 ---
-func _on_ranking_button_pressed():
-	var board_text = "🏆 HIGH SCORES 🏆\n\n"
-	
-	var rankings := Global.get_rankings_for_mode(Global.MODE_SPEED)
-	for index in range(1, 6):
-		if index <= rankings.size():
-			var r = rankings[index - 1]
-			board_text += str(index) + "위  " + r["name"] + "   " + str(int(r["score"])) + "점\n"
-		else:
-			board_text += str(index) + "위  ---   0점\n"
-			
-	# 세팅한 글씨를 라벨에 밀어넣고 팝업 띄우기
-	%RankingLabel.text = board_text
-	%RankingPopup.show()
-
 func _on_speed_ranking_pressed() -> void:
-	_on_ranking_button_pressed()
-	_set_ranking_selection(Global.MODE_SPEED)
-
-func _on_gyulhap_ranking_pressed() -> void:
-	var board_text := "3분 결합 랭킹\n\n"
-	var rankings := Global.get_rankings_for_mode(Global.MODE_GYULHAP)
-	for index in range(Global.RANKING_LIMIT):
-		if index < rankings.size():
-			var record: Dictionary = rankings[index]
-			board_text += "%d. %s    %d점\n" % [index + 1, record["name"], record["score"]]
-		else:
-			board_text += "%d. ---    0점\n" % [index + 1]
-	%RankingLabel.text = board_text
-	_set_ranking_selection(Global.MODE_GYULHAP)
-
-func _set_ranking_selection(mode: StringName) -> void:
-	var is_speed := mode == Global.MODE_SPEED
-	%SpeedRankingButton.text = "✓ 1분 스피드" if is_speed else "1분 스피드"
-	%GyulHapRankingButton.text = "✓ 3분 결합" if not is_speed else "3분 결합"
-	%SpeedRankingButton.modulate = Color.WHITE if is_speed else Color(1, 1, 1, 0.55)
-	%GyulHapRankingButton.modulate = Color.WHITE if not is_speed else Color(1, 1, 1, 0.55)
-
-func _on_ranking_close_button_pressed():
-	%RankingPopup.hide()
+	%RankingPopup.call("open_mode", Global.MODE_SPEED)
 
 # --- ⚙️ 설정 팝업 로직 [추가됨] ---
 func _on_setting_button_pressed() -> void:
