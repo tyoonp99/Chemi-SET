@@ -41,22 +41,22 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Panel" type="PanelContainer" parent="Center" unique_id=2100421738]
-custom_minimum_size = Vector2(640, 1050)
-custom_maximum_size = Vector2(640, 1050)
+custom_minimum_size = Vector2(640, 1160)
+custom_maximum_size = Vector2(640, 1160)
 layout_mode = 2
 theme_override_styles/panel = ExtResource("3_panel")
 
 [node name="Margin" type="MarginContainer" parent="Center/Panel" unique_id=2093881484]
 layout_mode = 2
-theme_override_constants/margin_left = 36
-theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 36
-theme_override_constants/margin_bottom = 40
+theme_override_constants/margin_left = 48
+theme_override_constants/margin_top = 56
+theme_override_constants/margin_right = 48
+theme_override_constants/margin_bottom = 56
 
 [node name="Content" type="VBoxContainer" parent="Center/Panel/Margin" unique_id=68042115]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 22
+theme_override_constants/separation = 28
 
 [node name="Title" type="Label" parent="Center/Panel/Margin/Content" unique_id=275655733]
 layout_mode = 2
@@ -70,7 +70,7 @@ theme_override_constants/separation = 10
 
 [node name="TutorialBasicTab" type="Button" parent="Center/Panel/Margin/Content/Tabs" unique_id=1431671183]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -85,7 +85,7 @@ text = "기본"
 
 [node name="TutorialSpeedTab" type="Button" parent="Center/Panel/Margin/Content/Tabs" unique_id=1380602175]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -99,7 +99,7 @@ text = "급속"
 
 [node name="TutorialGyulHapTab" type="Button" parent="Center/Panel/Margin/Content/Tabs" unique_id=311346760]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -113,7 +113,7 @@ text = "정밀"
 
 [node name="TutorialInfiniteTab" type="Button" parent="Center/Panel/Margin/Content/Tabs" unique_id=307594001]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -129,7 +129,7 @@ text = "자유"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 650)
 layout_mode = 2
-theme_override_constants/separation = 14
+theme_override_constants/separation = 20
 
 [node name="Intro" type="Label" parent="Center/Panel/Margin/Content/TutorialBasicPage" unique_id=752166280]
 layout_mode = 2
@@ -676,7 +676,7 @@ theme_override_constants/separation = 14
 
 [node name="InteractiveTutorialButton" type="Button" parent="Center/Panel/Margin/Content/TutorialActions" unique_id=1054038510]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 64)
+custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
@@ -686,7 +686,7 @@ text = "▶ 직접 체험하기"
 
 [node name="TutorialCloseButton" type="Button" parent="Center/Panel/Margin/Content/TutorialActions" unique_id=1353810213]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 64)
+custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 28
