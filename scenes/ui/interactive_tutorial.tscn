@@ -1,22 +1,23 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dn0xlbjgb1giu"]
 
-[ext_resource type="Script" path="res://scripts/ui/interactive_tutorial.gd" id="1_script"]
-[ext_resource type="Theme" path="res://resources/themes/game_ui_theme.tres" id="2_theme"]
-[ext_resource type="StyleBox" path="res://resources/styles/popups/popup_panel_style.tres" id="3_panel"]
+[ext_resource type="Script" uid="uid://dsay2eicxdpkc" path="res://scripts/ui/interactive_tutorial.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://wtcsx6j8lenk" path="res://resources/themes/game_ui_theme.tres" id="2_theme"]
+[ext_resource type="StyleBox" uid="uid://dg4sc8k2d738s" path="res://resources/styles/popups/popup_panel_style.tres" id="3_panel"]
 [ext_resource type="StyleBox" path="res://resources/styles/buttons/title_popup_main_button_style.tres" id="4_main"]
 [ext_resource type="StyleBox" path="res://resources/styles/buttons/title_popup_sub_button_style.tres" id="5_sub"]
 [ext_resource type="StyleBox" path="res://resources/styles/cards/card_normal_style.tres" id="6_card"]
-[ext_resource type="Texture2D" path="res://assets/flasks/round_red_clear.png" id="7_card_0"]
-[ext_resource type="Texture2D" path="res://assets/flasks/round_blue_clear.png" id="8_card_1"]
-[ext_resource type="Texture2D" path="res://assets/flasks/round_blue_bubble.png" id="9_card_2"]
-[ext_resource type="Texture2D" path="res://assets/flasks/tri_red_clear.png" id="10_card_3"]
-[ext_resource type="Texture2D" path="res://assets/flasks/round_red_bubble.png" id="11_card_4"]
-[ext_resource type="Texture2D" path="res://assets/flasks/tri_red_bubble.png" id="12_card_5"]
-[ext_resource type="Texture2D" path="res://assets/flasks/tri_blue_clear.png" id="13_card_6"]
-[ext_resource type="Texture2D" path="res://assets/flasks/tri_blue_bubble.png" id="14_card_7"]
-[ext_resource type="Texture2D" path="res://assets/flasks/round_red_sediment.png" id="15_card_8"]
+[ext_resource type="Texture2D" uid="uid://dhleru5wy7bc7" path="res://assets/flasks/tube_green_clear.png" id="7_card_0"]
+[ext_resource type="Texture2D" uid="uid://njvhkcn626io" path="res://assets/flasks/tri_red_clear.png" id="8_card_1"]
+[ext_resource type="Texture2D" uid="uid://5bpnb4bnv45e" path="res://assets/flasks/round_red_sediment.png" id="9_card_2"]
+[ext_resource type="Texture2D" uid="uid://b04kc0vcp5b1u" path="res://assets/flasks/round_red_clear.png" id="10_card_3"]
+[ext_resource type="Texture2D" uid="uid://baphtbq8h0otb" path="res://assets/flasks/tube_red_clear.png" id="11_card_4"]
+[ext_resource type="Texture2D" uid="uid://d1op65hkey66m" path="res://assets/flasks/tube_green_bubble.png" id="12_card_5"]
+[ext_resource type="Texture2D" uid="uid://xiw6pexo4wo6" path="res://assets/flasks/tri_blue_bubble.png" id="13_card_6"]
+[ext_resource type="Texture2D" uid="uid://btrcxns5naaym" path="res://assets/flasks/tri_blue_clear.png" id="14_card_7"]
+[ext_resource type="Texture2D" uid="uid://cerx0y8w8so2j" path="res://assets/flasks/tri_green_bubble.png" id="15_card_8"]
+[ext_resource type="StyleBox" path="res://resources/styles/tutorial/analysis_neutral_style.tres" id="16_analysis_neutral"]
 
-[node name="InteractiveTutorial" type="ColorRect"]
+[node name="InteractiveTutorial" type="ColorRect" unique_id=1378480867]
 process_mode = 3
 visible = false
 z_index = 11
@@ -29,7 +30,7 @@ theme = ExtResource("2_theme")
 color = Color(0, 0, 0, 0.7)
 script = ExtResource("1_script")
 
-[node name="Center" type="CenterContainer" parent="."]
+[node name="Center" type="CenterContainer" parent="." unique_id=1419716802]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -37,125 +38,219 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Panel" type="PanelContainer" parent="Center"]
-custom_minimum_size = Vector2(640, 0)
+[node name="Panel" type="PanelContainer" parent="Center" unique_id=461747375]
+custom_minimum_size = Vector2(640, 1160)
+custom_maximum_size = Vector2(640, 1160)
 layout_mode = 2
 theme_override_styles/panel = ExtResource("3_panel")
 
-[node name="Margin" type="MarginContainer" parent="Center/Panel"]
+[node name="Margin" type="MarginContainer" parent="Center/Panel" unique_id=840612101]
 layout_mode = 2
 theme_override_constants/margin_left = 48
 theme_override_constants/margin_top = 56
 theme_override_constants/margin_right = 48
 theme_override_constants/margin_bottom = 56
 
-[node name="Content" type="VBoxContainer" parent="Center/Panel/Margin"]
+[node name="Content" type="VBoxContainer" parent="Center/Panel/Margin" unique_id=761292415]
 layout_mode = 2
 theme_override_constants/separation = 28
 
-[node name="Title" type="Label" parent="Center/Panel/Margin/Content"]
+[node name="Title" type="Label" parent="Center/Panel/Margin/Content" unique_id=991135684]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "첫 실험 체험"
 horizontal_alignment = 1
 
-[node name="Instruction" type="Label" parent="Center/Panel/Margin/Content"]
+[node name="Instruction" type="Label" parent="Center/Panel/Margin/Content" unique_id=1574385383]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 112)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.8, 0.87, 1)
 theme_override_font_sizes/font_size = 28
-text = "모양·색상·내용물이 모두 같거나 모두 다른 카드 3장을 골라 보세요."
+text = "모양·색상·내용물이 모두 같거나
+모두 다른 카드 3장을 골라 보세요."
 horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="Progress" type="Label" parent="Center/Panel/Margin/Content"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.282353, 0.741176, 0.960784, 1)
-theme_override_font_sizes/font_size = 28
-text = "1 / 2  카드 선택"
-horizontal_alignment = 1
-
-[node name="BoardCenter" type="CenterContainer" parent="Center/Panel/Margin/Content"]
+[node name="BoardCenter" type="CenterContainer" parent="Center/Panel/Margin/Content" unique_id=803735390]
 layout_mode = 2
 
-[node name="Board" type="GridContainer" parent="Center/Panel/Margin/Content/BoardCenter"]
+[node name="Board" type="GridContainer" parent="Center/Panel/Margin/Content/BoardCenter" unique_id=1604093318]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 16
 theme_override_constants/v_separation = 16
 columns = 3
 
-[node name="Card0" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board"]
+[node name="Card0" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board" unique_id=967429067]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("6_card")
+theme_override_styles/hover = ExtResource("6_card")
+theme_override_styles/pressed = ExtResource("6_card")
 icon = ExtResource("7_card_0")
 expand_icon = true
 
-[node name="Card1" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board"]
+[node name="Card1" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board" unique_id=951172815]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("6_card")
+theme_override_styles/hover = ExtResource("6_card")
+theme_override_styles/pressed = ExtResource("6_card")
 icon = ExtResource("8_card_1")
 expand_icon = true
 
-[node name="Card2" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board"]
+[node name="Card2" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board" unique_id=459672454]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("6_card")
+theme_override_styles/hover = ExtResource("6_card")
+theme_override_styles/pressed = ExtResource("6_card")
 icon = ExtResource("9_card_2")
 expand_icon = true
 
-[node name="Card3" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board"]
+[node name="Card3" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board" unique_id=733840567]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("6_card")
+theme_override_styles/hover = ExtResource("6_card")
+theme_override_styles/pressed = ExtResource("6_card")
 icon = ExtResource("10_card_3")
 expand_icon = true
 
-[node name="Card4" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board"]
+[node name="Card4" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board" unique_id=54628927]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("6_card")
+theme_override_styles/hover = ExtResource("6_card")
+theme_override_styles/pressed = ExtResource("6_card")
 icon = ExtResource("11_card_4")
 expand_icon = true
 
-[node name="Card5" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board"]
+[node name="Card5" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board" unique_id=1366813251]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("6_card")
+theme_override_styles/hover = ExtResource("6_card")
+theme_override_styles/pressed = ExtResource("6_card")
 icon = ExtResource("12_card_5")
 expand_icon = true
 
-[node name="Card6" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board"]
+[node name="Card6" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board" unique_id=382757056]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("6_card")
+theme_override_styles/hover = ExtResource("6_card")
+theme_override_styles/pressed = ExtResource("6_card")
 icon = ExtResource("13_card_6")
 expand_icon = true
 
-[node name="Card7" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board"]
+[node name="Card7" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board" unique_id=566272673]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("6_card")
+theme_override_styles/hover = ExtResource("6_card")
+theme_override_styles/pressed = ExtResource("6_card")
 icon = ExtResource("14_card_7")
 expand_icon = true
 
-[node name="Card8" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board"]
+[node name="Card8" type="Button" parent="Center/Panel/Margin/Content/BoardCenter/Board" unique_id=618049045]
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("6_card")
+theme_override_styles/hover = ExtResource("6_card")
+theme_override_styles/pressed = ExtResource("6_card")
 icon = ExtResource("15_card_8")
 expand_icon = true
 
-[node name="Buttons" type="HBoxContainer" parent="Center/Panel/Margin/Content"]
+[node name="AnalysisBar" type="HBoxContainer" parent="Center/Panel/Margin/Content" unique_id=1996091856]
+custom_minimum_size = Vector2(0, 82)
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ShapeAnalysis" type="PanelContainer" parent="Center/Panel/Margin/Content/AnalysisBar" unique_id=407571690]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = ExtResource("16_analysis_neutral")
+
+[node name="Content" type="VBoxContainer" parent="Center/Panel/Margin/Content/AnalysisBar/ShapeAnalysis" unique_id=701958108]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Title" type="Label" parent="Center/Panel/Margin/Content/AnalysisBar/ShapeAnalysis/Content" unique_id=785130870]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.87, 1)
+theme_override_font_sizes/font_size = 28
+text = "모양"
+horizontal_alignment = 1
+
+[node name="ShapeResult" type="Label" parent="Center/Panel/Margin/Content/AnalysisBar/ShapeAnalysis/Content" unique_id=172883431]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.87, 1)
+theme_override_font_sizes/font_size = 28
+text = "선택 대기"
+horizontal_alignment = 1
+
+[node name="ColorAnalysis" type="PanelContainer" parent="Center/Panel/Margin/Content/AnalysisBar" unique_id=1495171345]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = ExtResource("16_analysis_neutral")
+
+[node name="Content" type="VBoxContainer" parent="Center/Panel/Margin/Content/AnalysisBar/ColorAnalysis" unique_id=1512515302]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Title" type="Label" parent="Center/Panel/Margin/Content/AnalysisBar/ColorAnalysis/Content" unique_id=1407973712]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.87, 1)
+theme_override_font_sizes/font_size = 28
+text = "색상"
+horizontal_alignment = 1
+
+[node name="ColorResult" type="Label" parent="Center/Panel/Margin/Content/AnalysisBar/ColorAnalysis/Content" unique_id=2056845697]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.87, 1)
+theme_override_font_sizes/font_size = 28
+text = "선택 대기"
+horizontal_alignment = 1
+
+[node name="StateAnalysis" type="PanelContainer" parent="Center/Panel/Margin/Content/AnalysisBar" unique_id=1011948832]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = ExtResource("16_analysis_neutral")
+
+[node name="Content" type="VBoxContainer" parent="Center/Panel/Margin/Content/AnalysisBar/StateAnalysis" unique_id=1324468109]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="Title" type="Label" parent="Center/Panel/Margin/Content/AnalysisBar/StateAnalysis/Content" unique_id=212434878]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.87, 1)
+theme_override_font_sizes/font_size = 28
+text = "내용물"
+horizontal_alignment = 1
+
+[node name="StateResult" type="Label" parent="Center/Panel/Margin/Content/AnalysisBar/StateAnalysis/Content" unique_id=1278444148]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.8, 0.87, 1)
+theme_override_font_sizes/font_size = 28
+text = "선택 대기"
+horizontal_alignment = 1
+
+[node name="Buttons" type="HBoxContainer" parent="Center/Panel/Margin/Content" unique_id=1645969387]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="SynthesisButton" type="Button" parent="Center/Panel/Margin/Content/Buttons"]
+[node name="SynthesisButton" type="Button" parent="Center/Panel/Margin/Content/Buttons" unique_id=1357264749]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 76)
+custom_minimum_size = Vector2(0, 84)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
@@ -164,21 +259,39 @@ theme_override_styles/normal = ExtResource("4_main")
 theme_override_styles/disabled = ExtResource("5_sub")
 text = "합성"
 
-[node name="CompletionButton" type="Button" parent="Center/Panel/Margin/Content/Buttons"]
+[node name="CompletionButton" type="Button" parent="Center/Panel/Margin/Content/Buttons" unique_id=1264271730]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 76)
+custom_minimum_size = Vector2(0, 84)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 30
 theme_override_colors/font_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
+theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = ExtResource("4_main")
 theme_override_styles/disabled = ExtResource("5_sub")
 text = "완료"
 
-[node name="CloseButton" type="Button" parent="Center/Panel/Margin/Content"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 72)
+[node name="SupportActions" type="HBoxContainer" parent="Center/Panel/Margin/Content" unique_id=1463813238]
 layout_mode = 2
-theme_override_font_sizes/font_size = 28
+theme_override_constants/separation = 20
+
+[node name="HintButton" type="Button" parent="Center/Panel/Margin/Content/SupportActions" unique_id=1372493268]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 84)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = ExtResource("5_sub")
+theme_override_styles/pressed = ExtResource("5_sub")
+theme_override_styles/hover = ExtResource("5_sub")
+text = "💡 정답 하나 보기"
+
+[node name="CloseButton" type="Button" parent="Center/Panel/Margin/Content/SupportActions" unique_id=876221971]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 84)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = ExtResource("5_sub")
+theme_override_styles/pressed = ExtResource("5_sub")
+theme_override_styles/hover = ExtResource("5_sub")
 text = "나중에 하기"

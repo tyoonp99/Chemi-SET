@@ -682,6 +682,8 @@ size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.0666667, 0.0666667, 0.0666667, 1)
 theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = ExtResource("4_main")
+theme_override_styles/pressed = ExtResource("4_main")
+theme_override_styles/hover = ExtResource("4_main")
 text = "▶ 직접 체험하기"
 
 [node name="TutorialCloseButton" type="Button" parent="Center/Panel/Margin/Content/TutorialActions" unique_id=1353810213]
@@ -691,4 +693,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 28
 theme_override_styles/normal = ExtResource("5_sub")
+theme_override_styles/pressed = ExtResource("5_sub")
+theme_override_styles/hover = ExtResource("5_sub")
 text = "닫기"
