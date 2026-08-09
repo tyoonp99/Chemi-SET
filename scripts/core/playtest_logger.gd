@@ -4,14 +4,20 @@ const LOG_PATH := "user://playtest_log.jsonl"
 const LOG_SCHEMA_VERSION := 1
 
 var _session_id := ""
+var _logging_enabled := false
 
 func _ready() -> void:
+	_logging_enabled = OS.is_debug_build()
+	if not _logging_enabled:
+		return
 	_session_id = "%d-%08x" % [Time.get_unix_time_from_system(), randi()]
 	log_event(&"system", &"session_started", {
 		"engine": Engine.get_version_info().get("string", "unknown")
 	})
 
 func log_event(mode: StringName, event_name: StringName, data: Dictionary = {}) -> void:
+	if not _logging_enabled:
+		return
 	var file := FileAccess.open(LOG_PATH, FileAccess.READ_WRITE)
 	if file == null:
 		file = FileAccess.open(LOG_PATH, FileAccess.WRITE_READ)
