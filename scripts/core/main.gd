@@ -160,6 +160,9 @@ func _return_to_title() -> void:
     get_tree().change_scene_to_file("res://scenes/title.tscn")
 
 func _notification(what: int) -> void:
+    if what == NOTIFICATION_WM_CLOSE_REQUEST and not OS.has_feature("mobile"):
+        get_tree().quit()
+        return
     if what == NOTIFICATION_APPLICATION_PAUSED or what == NOTIFICATION_APPLICATION_FOCUS_OUT:
         _pause_for_lifecycle()
 

@@ -34,6 +34,10 @@ func _ready():
 	%ExitConfirmPopup.hide()
 	_update_settings_sound_button()
 
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_CLOSE_REQUEST and not OS.has_feature("mobile"):
+		get_tree().quit()
+
 # --- 모드 선택 로직 ---
 func _on_btn_1min_pressed():
 	_request_mode_start(func() -> void: _start_speed_mode(60, true, {
