@@ -14,7 +14,9 @@ func _ready():
 	%QuitButton.pressed.connect(_on_quit_button_pressed) # 위치가 바뀌어도 % 덕분에 정상 작동함!
 	%TutorialButton.pressed.connect(_on_tutorial_button_pressed)
 	%TutorialPopup.interactive_tutorial_requested.connect(_on_interactive_tutorial_requested)
+	%TutorialPopup.dismissed.connect(_clear_pending_mode_start)
 	%InteractiveTutorial.completed.connect(_on_interactive_tutorial_completed)
+	%InteractiveTutorial.dismissed.connect(_clear_pending_mode_start)
 	
 	# 3. 랭킹 버튼 연결
 	%RankingButton.pressed.connect(_on_speed_ranking_pressed)
@@ -84,10 +86,10 @@ func _start_speed_mode(time_limit: int, ranking_enabled: bool, scoring: Dictiona
 
 # --- 부가 기능 로직 (튜토리얼, 종료) ---
 func _on_tutorial_button_pressed():
+	_clear_pending_mode_start()
 	%TutorialPopup.call("open")
 
 func _on_interactive_tutorial_requested() -> void:
-	_pending_mode_start = Callable()
 	%InteractiveTutorial.call("open")
 
 func _request_mode_start(start_action: Callable) -> void:
@@ -95,7 +97,10 @@ func _request_mode_start(start_action: Callable) -> void:
 		start_action.call()
 		return
 	_pending_mode_start = start_action
-	%InteractiveTutorial.call("open")
+	%TutorialPopup.call("open")
+
+func _clear_pending_mode_start() -> void:
+	_pending_mode_start = Callable()
 
 func _on_interactive_tutorial_completed() -> void:
 	if _pending_mode_start.is_valid():
@@ -145,8 +150,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	elif %RankingPopup.visible:
 		%RankingPopup.hide()
 	elif %TutorialPopup.visible:
-		%TutorialPopup.hide()
+		%TutorialPopup.dismiss()
 	elif %InteractiveTutorial.visible:
-		%InteractiveTutorial.hide()
+		%InteractiveTutorial.dismiss()
 	else:
 		%ExitConfirmPopup.show()

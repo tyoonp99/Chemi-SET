@@ -2,6 +2,7 @@ class_name TutorialPopup
 extends ColorRect
 
 signal interactive_tutorial_requested
+signal dismissed
 
 @onready var _basic_tab: Button = %TutorialBasicTab
 @onready var _speed_tab: Button = %TutorialSpeedTab
@@ -30,7 +31,7 @@ func _ready() -> void:
 	_speed_tab.pressed.connect(func() -> void: _show_page(1))
 	_gyulhap_tab.pressed.connect(func() -> void: _show_page(2))
 	_infinite_tab.pressed.connect(func() -> void: _show_page(3))
-	_close_button.pressed.connect(hide)
+	_close_button.pressed.connect(dismiss)
 	_interactive_button.pressed.connect(func() -> void:
 		hide()
 		interactive_tutorial_requested.emit()
@@ -40,6 +41,10 @@ func _ready() -> void:
 func open() -> void:
 	_show_page(0)
 	show()
+
+func dismiss() -> void:
+	hide()
+	dismissed.emit()
 
 func _show_page(page_index: int) -> void:
 	var pages: Array[Control] = [_basic_page, _speed_page, _gyulhap_page, _infinite_page]
