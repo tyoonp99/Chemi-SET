@@ -40,6 +40,4 @@ CHEMI-SET은 이용자의 연령이나 개인정보를 수집하지 않습니다
 ## 7. 문의
 
 - 개발자: CHEMI-SET 개발자
-- 이메일: `[공개 문의 이메일 입력]`
-
-이 문서는 Google Play에 제출할 공개 웹페이지로 게시한 뒤 해당 URL을 Play Console에 등록해야 합니다.
+- 이메일: `tyoonp99@gmail.com`

@@ -1,7 +1,7 @@
 # CHEMI-SET 프로젝트 규칙과 아키텍처
 
 > 문서 버전: 2.1
-> Chemi-SET은 Godot 4 기반 모바일 SET 퍼즐 게임이다. UI 기준은 `UI_GUIDELINES.md`, 진행 항목은 `TODO.md`를 참조한다.
+> Chemi-SET은 Godot 4 기반 모바일 SET 퍼즐 게임이다. UI 기준은 `UI_GUIDELINES.md`, 진행 이력은 `RELEASE_MILESTONES.md`를 참조한다.
 
 ## 1. 핵심 규칙
 

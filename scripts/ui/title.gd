@@ -42,11 +42,11 @@ func _notification(what: int) -> void:
 func _on_btn_1min_pressed():
 	_request_mode_start(func() -> void: _start_speed_mode(60, true, {
 		"difficulty_scoring": true,
-		"score_rule_version": 4,
+		"score_rule_version": 5,
 		"one_answer_points": 300,
-		"two_answer_points": 240,
-		"three_to_four_points": 120,
-		"five_or_more_points": 80,
+		"two_answer_points": 180,
+		"three_to_four_points": 100,
+		"five_or_more_points": 75,
 		"wrong_penalty": 75
 	}))
 

@@ -246,10 +246,10 @@ func _difficulty_points(remaining_answers: int) -> int:
 	if remaining_answers <= 1:
 		return int(_scoring.get("one_answer_points", 300))
 	if remaining_answers == 2:
-		return int(_scoring.get("two_answer_points", 240))
+		return int(_scoring.get("two_answer_points", 180))
 	if remaining_answers <= 4:
-		return int(_scoring.get("three_to_four_points", 120))
-	return int(_scoring.get("five_or_more_points", 80))
+		return int(_scoring.get("three_to_four_points", 100))
+	return int(_scoring.get("five_or_more_points", 75))
 
 func _feedback_style_for(remaining_answers: int) -> String:
 	if remaining_answers <= 1:
